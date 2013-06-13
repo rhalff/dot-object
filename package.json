@@ -1,0 +1,25 @@
+{
+  "name": "DeDot",
+  "description": "Helper method ",
+  "version": "0.1",
+  "author": {
+    "name": "Rob Halff",
+    "email": "rob.halff@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rhalff/dotted.js.git"
+  },
+  "bugs": {
+        "url": "https://github.com/rhalff/dotted.js/issues"
+  },
+  "main": "dedot",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest"
+  },
+  "keywords": ["dot notation", "dotted", "dot"]
+}
