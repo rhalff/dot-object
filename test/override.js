@@ -64,11 +64,6 @@ describe("DeDot test:", function () {
       "slug": _s.slugify,
     };
 
-    console.log(row);
-    console.log(mods);
-
-    // underscored !?
-
     DeDot.object(row, mods);
     console.log(row);
 

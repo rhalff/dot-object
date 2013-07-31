@@ -50,8 +50,8 @@ DeDot.object = function (obj, mods) {
 
   Object.keys(obj).forEach(function (k, i) {
 
+    var mod = typeof mods !== 'undefined' ? mods[k] : null;
     if (k.indexOf('.') !== -1) {
-      mod = typeof mods !== 'undefined' ? mods[k] : null;
       DeDot._fill(k.split('.'), obj, obj[k], mod);
       delete obj[k];
     } else if (DeDot.override) {
