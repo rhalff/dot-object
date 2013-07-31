@@ -137,6 +137,29 @@ describe("DeDot test:", function () {
 
   });
 
+  it("DeDot.object should not process non dot notation value with modifier when DeDot.override is false", function (done) {
+
+    var row = {
+      'title': 'my page',
+      'slug': 'My Page'
+    };
+
+    var mods = {
+      "title": _s.titleize,
+      "slug": _s.slugify,
+    };
+
+    DeDot.object(row, mods);
+
+    row.should.eql({
+      "title": "my page",
+      "slug": "My Page"
+    });
+
+    done();
+
+  });
+
   it("DeDot.object should process multiple modifiers", function (done) {
 
     var row = {
