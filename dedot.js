@@ -56,7 +56,7 @@ DeDot.object = function (obj, mods) {
     if (k.indexOf('.') !== -1) {
       DeDot._fill(k.split('.'), obj, obj[k], mod);
       delete obj[k];
-    } else if (DeDot.override) {
+    } else if(DeDot.override) {
       obj[k] = DeDot.process(obj[k], mod);
     }
 

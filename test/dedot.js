@@ -56,7 +56,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("Redefinition should fail", function (done) {
+  it("DeDot.str Redefinition should fail", function (done) {
 
     var obj = {
       'already': 'set'
