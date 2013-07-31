@@ -43,7 +43,7 @@ Will result in the following object:
 
 To convert manually per string use:
 ```javascript
-var obj = {};
+var obj = { val: 'test' };
 DeDot.str('this.is.my.string', 'value', obj);
 
 console.log(obj);
@@ -51,6 +51,7 @@ console.log(obj);
 Result:
 ```json
 {
+  "val": "test",
   "this": {
     "is": {
       "my": {
