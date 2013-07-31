@@ -59,5 +59,30 @@ DeDot.str('this.is.my.string', 'value', obj);
 
 The code will throw an exception if you try to redefine a value which is already set. 
 
+== Using modifiers ==
+
+You can use modifiers to translate values on the fly.
+
+This example uses the [underscore.string](https://github.com/epeli/underscore.string) library.
+
+```javascript
+var _s = require('underscore.string');
+var obj = {};
+
+DeDot.str('my.title', 'this is my title', _s.slugify); // use one modifier
+
+DeDot.str('my.title', '   this is my title  ', [_s.trim, _s.slugify]); // multiple modifiers
+```
+
+```json
+{
+  "my": {
+    "title": "this-is-my-title"
+  }
+}
+```
+
+
+
 
 Copyright © 2013 Rob Halff, released under the MIT license
