@@ -1,4 +1,5 @@
 require('should');
+var _s = require('underscore.string');
 var DeDot = require('../dedot.js');
 
 describe("DeDot test:", function () {
@@ -25,7 +26,7 @@ describe("DeDot test:", function () {
         "email": "example@gmail.com",
         "info": {
           "about": {
-          "me": "classified"
+            "me": "classified"
           }
         }
       }
@@ -58,7 +59,7 @@ describe("DeDot test:", function () {
   it("Redefinition should fail", function (done) {
 
     var obj = {
-      'already': 'set' 
+      'already': 'set'
     };
 
     (function () {
@@ -66,6 +67,46 @@ describe("DeDot test:", function () {
       DeDot.str('already.new', 'value', obj);
 
     }).should.throw("Trying to redefine 'already' which is a string");
+
+    done();
+
+  });
+
+  it("Should process a modifier", function (done) {
+
+    var obj = {};
+
+    DeDot.str('this.is.my.string', 'value', obj, _s.capitalize);
+
+    obj.should.eql({
+      "this": {
+        "is": {
+          "my": {
+            "string": "Value"
+          }
+        }
+      }
+    });
+
+    done();
+
+  });
+
+  it("Should process multiple modifiers", function (done) {
+
+    var obj = {};
+
+    DeDot.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
+
+    obj.should.eql({
+      "this": {
+        "is": {
+          "my": {
+            "string": "this_is_a_test"
+          }
+        }
+      }
+    });
 
     done();
 

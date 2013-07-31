@@ -18,6 +18,7 @@
     "test": "mocha"
   },
   "devDependencies": {
+    "underscore.string": "latest",
     "mocha": "latest",
     "should": "latest"
   },
