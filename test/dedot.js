@@ -1,3 +1,4 @@
+require('should');
 var DeDot = require('../dedot.js');
 
 describe("DeDot test:", function () {
