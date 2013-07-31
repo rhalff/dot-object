@@ -17,6 +17,7 @@ var row = {
 };
 
 DeDot.object(row);
+
 console.log(row);
 ```
 
@@ -44,6 +45,7 @@ To convert manually per string use:
 ```javascript
 var obj = {};
 DeDot.str('this.is.my.string', 'value', obj);
+
 console.log(obj);
 ```
 Result:
@@ -83,6 +85,7 @@ var mods = {
 };
 
 DeDot.object(row, mods);
+
 console.log(row);
 ```
 
@@ -106,6 +109,7 @@ DeDot.str('my.title', 'this is my title', obj, _s.slugify);
 
 // multiple modifiers
 DeDot.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
+
 console.log(obj);
 ```
 Result:
