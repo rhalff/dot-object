@@ -96,7 +96,7 @@ Or using .str() directy:
 
 ```javascript
 var _s = require('underscore.string');
-var obj = {};
+var obj = { id: 100 };
 
 // use one modifier
 DeDot.str('my.title', 'this is my title', obj, _s.slugify);
@@ -107,6 +107,7 @@ DeDot.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
 Result:
 ```json
 {
+  "id": 100,
   "my": {
     "title": "this-is-my-title"
   }
