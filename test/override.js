@@ -65,7 +65,6 @@ describe("DeDot test:", function () {
     };
 
     DeDot.object(row, mods);
-    console.log(row);
 
     row.should.eql({
       "title": "My Page",
