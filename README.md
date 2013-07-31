@@ -92,15 +92,17 @@ DeDot.object(row, mods);
 }
 ```
 
+Or using .str() directy:
+
 ```javascript
 var _s = require('underscore.string');
 var obj = {};
 
 // use one modifier
-DeDot.str('my.title', 'this is my title', _s.slugify);
+DeDot.str('my.title', 'this is my title', obj, _s.slugify);
 
 // multiple modifiers
-DeDot.str('my.title', '   this is my title  ', [_s.trim, _s.slugify]);
+DeDot.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
 ```
 Result:
 ```json
