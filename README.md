@@ -65,6 +65,33 @@ You can use modifiers to translate values on the fly.
 
 This example uses the [underscore.string](https://github.com/epeli/underscore.string) library.
 
+
+
+```javascript
+
+var _s = require('underscore.string');
+
+var row = {
+  'nr': 200,
+  'doc.name': '    My Document   ' 
+};
+
+var mods = {
+  "doc.name": [_s.trim, _s.underscored],
+};
+
+DeDot.object(row, mods);
+```
+
+```
+{
+  "nr": 200,
+  "doc": {
+    "name": "my_document"
+  }
+}
+```
+
 ```javascript
 var _s = require('underscore.string');
 var obj = {};
