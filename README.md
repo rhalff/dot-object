@@ -44,7 +44,7 @@ To convert manually per string use:
 var obj = {};
 DeDot.str('this.is.my.string', 'value', obj);
 ```
-
+Result:
 ```json
 {
   "this": {
@@ -59,7 +59,7 @@ DeDot.str('this.is.my.string', 'value', obj);
 
 The code will throw an exception if you try to redefine a value which is already set. 
 
-== Using modifiers ==
+## Using modifiers
 
 You can use modifiers to translate values on the fly.
 
@@ -69,11 +69,13 @@ This example uses the [underscore.string](https://github.com/epeli/underscore.st
 var _s = require('underscore.string');
 var obj = {};
 
-DeDot.str('my.title', 'this is my title', _s.slugify); // use one modifier
+// use one modifier
+DeDot.str('my.title', 'this is my title', _s.slugify);
 
-DeDot.str('my.title', '   this is my title  ', [_s.trim, _s.slugify]); // multiple modifiers
+// multiple modifiers
+DeDot.str('my.title', '   this is my title  ', [_s.trim, _s.slugify]);
 ```
-
+Result:
 ```json
 {
   "my": {
@@ -82,7 +84,4 @@ DeDot.str('my.title', '   this is my title  ', [_s.trim, _s.slugify]); // multip
 }
 ```
 
-
-
-
-Copyright © 2013 Rob Halff, released under the MIT license
+> Copyright © 2013 Rob Halff, released under the MIT license
