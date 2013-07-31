@@ -72,7 +72,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("Should process a modifier", function (done) {
+  it("DeDot.str should process a modifier", function (done) {
 
     var obj = {};
 
@@ -92,7 +92,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("Should process multiple modifiers", function (done) {
+  it("DeDot.str should process multiple modifiers", function (done) {
 
     var obj = {};
 
@@ -105,6 +105,53 @@ describe("DeDot test:", function () {
             "string": "this_is_a_test"
           }
         }
+      }
+    });
+
+    done();
+
+  });
+
+  it("DeDot.object should process a modifier", function (done) {
+
+    var row = {
+      'page.title': 'my page',
+      'page.slug': 'My Page'
+    };
+
+    var mods = {
+      "page.title": _s.titleize,
+      "page.slug": _s.slugify,
+    };
+
+    DeDot.object(row, mods);
+
+    row.should.eql({
+      "page": {
+        "title": "My Page",
+        "slug": "my-page"
+      }
+    });
+
+    done();
+
+  });
+
+  it("DeDot.object should process multiple modifiers", function (done) {
+
+    var row = {
+      'page.name': '    My Page    '
+    };
+
+    var mods = {
+      "page.name": [_s.trim, _s.underscored],
+    };
+
+    DeDot.object(row, mods);
+
+    row.should.eql({
+      "page": {
+        "name": "my_page"
       }
     });
 

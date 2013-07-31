@@ -33,11 +33,12 @@ DeDot._fill = function (a, obj, v, mod) {
   }
 };
 
-DeDot.object = function (obj, mod) {
+DeDot.object = function (obj, mods) {
 
   Object.keys(obj).forEach(function (k, i) {
 
     if (k.indexOf('.') !== -1) {
+      mod = typeof mods !== 'undefined' ? mods[k] : null;
       DeDot._fill(k.split('.'), obj, obj[k], mod);
       delete obj[k];
     }
