@@ -121,7 +121,7 @@ describe("DeDot test:", function () {
 
     var mods = {
       "page.title": _s.titleize,
-      "page.slug": _s.slugify,
+      "page.slug": _s.slugify
     };
 
     DeDot.object(row, mods);
@@ -146,7 +146,7 @@ describe("DeDot test:", function () {
 
     var mods = {
       "title": _s.titleize,
-      "slug": _s.slugify,
+      "slug": _s.slugify
     };
 
     DeDot.object(row, mods);
@@ -167,7 +167,7 @@ describe("DeDot test:", function () {
     };
 
     var mods = {
-      "page.name": [_s.trim, _s.underscored],
+      "page.name": [_s.trim, _s.underscored]
     };
 
     DeDot.object(row, mods);

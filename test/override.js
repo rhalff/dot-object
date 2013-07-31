@@ -61,7 +61,7 @@ describe("DeDot test:", function () {
 
     var mods = {
       "title": _s.titleize,
-      "slug": _s.slugify,
+      "slug": _s.slugify
     };
 
     DeDot.object(row, mods);
