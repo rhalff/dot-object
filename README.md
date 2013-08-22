@@ -1,7 +1,15 @@
 dedot.js
 ========
 
-Helper function to convert dot notation to objects
+DeDot makes it possible to transform json objects using dot notation.
+
+The input can be interpreted as a transform object.
+
+There are many usecases where this comes in handy.
+
+For example defining transformation filters for your JSON or
+translating SQL results on the fly to JSON (using dotted __AS__ notation).
+
 
 e.g.
 
@@ -135,5 +143,13 @@ Result:
   }
 }
 ```
+
+SQL translation on the fly:
+
+```javascript
+
+
+```
+
 
 > Copyright © 2013 Rob Halff, released under the MIT license
