@@ -8,6 +8,8 @@ e.g.
 ```javascript
 var DeDot = require('dedot');
 
+var dd = new DeDot();
+
 var row = {
   'id': 2,
   'contact.name.first': 'John',
@@ -16,7 +18,7 @@ var row = {
   'contact.info.about.me': 'classified'
 };
 
-DeDot.object(row);
+dd.object(row);
 
 console.log(row);
 ```
@@ -43,8 +45,12 @@ Will result in the following object:
 
 To convert manually per string use:
 ```javascript
+var DeDot = require('dedot');
+
+var dd = new DeDot();
+
 var obj = { val: 'test' };
-DeDot.str('this.is.my.string', 'value', obj);
+dd.str('this.is.my.string', 'value', obj);
 
 console.log(obj);
 ```
@@ -73,6 +79,9 @@ This example uses the [underscore.string](https://github.com/epeli/underscore.st
 
 
 ```javascript
+var DeDot = require('dedot');
+
+var dd = new DeDot();
 
 var _s = require('underscore.string');
 
@@ -85,7 +94,7 @@ var mods = {
   "doc.name": [_s.trim, _s.underscored],
 };
 
-DeDot.object(row, mods);
+dd.object(row, mods);
 
 console.log(row);
 ```
@@ -102,14 +111,18 @@ console.log(row);
 Or using .str() directy:
 
 ```javascript
+
+var DeDot = require('dedot');
 var _s = require('underscore.string');
 var obj = { id: 100 };
 
+var dd = new DeDot();
+
 // use one modifier
-DeDot.str('my.title', 'this is my title', obj, _s.slugify);
+dd.str('my.title', 'this is my title', obj, _s.slugify);
 
 // multiple modifiers
-DeDot.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
+dd.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
 
 console.log(obj);
 ```
