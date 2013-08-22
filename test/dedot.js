@@ -1,10 +1,12 @@
 require('should');
 var _s = require('underscore.string');
-var DeDot = require('../dedot.js');
+var DeDot = require('../index.js');
 
 describe("DeDot test:", function () {
 
   it("Should DeDot object keys", function (done) {
+
+    var dd = new DeDot();
 
     var row = {
       'id': 2,
@@ -14,7 +16,7 @@ describe("DeDot test:", function () {
       'contact.info.about.me': 'classified'
     };
 
-    DeDot.object(row);
+    dd.object(row);
 
     row.should.eql({
       "id": 2,
@@ -40,7 +42,9 @@ describe("DeDot test:", function () {
 
     var obj = {};
 
-    DeDot.str('this.is.my.string', 'value', obj);
+    var dd = new DeDot();
+
+    dd.str('this.is.my.string', 'value', obj);
 
     obj.should.eql({
       "this": {
@@ -64,7 +68,9 @@ describe("DeDot test:", function () {
 
     (function () {
 
-      DeDot.str('already.new', 'value', obj);
+      var dd = new DeDot();
+
+      dd.str('already.new', 'value', obj);
 
     }).should.throw("Trying to redefine 'already' which is a string");
 
@@ -76,7 +82,9 @@ describe("DeDot test:", function () {
 
     var obj = {};
 
-    DeDot.str('this.is.my.string', 'value', obj, _s.capitalize);
+    var dd = new DeDot();
+
+    dd.str('this.is.my.string', 'value', obj, _s.capitalize);
 
     obj.should.eql({
       "this": {
@@ -96,7 +104,9 @@ describe("DeDot test:", function () {
 
     var obj = {};
 
-    DeDot.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
+    var dd = new DeDot();
+
+    dd.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
 
     obj.should.eql({
       "this": {
@@ -124,7 +134,9 @@ describe("DeDot test:", function () {
       "page.slug": _s.slugify
     };
 
-    DeDot.object(row, mods);
+    var dd = new DeDot();
+
+    dd.object(row, mods);
 
     row.should.eql({
       "page": {
@@ -149,7 +161,8 @@ describe("DeDot test:", function () {
       "slug": _s.slugify
     };
 
-    DeDot.object(row, mods);
+    var dd = new DeDot();
+    dd.object(row, mods);
 
     row.should.eql({
       "title": "my page",
@@ -170,7 +183,31 @@ describe("DeDot test:", function () {
       "page.name": [_s.trim, _s.underscored]
     };
 
-    DeDot.object(row, mods);
+    var dd = new DeDot();
+    dd.object(row, mods);
+
+    row.should.eql({
+      "page": {
+        "name": "my_page"
+      }
+    });
+
+    done();
+
+  });
+
+  it("DeDot.object should work with a different seperator", function (done) {
+
+    var row = {
+      'page=>name': '    My Page    '
+    };
+
+    var mods = {
+      "page=>name": [_s.trim, _s.underscored]
+    };
+
+    var dd = new DeDot("=>", false);
+    dd.object(row, mods);
 
     row.should.eql({
       "page": {

@@ -2,8 +2,8 @@
 
 class DeDot {
 
-  constructor(public override: boolean = false,
-              public seperator: string = '.') {
+  constructor(public seperator: string = '.',
+              public override: boolean = false) {
   }
 
   private _fill(a: Array, obj, v: string, mod) : void {

@@ -144,10 +144,48 @@ Result:
 }
 ```
 
+## Using a different seperator 
+
+If you do not like dot notation, you are free to specify a different seperator.
+
+Here is a php'ish version.
+
+```javascript
+var DeDot = require('dedot');
+
+var dd = new DeDot('->');
+
+var _s = require('underscore.string');
+
+var row = {
+  'nr': 200,
+  'doc->name': '    My Document   ' 
+};
+
+var mods = {
+  "doc->name": [_s.trim, _s.underscored],
+};
+
+dd.object(row, mods);
+
+console.log(row);
+```
+
+```
+{
+  "nr": 200,
+  "doc": {
+    "name": "my_document"
+  }
+}
+```
+
+## Transforming SQL results to JSON
+
 SQL translation on the fly:
 
 ```javascript
-
+ // TODO
 
 ```
 

@@ -1,10 +1,10 @@
 /// <reference path="lib/node.d.ts" />
 var DeDot = (function () {
-    function DeDot(override, seperator) {
-        if (typeof override === "undefined") { override = false; }
+    function DeDot(seperator, override) {
         if (typeof seperator === "undefined") { seperator = '.'; }
-        this.override = override;
+        if (typeof override === "undefined") { override = false; }
         this.seperator = seperator;
+        this.override = override;
     }
     DeDot.prototype._fill = function (a, obj, v, mod) {
         var k = a.shift();
@@ -35,7 +35,7 @@ var DeDot = (function () {
     *
     * @method process
     * @param {String} value
-    * @param {String} mod
+    * @param {function|Array} mod
     * @return {String} Returns modified value
     */
     DeDot.prototype.process = function (v, mod) {
