@@ -1,3 +1,6 @@
+var Util = require("util"),
+    Stream = require("stream");
+
 var DeDot = {};
 
 DeDot.override = false;
@@ -71,6 +74,49 @@ DeDot.str = function (str, v, obj, mod) {
     obj[str] = DeDot.process(v, mod);
   }
 
+};
+
+/**
+ * Use DeDot as a stream converter.
+ */
+DeDot.Stream = function (opts) {
+  this.mods = opts.mods ? opts.mods : [];
+  this.readable = true;
+  this.writable = true;
+};
+
+Util.inherits(DeDot.Stream, Stream);
+
+/**
+ * Handle various params and upper-case string data.
+ *
+ * Signature can be in format of:
+ *  - string, [encoding]
+ *  - buffer
+ *
+ * Our example implementation hacks the data into a simpler
+ # (string) form -- real implementations would need more.
+ */
+DeDot.Stream.prototype._transform = function (row) {
+
+  DeDot.object(row, this.mods);
+
+  this.emit("data", row);
+};
+
+/**
+ * Stream write (override).
+ */
+DeDot.Stream.prototype.write = function () {
+  this._transform.apply(this, arguments);
+};
+
+/**
+ * Stream end (override).
+ */
+DeDot.Stream.prototype.end = function () {
+  this._transform.apply(this, arguments);
+  this.emit("end");
 };
 
 module.exports = DeDot;
