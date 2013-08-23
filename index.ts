@@ -1,6 +1,6 @@
 /// <reference path="lib/node.d.ts" />
 
-class DeDot {
+class JsonFilter {
 
   constructor(public seperator: string = '.',
               public override: boolean = false) {
@@ -90,4 +90,4 @@ class DeDot {
 
 }
 
-module.exports = DeDot;
+module.exports = JsonFilter;

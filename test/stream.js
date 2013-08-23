@@ -1,15 +1,15 @@
 require('should');
 var _s = require('underscore.string');
 var JSONParseStream  = require('./lib/JSONParseStream');
-var DeDot = require('../index.js');
+var JSF = require('../index.js');
 
-describe("DeDot test:", function () {
+describe("JSF test:", function () {
 
-  it("DeDot stream should convert", function (done) {
+  it("JSF stream should convert", function (done) {
 
     // ok, the actual problem here is, how to pass our options ?
-    // maybe using DeDot.stream(options) ? // yep..
-    // hm de mods worden uitgevoerd in DeDot, behoren dus niet
+    // maybe using JSF.stream(options) ? // yep..
+    // hm de mods worden uitgevoerd in JSF, behoren dus niet
     // tot MongoSink, whatever, dat is goed.
     
     // Data to be piped, maybe use some more lengthy file for this.
@@ -31,8 +31,8 @@ describe("DeDot test:", function () {
       }
     
     };
-    var deDot = new DeDot.Stream(opts);
-    input.pipe(deDot).pipe(output);
+    var jsf = new JSF.Stream(opts);
+    input.pipe(jsf).pipe(output);
 
     done();
 

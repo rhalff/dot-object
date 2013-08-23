@@ -1,7 +1,7 @@
-dedot.js
+json-filter
 ========
 
-DeDot makes it possible to transform json objects using dot notation.
+JSON-Filter makes it possible to transform json objects using dot notation.
 
 The input can be interpreted as a transform object.
 
@@ -14,9 +14,9 @@ translating SQL results on the fly to JSON (using dotted __AS__ notation).
 e.g.
 
 ```javascript
-var DeDot = require('dedot');
+var JSF = require('json-filter');
 
-var dd = new DeDot();
+var jsf = new JSF();
 
 var row = {
   'id': 2,
@@ -26,7 +26,7 @@ var row = {
   'contact.info.about.me': 'classified'
 };
 
-dd.object(row);
+jsf.object(row);
 
 console.log(row);
 ```
@@ -53,12 +53,12 @@ Will result in the following object:
 
 To convert manually per string use:
 ```javascript
-var DeDot = require('dedot');
+var JSF = require('json-filter');
 
-var dd = new DeDot();
+var jsf = new JSF();
 
 var obj = { val: 'test' };
-dd.str('this.is.my.string', 'value', obj);
+jsf.str('this.is.my.string', 'value', obj);
 
 console.log(obj);
 ```
@@ -87,9 +87,9 @@ This example uses the [underscore.string](https://github.com/epeli/underscore.st
 
 
 ```javascript
-var DeDot = require('dedot');
+var JSF = require('json-filter');
 
-var dd = new DeDot();
+var jsf = new JSF();
 
 var _s = require('underscore.string');
 
@@ -102,7 +102,7 @@ var mods = {
   "doc.name": [_s.trim, _s.underscored],
 };
 
-dd.object(row, mods);
+jsf.object(row, mods);
 
 console.log(row);
 ```
@@ -120,17 +120,17 @@ Or using .str() directy:
 
 ```javascript
 
-var DeDot = require('dedot');
+var JSF = require('json-filter');
 var _s = require('underscore.string');
 var obj = { id: 100 };
 
-var dd = new DeDot();
+var jsf = new JSF();
 
 // use one modifier
-dd.str('my.title', 'this is my title', obj, _s.slugify);
+jsf.str('my.title', 'this is my title', obj, _s.slugify);
 
 // multiple modifiers
-dd.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
+jsf.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
 
 console.log(obj);
 ```
@@ -148,12 +148,10 @@ Result:
 
 If you do not like dot notation, you are free to specify a different seperator.
 
-Here is a php'ish version.
-
 ```javascript
-var DeDot = require('dedot');
+var JSF = require('json-filter');
 
-var dd = new DeDot('->');
+var jsf = new JSF('->');
 
 var _s = require('underscore.string');
 
@@ -166,7 +164,7 @@ var mods = {
   "doc->name": [_s.trim, _s.underscored],
 };
 
-dd.object(row, mods);
+jsf.object(row, mods);
 
 console.log(row);
 ```

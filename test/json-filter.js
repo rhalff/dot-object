@@ -1,12 +1,12 @@
 require('should');
 var _s = require('underscore.string');
-var DeDot = require('../index.js');
+var JSF = require('../index.js');
 
-describe("DeDot test:", function () {
+describe("JSF test:", function () {
 
-  it("Should DeDot object keys", function (done) {
+  it("Should JSF object keys", function (done) {
 
-    var dd = new DeDot();
+    var jsf = new JSF();
 
     var row = {
       'id': 2,
@@ -16,7 +16,7 @@ describe("DeDot test:", function () {
       'contact.info.about.me': 'classified'
     };
 
-    dd.object(row);
+    jsf.object(row);
 
     row.should.eql({
       "id": 2,
@@ -38,13 +38,13 @@ describe("DeDot test:", function () {
 
   });
 
-  it("Should DeDot a string", function (done) {
+  it("Should JSF a string", function (done) {
 
     var obj = {};
 
-    var dd = new DeDot();
+    var jsf = new JSF();
 
-    dd.str('this.is.my.string', 'value', obj);
+    jsf.str('this.is.my.string', 'value', obj);
 
     obj.should.eql({
       "this": {
@@ -60,7 +60,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.str Redefinition should fail", function (done) {
+  it("JSF.str Redefinition should fail", function (done) {
 
     var obj = {
       'already': 'set'
@@ -68,9 +68,9 @@ describe("DeDot test:", function () {
 
     (function () {
 
-      var dd = new DeDot();
+      var jsf = new JSF();
 
-      dd.str('already.new', 'value', obj);
+      jsf.str('already.new', 'value', obj);
 
     }).should.throw("Trying to redefine 'already' which is a string");
 
@@ -78,13 +78,13 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.str should process a modifier", function (done) {
+  it("JSF.str should process a modifier", function (done) {
 
     var obj = {};
 
-    var dd = new DeDot();
+    var jsf = new JSF();
 
-    dd.str('this.is.my.string', 'value', obj, _s.capitalize);
+    jsf.str('this.is.my.string', 'value', obj, _s.capitalize);
 
     obj.should.eql({
       "this": {
@@ -100,13 +100,13 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.str should process multiple modifiers", function (done) {
+  it("JSF.str should process multiple modifiers", function (done) {
 
     var obj = {};
 
-    var dd = new DeDot();
+    var jsf = new JSF();
 
-    dd.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
+    jsf.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
 
     obj.should.eql({
       "this": {
@@ -122,7 +122,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.object should process a modifier", function (done) {
+  it("JSF.object should process a modifier", function (done) {
 
     var row = {
       'page.title': 'my page',
@@ -134,9 +134,9 @@ describe("DeDot test:", function () {
       "page.slug": _s.slugify
     };
 
-    var dd = new DeDot();
+    var jsf = new JSF();
 
-    dd.object(row, mods);
+    jsf.object(row, mods);
 
     row.should.eql({
       "page": {
@@ -149,7 +149,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.object should not process non dot notation value with modifier when DeDot.override is false", function (done) {
+  it("JSF.object should not process non dot notation value with modifier when JSF.override is false", function (done) {
 
     var row = {
       'title': 'my page',
@@ -161,8 +161,8 @@ describe("DeDot test:", function () {
       "slug": _s.slugify
     };
 
-    var dd = new DeDot();
-    dd.object(row, mods);
+    var jsf = new JSF();
+    jsf.object(row, mods);
 
     row.should.eql({
       "title": "my page",
@@ -173,7 +173,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.object should process multiple modifiers", function (done) {
+  it("JSF.object should process multiple modifiers", function (done) {
 
     var row = {
       'page.name': '    My Page    '
@@ -183,8 +183,8 @@ describe("DeDot test:", function () {
       "page.name": [_s.trim, _s.underscored]
     };
 
-    var dd = new DeDot();
-    dd.object(row, mods);
+    var jsf = new JSF();
+    jsf.object(row, mods);
 
     row.should.eql({
       "page": {
@@ -196,7 +196,7 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.object should work with a different seperator", function (done) {
+  it("JSF.object should work with a different seperator", function (done) {
 
     var row = {
       'page=>name': '    My Page    '
@@ -206,8 +206,8 @@ describe("DeDot test:", function () {
       "page=>name": [_s.trim, _s.underscored]
     };
 
-    var dd = new DeDot("=>", false);
-    dd.object(row, mods);
+    var jsf = new JSF("=>", false);
+    jsf.object(row, mods);
 
     row.should.eql({
       "page": {

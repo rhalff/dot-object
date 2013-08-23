@@ -1,12 +1,12 @@
 /// <reference path="lib/node.d.ts" />
-var DeDot = (function () {
-    function DeDot(seperator, override) {
+var JsonFilter = (function () {
+    function JsonFilter(seperator, override) {
         if (typeof seperator === "undefined") { seperator = '.'; }
         if (typeof override === "undefined") { override = false; }
         this.seperator = seperator;
         this.override = override;
     }
-    DeDot.prototype._fill = function (a, obj, v, mod) {
+    JsonFilter.prototype._fill = function (a, obj, v, mod) {
         var k = a.shift();
 
         if (a.length > 0) {
@@ -38,7 +38,7 @@ var DeDot = (function () {
     * @param {function|Array} mod
     * @return {String} Returns modified value
     */
-    DeDot.prototype.process = function (v, mod) {
+    JsonFilter.prototype.process = function (v, mod) {
         var i;
 
         if (typeof mod === 'function') {
@@ -52,7 +52,7 @@ var DeDot = (function () {
         return v;
     };
 
-    DeDot.prototype.object = function (obj, mods) {
+    JsonFilter.prototype.object = function (obj, mods) {
         var that = this;
 
         Object.keys(obj).forEach(function (k, i) {
@@ -67,14 +67,14 @@ var DeDot = (function () {
         });
     };
 
-    DeDot.prototype.str = function (str, v, obj, mod) {
+    JsonFilter.prototype.str = function (str, v, obj, mod) {
         if (str.indexOf(this.seperator) !== -1) {
             this._fill(str.split(this.seperator), obj, v, mod);
         } else if (this.override) {
             obj[str] = this.process(v, mod);
         }
     };
-    return DeDot;
+    return JsonFilter;
 })();
 
-module.exports = DeDot;
+module.exports = JsonFilter;

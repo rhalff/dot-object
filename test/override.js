@@ -1,20 +1,20 @@
 require('should');
 var _s = require('underscore.string');
-var DeDot = require('../index.js');
+var JSF = require('../index.js');
 
-describe("DeDot test:", function () {
+describe("JSF test:", function () {
 
 
   it("Redefinition should _not_ fail if override is true", function (done) {
 
-    var dd = new DeDot('.', true);
+    var jsf = new JSF('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    dd.str('already.new', 'value', obj);
+    jsf.str('already.new', 'value', obj);
 
     obj.should.eql({
       "some": "value",
@@ -27,15 +27,15 @@ describe("DeDot test:", function () {
 
   it("Redefinition should _not_ fail if override is true", function (done) {
 
-    var dd = new DeDot('.', true);
+    var jsf = new JSF('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    dd.str('already.new', 'value', obj);
-    dd.str('some', 'new_value', obj);
+    jsf.str('already.new', 'value', obj);
+    jsf.str('some', 'new_value', obj);
 
     obj.should.eql({
       "some": "new_value",
@@ -46,9 +46,9 @@ describe("DeDot test:", function () {
 
   });
 
-  it("DeDot.object _should_ process non dot notation value with modifier when DeDot.override is true", function (done) {
+  it("JSF.object _should_ process non dot notation value with modifier when JSF.override is true", function (done) {
 
-    var dd = new DeDot('.', true);
+    var jsf = new JSF('.', true);
 
     var row = {
       'title': 'my page',
@@ -60,7 +60,7 @@ describe("DeDot test:", function () {
       "slug": _s.slugify
     };
 
-    dd.object(row, mods);
+    jsf.object(row, mods);
 
     row.should.eql({
       "title": "My Page",
