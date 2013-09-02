@@ -1,5 +1,5 @@
 {
-  "name": "dedot",
+  "name": "json-filter",
   "description": "Helper method ",
   "version": "0.1.0",
   "author": {
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rhalff/dotted.js.git"
+    "url": "git://github.com/rhalff/json-filter.js.git"
   },
   "bugs": {
-    "url": "https://github.com/rhalff/dotted.js/issues"
+    "url": "https://github.com/rhalff/json-filter.js/issues"
   },
   "main": "index",
   "scripts": {
