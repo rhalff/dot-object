@@ -143,6 +143,23 @@ Result:
   }
 }
 ```
+Last but not least, there is a convenience method to pick a value using dot notation:
+```
+var obj = {
+ some: {
+   nested: {
+     value: 'Hi there!'
+   }
+ }
+};
+
+var val = jsf.pick('some.nested.key', obj);
+console.log(val);
+```
+Result:
+```json
+Hi there!
+```
 
 ## Using a different seperator 
 

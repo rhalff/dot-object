@@ -1,4 +1,3 @@
-/// <reference path="lib/node.d.ts" />
 var JsonFilter = (function () {
     function JsonFilter(seperator, override) {
         if (typeof seperator === "undefined") { seperator = '.'; }
@@ -30,14 +29,6 @@ var JsonFilter = (function () {
         }
     };
 
-    /**
-    * Process.
-    *
-    * @method process
-    * @param {String} value
-    * @param {function|Array} mod
-    * @return {String} Returns modified value
-    */
     JsonFilter.prototype.process = function (v, mod) {
         var i;
 
@@ -72,6 +63,20 @@ var JsonFilter = (function () {
             this._fill(str.split(this.seperator), obj, v, mod);
         } else if (this.override) {
             obj[str] = this.process(v, mod);
+        }
+    };
+
+    JsonFilter.prototype.pick = function (str, obj) {
+        var i, keys;
+
+        if (str.indexOf(this.seperator) !== -1) {
+            keys = str.split(this.seperator);
+            for (i = 0; i < keys.length; i++) {
+                obj = obj[keys[i]];
+            }
+            return obj;
+        } else {
+            return obj[str];
         }
     };
     return JsonFilter;
