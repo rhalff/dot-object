@@ -1,0 +1,6 @@
+.*
+*.ts
+ATTIC
+lib
+Gruntfile.js
+node_modules

@@ -1,4 +1,6 @@
-json-filter
+[![Build Status](https://travis-ci.org/rhalff/json-filter.png)](https://travis-ci.org/rhalff/json-filter)
+
+JSON-Filter
 ========
 
 JSON-Filter makes it possible to transform json objects using dot notation.
