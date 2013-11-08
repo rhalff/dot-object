@@ -78,6 +78,24 @@ Result:
 
 The code will throw an exception if you try to redefine a value which is already set. 
 
+Last but not least, there is a convenience method to pick a value using dot notation:
+```
+var obj = {
+ some: {
+   nested: {
+     value: 'Hi there!'
+   }
+ }
+};
+
+var val = jsf.pick('some.nested.key', obj);
+console.log(val);
+```
+Result:
+```json
+Hi there!
+```
+
 ## Using modifiers
 
 You can use modifiers to translate values on the fly.
@@ -142,23 +160,6 @@ Result:
     "title": "this-is-my-title"
   }
 }
-```
-Last but not least, there is a convenience method to pick a value using dot notation:
-```
-var obj = {
- some: {
-   nested: {
-     value: 'Hi there!'
-   }
- }
-};
-
-var val = jsf.pick('some.nested.key', obj);
-console.log(val);
-```
-Result:
-```json
-Hi there!
 ```
 
 ## Using a different seperator 
