@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rhalff/dot-json.js.git"
+    "url": "git://github.com/rhalff/dot-json.git"
   },
   "bugs": {
-    "url": "https://github.com/rhalff/dot-json.js/issues"
+    "url": "https://github.com/rhalff/dot-json/issues"
   },
   "main": "index",
   "scripts": {
