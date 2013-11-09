@@ -1,7 +1,7 @@
 {
   "name": "dot-json",
   "description": "dot-json makes it possible to transform and read (JSON) objects using dot notation.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "Rob Halff",
     "email": "rob.halff@gmail.com"
