@@ -1,20 +1,20 @@
 require('should');
 var _s = require('underscore.string');
-var JSF = require('../index.js');
+var DJ = require('../index.js');
 
-describe("JSF test:", function () {
+describe("DJ test:", function () {
 
 
   it("Redefinition should _not_ fail if override is true", function (done) {
 
-    var jsf = new JSF('.', true);
+    var dj = new DJ('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    jsf.str('already.new', 'value', obj);
+    dj.str('already.new', 'value', obj);
 
     obj.should.eql({
       "some": "value",
@@ -27,15 +27,15 @@ describe("JSF test:", function () {
 
   it("Redefinition should _not_ fail if override is true", function (done) {
 
-    var jsf = new JSF('.', true);
+    var dj = new DJ('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    jsf.str('already.new', 'value', obj);
-    jsf.str('some', 'new_value', obj);
+    dj.str('already.new', 'value', obj);
+    dj.str('some', 'new_value', obj);
 
     obj.should.eql({
       "some": "new_value",
@@ -46,9 +46,9 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.object _should_ process non dot notation value with modifier when JSF.override is true", function (done) {
+  it("DJ.object _should_ process non dot notation value with modifier when DJ.override is true", function (done) {
 
-    var jsf = new JSF('.', true);
+    var dj = new DJ('.', true);
 
     var row = {
       'title': 'my page',
@@ -60,7 +60,7 @@ describe("JSF test:", function () {
       "slug": _s.slugify
     };
 
-    jsf.object(row, mods);
+    dj.object(row, mods);
 
     row.should.eql({
       "title": "My Page",

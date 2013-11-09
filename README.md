@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/rhalff/json-filter.png)](https://travis-ci.org/rhalff/json-filter)
+[![Build Status](https://travis-ci.org/rhalff/dot-json.png)](https://travis-ci.org/rhalff/dot-json)
 
-JSON-Filter
+Dot-JSON
 ========
 
-JSON-Filter makes it possible to transform json objects using dot notation.
+Dot-JSON makes it possible to transform json objects using dot notation.
 
 The input can be interpreted as a transform object.
 
@@ -16,9 +16,9 @@ translating SQL results on the fly to JSON (using dotted __AS__ notation).
 e.g.
 
 ```javascript
-var JSF = require('json-filter');
+var DJ = require('dot-json');
 
-var jsf = new JSF();
+var dj = new DJ();
 
 var row = {
   'id': 2,
@@ -28,7 +28,7 @@ var row = {
   'contact.info.about.me': 'classified'
 };
 
-jsf.object(row);
+dj.object(row);
 
 console.log(row);
 ```
@@ -55,12 +55,12 @@ Will result in the following object:
 
 To convert manually per string use:
 ```javascript
-var JSF = require('json-filter');
+var DJ = require('dot-json');
 
-var jsf = new JSF();
+var dj = new DJ();
 
 var obj = { val: 'test' };
-jsf.str('this.is.my.string', 'value', obj);
+dj.str('this.is.my.string', 'value', obj);
 
 console.log(obj);
 ```
@@ -90,7 +90,7 @@ var obj = {
  }
 };
 
-var val = jsf.pick('some.nested.key', obj);
+var val = dj.pick('some.nested.key', obj);
 console.log(val);
 ```
 Result:
@@ -107,9 +107,9 @@ This example uses the [underscore.string](https://github.com/epeli/underscore.st
 
 
 ```javascript
-var JSF = require('json-filter');
+var DJ = require('dot-json');
 
-var jsf = new JSF();
+var dj = new DJ();
 
 var _s = require('underscore.string');
 
@@ -122,7 +122,7 @@ var mods = {
   "doc.name": [_s.trim, _s.underscored],
 };
 
-jsf.object(row, mods);
+dj.object(row, mods);
 
 console.log(row);
 ```
@@ -140,17 +140,17 @@ Or using .str() directy:
 
 ```javascript
 
-var JSF = require('json-filter');
+var DJ = require('dot-json');
 var _s = require('underscore.string');
 var obj = { id: 100 };
 
-var jsf = new JSF();
+var dj = new DJ();
 
 // use one modifier
-jsf.str('my.title', 'this is my title', obj, _s.slugify);
+dj.str('my.title', 'this is my title', obj, _s.slugify);
 
 // multiple modifiers
-jsf.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
+dj.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
 
 console.log(obj);
 ```
@@ -169,9 +169,9 @@ Result:
 If you do not like dot notation, you are free to specify a different seperator.
 
 ```javascript
-var JSF = require('json-filter');
+var DJ = require('dot-json');
 
-var jsf = new JSF('->');
+var dj = new DJ('->');
 
 var _s = require('underscore.string');
 
@@ -184,7 +184,7 @@ var mods = {
   "doc->name": [_s.trim, _s.underscored],
 };
 
-jsf.object(row, mods);
+dj.object(row, mods);
 
 console.log(row);
 ```

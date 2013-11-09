@@ -1,11 +1,11 @@
-var JsonFilter = (function () {
-    function JsonFilter(seperator, override) {
+var DotJSON = (function () {
+    function DotJSON(seperator, override) {
         if (typeof seperator === "undefined") { seperator = '.'; }
         if (typeof override === "undefined") { override = false; }
         this.seperator = seperator;
         this.override = override;
     }
-    JsonFilter.prototype._fill = function (a, obj, v, mod) {
+    DotJSON.prototype._fill = function (a, obj, v, mod) {
         var k = a.shift();
 
         if (a.length > 0) {
@@ -29,7 +29,7 @@ var JsonFilter = (function () {
         }
     };
 
-    JsonFilter.prototype.process = function (v, mod) {
+    DotJSON.prototype.process = function (v, mod) {
         var i;
 
         if (typeof mod === 'function') {
@@ -43,7 +43,7 @@ var JsonFilter = (function () {
         return v;
     };
 
-    JsonFilter.prototype.object = function (obj, mods) {
+    DotJSON.prototype.object = function (obj, mods) {
         var that = this;
 
         Object.keys(obj).forEach(function (k, i) {
@@ -58,7 +58,7 @@ var JsonFilter = (function () {
         });
     };
 
-    JsonFilter.prototype.str = function (str, v, obj, mod) {
+    DotJSON.prototype.str = function (str, v, obj, mod) {
         if (str.indexOf(this.seperator) !== -1) {
             this._fill(str.split(this.seperator), obj, v, mod);
         } else if (this.override) {
@@ -66,7 +66,7 @@ var JsonFilter = (function () {
         }
     };
 
-    JsonFilter.prototype.pick = function (str, obj) {
+    DotJSON.prototype.pick = function (str, obj) {
         var i, keys;
 
         if (str.indexOf(this.seperator) !== -1) {
@@ -79,7 +79,7 @@ var JsonFilter = (function () {
             return obj[str];
         }
     };
-    return JsonFilter;
+    return DotJSON;
 })();
 
-module.exports = JsonFilter;
+module.exports = DotJSON;

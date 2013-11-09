@@ -1,12 +1,12 @@
 require('should');
 var _s = require('underscore.string');
-var JSF = require('../index.js');
+var DJ = require('../index.js');
 
-describe("JSF test:", function () {
+describe("Dot JSON test:", function () {
 
-  it("Should JSF object keys", function (done) {
+  it("Should Dot JSON object keys", function (done) {
 
-    var jsf = new JSF();
+    var dj = new DJ();
 
     var row = {
       'id': 2,
@@ -16,7 +16,7 @@ describe("JSF test:", function () {
       'contact.info.about.me': 'classified'
     };
 
-    jsf.object(row);
+    dj.object(row);
 
     row.should.eql({
       "id": 2,
@@ -38,13 +38,13 @@ describe("JSF test:", function () {
 
   });
 
-  it("Should JSF a string", function (done) {
+  it("Should Dot JSON a string", function (done) {
 
     var obj = {};
 
-    var jsf = new JSF();
+    var dj = new DJ();
 
-    jsf.str('this.is.my.string', 'value', obj);
+    dj.str('this.is.my.string', 'value', obj);
 
     obj.should.eql({
       "this": {
@@ -60,7 +60,7 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.str Redefinition should fail", function (done) {
+  it("DJ.str Redefinition should fail", function (done) {
 
     var obj = {
       'already': 'set'
@@ -68,9 +68,9 @@ describe("JSF test:", function () {
 
     (function () {
 
-      var jsf = new JSF();
+      var dj = new DJ();
 
-      jsf.str('already.new', 'value', obj);
+      dj.str('already.new', 'value', obj);
 
     }).should.throw("Trying to redefine 'already' which is a string");
 
@@ -78,13 +78,13 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.str should process a modifier", function (done) {
+  it("DJ.str should process a modifier", function (done) {
 
     var obj = {};
 
-    var jsf = new JSF();
+    var dj = new DJ();
 
-    jsf.str('this.is.my.string', 'value', obj, _s.capitalize);
+    dj.str('this.is.my.string', 'value', obj, _s.capitalize);
 
     obj.should.eql({
       "this": {
@@ -100,13 +100,13 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.str should process multiple modifiers", function (done) {
+  it("DOT.str should process multiple modifiers", function (done) {
 
     var obj = {};
 
-    var jsf = new JSF();
+    var dj = new DJ();
 
-    jsf.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
+    dj.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
 
     obj.should.eql({
       "this": {
@@ -122,7 +122,7 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.object should process a modifier", function (done) {
+  it("DJ.object should process a modifier", function (done) {
 
     var row = {
       'page.title': 'my page',
@@ -134,9 +134,9 @@ describe("JSF test:", function () {
       "page.slug": _s.slugify
     };
 
-    var jsf = new JSF();
+    var dj = new DJ();
 
-    jsf.object(row, mods);
+    dj.object(row, mods);
 
     row.should.eql({
       "page": {
@@ -149,7 +149,7 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.object should not process non dot notation value with modifier when JSF.override is false", function (done) {
+  it("DJ.object should not process non dot notation value with modifier when DJ.override is false", function (done) {
 
     var row = {
       'title': 'my page',
@@ -161,8 +161,8 @@ describe("JSF test:", function () {
       "slug": _s.slugify
     };
 
-    var jsf = new JSF();
-    jsf.object(row, mods);
+    var dj = new DJ();
+    dj.object(row, mods);
 
     row.should.eql({
       "title": "my page",
@@ -173,7 +173,7 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.object should process multiple modifiers", function (done) {
+  it("DJ.object should process multiple modifiers", function (done) {
 
     var row = {
       'page.name': '    My Page    '
@@ -183,8 +183,8 @@ describe("JSF test:", function () {
       "page.name": [_s.trim, _s.underscored]
     };
 
-    var jsf = new JSF();
-    jsf.object(row, mods);
+    var dj = new DJ();
+    dj.object(row, mods);
 
     row.should.eql({
       "page": {
@@ -196,7 +196,7 @@ describe("JSF test:", function () {
 
   });
 
-  it("JSF.object should work with a different seperator", function (done) {
+  it("DJ.object should work with a different seperator", function (done) {
 
     var row = {
       'page=>name': '    My Page    '
@@ -206,8 +206,8 @@ describe("JSF test:", function () {
       "page=>name": [_s.trim, _s.underscored]
     };
 
-    var jsf = new JSF("=>", false);
-    jsf.object(row, mods);
+    var dj = new DJ("=>", false);
+    dj.object(row, mods);
 
     row.should.eql({
       "page": {

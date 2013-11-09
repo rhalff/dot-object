@@ -1,6 +1,6 @@
 /// <reference path="lib/node.d.ts" />
 
-class JsonFilter {
+class DotJSON {
 
   constructor(public seperator: string = '.',
               public override: boolean = false) {
@@ -104,4 +104,4 @@ class JsonFilter {
 
 }
 
-module.exports = JsonFilter;
+module.exports = DotJSON;

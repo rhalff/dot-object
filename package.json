@@ -1,6 +1,6 @@
 {
-  "name": "json-filter",
-  "description": "JSON-Filter makes it possible to transform and read (JSON) objects using dot notation.",
+  "name": "dot-json",
+  "description": "dot-json makes it possible to transform and read (JSON) objects using dot notation.",
   "version": "0.2.0",
   "author": {
     "name": "Rob Halff",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rhalff/json-filter.js.git"
+    "url": "git://github.com/rhalff/dot-json.js.git"
   },
   "bugs": {
-    "url": "https://github.com/rhalff/json-filter.js/issues"
+    "url": "https://github.com/rhalff/dot-json.js/issues"
   },
   "main": "index",
   "scripts": {

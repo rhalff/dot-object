@@ -1,19 +1,19 @@
 require('should');
 var _s = require('underscore.string');
-var JSF = require('../index.js');
+var DJ = require('../index.js');
 
-describe("JSF value picker:", function () {
+describe("DJ value picker:", function () {
 
   it("Should be able to pick a value", function (done) {
 
-    var jsf = new JSF('.', true);
+    var dj = new DJ('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    var val = jsf.pick('some', obj);
+    var val = dj.pick('some', obj);
 
     val.should.eql('value');
 
@@ -23,7 +23,7 @@ describe("JSF value picker:", function () {
 
   it("Should be able to pick dotted value", function (done) {
 
-    var jsf = new JSF();
+    var dj = new DJ();
 
     var obj = {
       'some': {
@@ -31,7 +31,7 @@ describe("JSF value picker:", function () {
       }
     };
 
-    var val = jsf.pick('some.other', obj);
+    var val = dj.pick('some.other', obj);
 
     val.should.eql('value');
 
