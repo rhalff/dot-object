@@ -1,6 +1,9 @@
 'use strict';
 
 function DotJSON(seperator, override) {
+
+  if(!(this instanceof DotJSON)) return new DotJSON(seperator, override);
+
   if (typeof seperator === 'undefined') { seperator = '.'; }
   if (typeof override === 'undefined') { override = false; }
   this.seperator = seperator;
