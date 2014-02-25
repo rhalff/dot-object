@@ -2,9 +2,9 @@ require('should');
 var _s = require('underscore.string');
 var DJ = require('../index.js');
 
-describe("Dot JSON test:", function () {
+describe("Dot Object test:", function () {
 
-  it("Should Dot JSON object keys", function (done) {
+  it("Should Dot object keys", function (done) {
 
     var dj = new DJ();
 
@@ -38,7 +38,7 @@ describe("Dot JSON test:", function () {
 
   });
 
-  it("Should Dot JSON a string", function (done) {
+  it("Should Dot Object a string", function (done) {
 
     var obj = {};
 

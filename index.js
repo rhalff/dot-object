@@ -1,8 +1,8 @@
 'use strict';
 
-function DotJSON(seperator, override) {
+function DotObject(seperator, override) {
 
-  if(!(this instanceof DotJSON)) return new DotJSON(seperator, override);
+  if(!(this instanceof DotObject)) return new DotObject(seperator, override);
 
   if (typeof seperator === 'undefined') { seperator = '.'; }
   if (typeof override === 'undefined') { override = false; }
@@ -10,7 +10,7 @@ function DotJSON(seperator, override) {
   this.override = override;
 }
 
-DotJSON.prototype._fill = function (a, obj, v, mod) {
+DotObject.prototype._fill = function (a, obj, v, mod) {
   var k = a.shift();
 
   if (a.length > 0) {
@@ -34,7 +34,7 @@ DotJSON.prototype._fill = function (a, obj, v, mod) {
   }
 };
 
-DotJSON.prototype.process = function (v, mod) {
+DotObject.prototype.process = function (v, mod) {
   var i;
 
   if (typeof mod === 'function') {
@@ -48,7 +48,7 @@ DotJSON.prototype.process = function (v, mod) {
   return v;
 };
 
-DotJSON.prototype.object = function (obj, mods) {
+DotObject.prototype.object = function (obj, mods) {
   var self = this;
 
   Object.keys(obj).forEach(function (k, i) {
@@ -63,7 +63,7 @@ DotJSON.prototype.object = function (obj, mods) {
   });
 };
 
-DotJSON.prototype.str = function (str, v, obj, mod) {
+DotObject.prototype.str = function (str, v, obj, mod) {
   if (str.indexOf(this.seperator) !== -1) {
     this._fill(str.split(this.seperator), obj, v, mod);
   } else if (this.override) {
@@ -81,7 +81,7 @@ DotJSON.prototype.str = function (str, v, obj, mod) {
  * @param {Object} obj
  * @param {Boolean} remove
  */
-DotJSON.prototype.pick = function (path, obj, remove) {
+DotObject.prototype.pick = function (path, obj, remove) {
   var i, keys, val;
 
   if (path.indexOf(this.seperator) !== -1) {
@@ -127,7 +127,7 @@ DotJSON.prototype.pick = function (path, obj, remove) {
  * @param {Object} obj
  *
  */
-DotJSON.prototype.move = function (source, target, obj) {
+DotObject.prototype.move = function (source, target, obj) {
 
   this.set(target, this.pick(source, obj, true), obj);
 
@@ -147,7 +147,7 @@ DotJSON.prototype.move = function (source, target, obj) {
  * @param {Object} obj
  *
  */
-DotJSON.prototype.transfer = function (source, target, obj1, obj2) {
+DotObject.prototype.transfer = function (source, target, obj1, obj2) {
 
   this.set(target, this.pick(source, obj1, true), obj2);
 
@@ -160,7 +160,7 @@ DotJSON.prototype.transfer = function (source, target, obj1, obj2) {
  * Set a property on an object using dot notation.
  *
  */
-DotJSON.prototype.set = function (path, val, obj) {
+DotObject.prototype.set = function (path, val, obj) {
   var i, keys;
 
   // Do not operate if the value is undefined.
@@ -186,4 +186,4 @@ DotJSON.prototype.set = function (path, val, obj) {
   }
 };
 
-module.exports = DotJSON;
+module.exports = DotObject;

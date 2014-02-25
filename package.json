@@ -1,6 +1,6 @@
 {
-  "name": "dot-json",
-  "description": "dot-json makes it possible to transform and read (JSON) objects using dot notation.",
+  "name": "dot-object",
+  "description": "dot-object makes it possible to transform and read (JSON) objects using dot notation.",
   "version": "0.3.0",
   "author": {
     "name": "Rob Halff",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rhalff/dot-json.git"
+    "url": "git://github.com/rhalff/dot-object.git"
   },
   "bugs": {
-    "url": "https://github.com/rhalff/dot-json/issues"
+    "url": "https://github.com/rhalff/dot-object/issues"
   },
   "main": "index",
   "scripts": {

@@ -1,14 +1,14 @@
-[![Build Status](https://travis-ci.org/rhalff/dot-json.png)](https://travis-ci.org/rhalff/dot-json)
+[![Build Status](https://travis-ci.org/rhalff/dot-object.png)](https://travis-ci.org/rhalff/dot-object)
 
-Dot-JSON
+Dot-Object
 ========
 
-Dot-JSON makes it possible to transform json objects using dot notation.
+Dot-Object makes it possible to transform javascript objects using dot notation.
 
 
 #### Move a property within one object to another location
 ```javascript
-var DJ = require('dot-json');
+var DJ = require('dot-object');
 
 var dj = new DJ();
 
@@ -34,7 +34,7 @@ console.log(obj);
 #### Transform an object
 
 ```javascript
-var DJ = require('dot-json');
+var DJ = require('dot-object');
 
 var dj = new DJ();
 
@@ -69,7 +69,7 @@ console.log(row);
 
 To convert manually per string use:
 ```javascript
-var DJ = require('dot-json');
+var DJ = require('dot-object');
 
 var dj = new DJ();
 
@@ -115,7 +115,7 @@ This example uses the [underscore.string](https://github.com/epeli/underscore.st
 
 
 ```javascript
-var DJ = require('dot-json');
+var DJ = require('dot-object');
 
 var dj = new DJ();
 
@@ -123,7 +123,7 @@ var _s = require('underscore.string');
 
 var row = {
   'nr': 200,
-  'doc.name': '    My Document   ' 
+  'doc.name': '    My Document   '
 };
 
 var mods = {
@@ -148,7 +148,7 @@ Or using .str() directy:
 
 ```javascript
 
-var DJ = require('dot-json');
+var DJ = require('dot-object');
 var _s = require('underscore.string');
 var obj = { id: 100 };
 
@@ -172,12 +172,12 @@ Result:
 }
 ```
 
-## Using a different seperator 
+## Using a different seperator
 
 If you do not like dot notation, you are free to specify a different seperator.
 
 ```javascript
-var DJ = require('dot-json');
+var DJ = require('dot-object');
 
 var dj = new DJ('->');
 
@@ -185,7 +185,7 @@ var _s = require('underscore.string');
 
 var row = {
   'nr': 200,
-  'doc->name': '    My Document   ' 
+  'doc->name': '    My Document   '
 };
 
 var mods = {
