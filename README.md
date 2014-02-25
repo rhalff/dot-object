@@ -5,15 +5,33 @@ Dot-JSON
 
 Dot-JSON makes it possible to transform json objects using dot notation.
 
-The input can be interpreted as a transform object.
 
-There are many usecases where this comes in handy.
+#### Move a property within one object to another location
+```javascript
+var DJ = require('dot-json');
 
-For example defining transformation filters for your JSON or
-translating SQL results on the fly to JSON (using dotted __AS__ notation).
+var dj = new DJ();
 
+var obj = {
+  'first_name': 'John',
+  'last_name': 'Doe'
+};
 
-e.g.
+dj.move('first_name', 'contact.firstname', obj);
+dj.move('last_name', 'contact.lastname', obj);
+
+console.log(obj);
+
+{
+  contact: {
+    firstname: 'John',
+    lastname: 'Doe'
+  }
+}
+
+```
+
+#### Transform an object
 
 ```javascript
 var DJ = require('dot-json');
@@ -31,11 +49,7 @@ var row = {
 dj.object(row);
 
 console.log(row);
-```
 
-Will result in the following object:
-
-```json
 {
   "id": 2,
   "contact": {
@@ -63,9 +77,7 @@ var obj = { val: 'test' };
 dj.str('this.is.my.string', 'value', obj);
 
 console.log(obj);
-```
-Result:
-```json
+
 {
   "val": "test",
   "this": {
@@ -78,9 +90,7 @@ Result:
 }
 ```
 
-The code will throw an exception if you try to redefine a value which is already set. 
-
-Last but not least, there is a convenience method to pick a value using dot notation:
+#### Pick a value using dot notation:
 ```
 var obj = {
  some: {
@@ -92,13 +102,11 @@ var obj = {
 
 var val = dj.pick('some.nested.key', obj);
 console.log(val);
-```
-Result:
-```json
+
 Hi there!
 ```
 
-## Using modifiers
+### Using modifiers
 
 You can use modifiers to translate values on the fly.
 
