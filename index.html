@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Dot-object by rhalff</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Dot-object</h1>
+        <h2>Transform json objects using dot notation</h2>
+        <a href="https://github.com/rhalff/dot-object" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://travis-ci.org/rhalff/dot-object"><img src="https://travis-ci.org/rhalff/dot-object.png" alt="Build Status"></a></p>
+
+<h1>
+<a name="dot-object" class="anchor" href="#dot-object"><span class="octicon octicon-link"></span></a>Dot-Object</h1>
+
+<p>Dot-Object makes it possible to transform javascript objects using dot notation.</p>
+
+<h4>
+<a name="move-a-property-within-one-object-to-another-location" class="anchor" href="#move-a-property-within-one-object-to-another-location"><span class="octicon octicon-link"></span></a>Move a property within one object to another location</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">DJ</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dot-object'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">dj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DJ</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'first_name'</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+  <span class="s1">'last_name'</span><span class="o">:</span> <span class="s1">'Doe'</span>
+<span class="p">};</span>
+
+<span class="nx">dj</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s1">'first_name'</span><span class="p">,</span> <span class="s1">'contact.firstname'</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+<span class="nx">dj</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s1">'last_name'</span><span class="p">,</span> <span class="s1">'contact.lastname'</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="nx">contact</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">firstname</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+    <span class="nx">lastname</span><span class="o">:</span> <span class="s1">'Doe'</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></div>
+
+<h4>
+<a name="transform-an-object" class="anchor" href="#transform-an-object"><span class="octicon octicon-link"></span></a>Transform an object</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">DJ</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dot-object'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">dj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DJ</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'id'</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s1">'contact.name.first'</span><span class="o">:</span> <span class="s1">'John'</span><span class="p">,</span>
+  <span class="s1">'contact.name.last'</span><span class="o">:</span> <span class="s1">'Doe'</span><span class="p">,</span>
+  <span class="s1">'contact.email'</span><span class="o">:</span> <span class="s1">'example@gmail.com'</span><span class="p">,</span>
+  <span class="s1">'contact.info.about.me'</span><span class="o">:</span> <span class="s1">'classified'</span>
+<span class="p">};</span>
+
+<span class="nx">dj</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">row</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">row</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"contact"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"name"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"first"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"last"</span><span class="o">:</span> <span class="s2">"Doe"</span>
+    <span class="p">},</span>
+    <span class="s2">"email"</span><span class="o">:</span> <span class="s2">"example@gmail.com"</span><span class="p">,</span>
+    <span class="s2">"info"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"about"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"me"</span><span class="o">:</span> <span class="s2">"classified"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>To convert manually per string use:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">DJ</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dot-object'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">dj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DJ</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">val</span><span class="o">:</span> <span class="s1">'test'</span> <span class="p">};</span>
+<span class="nx">dj</span><span class="p">.</span><span class="nx">str</span><span class="p">(</span><span class="s1">'this.is.my.string'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"val"</span><span class="o">:</span> <span class="s2">"test"</span><span class="p">,</span>
+  <span class="s2">"this"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"is"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"my"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"string"</span><span class="o">:</span> <span class="s2">"value"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h4>
+<a name="pick-a-value-using-dot-notation" class="anchor" href="#pick-a-value-using-dot-notation"><span class="octicon octicon-link"></span></a>Pick a value using dot notation:</h4>
+
+<pre><code>var obj = {
+ some: {
+   nested: {
+     value: 'Hi there!'
+   }
+ }
+};
+
+var val = dj.pick('some.nested.key', obj);
+console.log(val);
+
+Hi there!
+</code></pre>
+
+<h3>
+<a name="using-modifiers" class="anchor" href="#using-modifiers"><span class="octicon octicon-link"></span></a>Using modifiers</h3>
+
+<p>You can use modifiers to translate values on the fly.</p>
+
+<p>This example uses the <a href="https://github.com/epeli/underscore.string">underscore.string</a> library.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">DJ</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dot-object'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">dj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DJ</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">_s</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'underscore.string'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'nr'</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="s1">'doc.name'</span><span class="o">:</span> <span class="s1">'    My Document   '</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">mods</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"doc.name"</span><span class="o">:</span> <span class="p">[</span><span class="nx">_s</span><span class="p">.</span><span class="nx">trim</span><span class="p">,</span> <span class="nx">_s</span><span class="p">.</span><span class="nx">underscored</span><span class="p">],</span>
+<span class="p">};</span>
+
+<span class="nx">dj</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">mods</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">row</span><span class="p">);</span>
+</pre></div>
+
+<pre><code>{
+  "nr": 200,
+  "doc": {
+    "name": "my_document"
+  }
+}
+</code></pre>
+
+<p>Or using .str() directy:</p>
+
+<div class="highlight highlight-javascript"><pre>
+<span class="kd">var</span> <span class="nx">DJ</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dot-object'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">_s</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'underscore.string'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">100</span> <span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">dj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DJ</span><span class="p">();</span>
+
+<span class="c1">// use one modifier</span>
+<span class="nx">dj</span><span class="p">.</span><span class="nx">str</span><span class="p">(</span><span class="s1">'my.title'</span><span class="p">,</span> <span class="s1">'this is my title'</span><span class="p">,</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">_s</span><span class="p">.</span><span class="nx">slugify</span><span class="p">);</span>
+
+<span class="c1">// multiple modifiers</span>
+<span class="nx">dj</span><span class="p">.</span><span class="nx">str</span><span class="p">(</span><span class="s1">'my.title'</span><span class="p">,</span> <span class="s1">'   this is my title  '</span><span class="p">,</span> <span class="nx">obj</span><span class="p">,</span> <span class="p">[</span><span class="nx">_s</span><span class="p">.</span><span class="nx">trim</span><span class="p">,</span> <span class="nx">_s</span><span class="p">.</span><span class="nx">slugify</span><span class="p">]);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+</pre></div>
+
+<p>Result:</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"id"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nt">"my"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"this-is-my-title"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="using-a-different-seperator" class="anchor" href="#using-a-different-seperator"><span class="octicon octicon-link"></span></a>Using a different seperator</h2>
+
+<p>If you do not like dot notation, you are free to specify a different seperator.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">DJ</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dot-object'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">dj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DJ</span><span class="p">(</span><span class="s1">'-&gt;'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">_s</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'underscore.string'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'nr'</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+  <span class="s1">'doc-&gt;name'</span><span class="o">:</span> <span class="s1">'    My Document   '</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">mods</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"doc-&gt;name"</span><span class="o">:</span> <span class="p">[</span><span class="nx">_s</span><span class="p">.</span><span class="nx">trim</span><span class="p">,</span> <span class="nx">_s</span><span class="p">.</span><span class="nx">underscored</span><span class="p">],</span>
+<span class="p">};</span>
+
+<span class="nx">dj</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">mods</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">row</span><span class="p">);</span>
+</pre></div>
+
+<pre><code>{
+  "nr": 200,
+  "doc": {
+    "name": "my_document"
+  }
+}
+</code></pre>
+
+<h2>
+<a name="transforming-sql-results-to-json" class="anchor" href="#transforming-sql-results-to-json"><span class="octicon octicon-link"></span></a>Transforming SQL results to JSON</h2>
+
+<p>SQL translation on the fly:</p>
+
+<div class="highlight highlight-javascript"><pre> <span class="c1">// TODO</span>
+
+</pre></div>
+
+<blockquote>
+<p>Copyright © 2013 Rob Halff, released under the MIT license</p>
+</blockquote>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/rhalff/dot-object/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/rhalff/dot-object/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/rhalff/dot-object"></a> is maintained by <a href="https://github.com/rhalff">rhalff</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
