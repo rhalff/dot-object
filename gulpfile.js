@@ -1,15 +1,10 @@
-var fs = require('fs');
-var path = require('path');
+'use strict';
+
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
-var watch = require('gulp-watch');
 
 var paths = ['gulpfile.js', 'index.js', 'tests/**/*.js'];
-
-var pkg = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, './package.json'))
-);
 
 gulp.task('jshint:app', function () {
   gulp.src(paths)
