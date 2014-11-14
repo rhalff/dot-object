@@ -2,12 +2,14 @@
 
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 
 var paths = ['gulpfile.js', 'index.js', 'tests/**/*.js'];
 
-gulp.task('jshint:app', function () {
+gulp.task('jscheck', function() {
   gulp.src(paths)
+    .pipe(jscs())
     .pipe(jshint({
         maxlen: 80,
         quotmark: 'single'
@@ -15,7 +17,7 @@ gulp.task('jshint:app', function () {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('test', function () {
+gulp.task('test', function() {
   gulp.src(['test/**/*.js'])
     .pipe(mocha());
 });
@@ -24,4 +26,4 @@ gulp.task('watch', function() {
   gulp.watch(paths, ['default']);
 });
 
-gulp.task('default', ['jshint:app', 'test']);
+gulp.task('default', ['jscheck', 'test']);
