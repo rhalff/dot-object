@@ -1,0 +1,10 @@
+{
+  "indent": 2,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "maxlen": 80,
+  "newcap": false,
+  "node": true
+}
