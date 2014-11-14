@@ -67,6 +67,14 @@ DotObject.prototype.object = function(obj, mods) {
   });
 };
 
+/**
+ *
+ * @param {String} str
+ * @param {String} v
+ * @param {Object} obj
+ * @param {Function|Array} mod
+ *
+ */
 DotObject.prototype.str = function(str, v, obj, mod) {
   if (str.indexOf(this.seperator) !== -1) {
     this._fill(str.split(this.seperator), obj, v, mod);
@@ -131,11 +139,12 @@ DotObject.prototype.pick = function(path, obj, remove) {
  * @param {String} source
  * @param {String} target
  * @param {Object} obj
+ * @param {Boolean} merge
  *
  */
-DotObject.prototype.move = function(source, target, obj) {
+DotObject.prototype.move = function(source, target, obj, merge) {
 
-  this.set(target, this.pick(source, obj, true), obj);
+  this.set(target, this.pick(source, obj, true), obj, merge);
 
   return obj;
 
@@ -152,7 +161,6 @@ DotObject.prototype.move = function(source, target, obj) {
  * @param {String} target
  * @param {Object} obj1
  * @param {Object} obj2
- *
  */
 DotObject.prototype.transfer = function(source, target, obj1, obj2) {
 
@@ -162,13 +170,22 @@ DotObject.prototype.transfer = function(source, target, obj1, obj2) {
 
 };
 
+function isObject(val) {
+  return Object.prototype.toString.call(val) === '[object Object]';
+}
+
 /**
  *
  * Set a property on an object using dot notation.
  *
+ * @param {String} path
+ * @param {Mixed} val
+ * @param {Object} obj
+ * @param {Boolean} merge
  */
-DotObject.prototype.set = function(path, val, obj) {
+DotObject.prototype.set = function(path, val, obj, merge) {
   var i;
+  var k;
   var keys;
 
   // Do not operate if the value is undefined.
@@ -180,18 +197,34 @@ DotObject.prototype.set = function(path, val, obj) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
       if (i === (keys.length - 1)) {
-        obj[keys[i]] = val;
+        if (merge && isObject(val)) {
+          for (k in val) {
+            if (val.hasOwnProperty(k)) {
+              obj[keys[i]][k] = val[k];
+            }
+          }
+        } else {
+          obj[keys[i]] = val;
+        }
       } else if (
         // force the value to be an object
         !obj.hasOwnProperty(keys[i]) ||
-        Object.prototype.toString.call(obj[keys[i]]) !== '[object Object]') {
+        !isObject(obj[keys[i]])) {
         obj[keys[i]] = {};
       }
       obj = obj[keys[i]];
     }
     return obj;
   } else {
-    obj[path] = val;
+    if (merge && isObject(val)) {
+      for (k in val) {
+        if (val.hasOwnProperty(k)) {
+          obj[path][k] = val[k];
+        }
+      }
+    } else {
+      obj[path] = val;
+    }
     return obj;
   }
 };
