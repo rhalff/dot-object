@@ -161,10 +161,11 @@ DotObject.prototype.move = function(source, target, obj, merge) {
  * @param {String} target
  * @param {Object} obj1
  * @param {Object} obj2
+ * @param {Boolean} merge
  */
-DotObject.prototype.transfer = function(source, target, obj1, obj2) {
+DotObject.prototype.transfer = function(source, target, obj1, obj2, merge) {
 
-  this.set(target, this.pick(source, obj1, true), obj2);
+  this.set(target, this.pick(source, obj1, true), obj2, merge);
 
   return obj2;
 
