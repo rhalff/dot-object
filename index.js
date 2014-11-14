@@ -188,6 +188,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   var i;
   var k;
   var keys;
+  var isArray;
 
   // Do not operate if the value is undefined.
   if (typeof val === 'undefined') {
@@ -203,6 +204,11 @@ DotObject.prototype.set = function(path, val, obj, merge) {
             if (val.hasOwnProperty(k)) {
               obj[keys[i]][k] = val[k];
             }
+          }
+
+        } else if (Array.isArray(obj[keys[i]]) && Array.isArray(val)) {
+          for (var j = 0; j < val.length; j++) {
+            obj[keys[i]].push(val[j]);
           }
         } else {
           obj[keys[i]] = val;
@@ -223,6 +229,8 @@ DotObject.prototype.set = function(path, val, obj, merge) {
           obj[path][k] = val[k];
         }
       }
+    } else if (Array.isArray(obj[path]) && Array.isArray(val)) {
+      obj[path].push(val);
     } else {
       obj[path] = val;
     }

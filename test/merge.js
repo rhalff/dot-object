@@ -67,4 +67,38 @@ describe('Should be able to merge:', function() {
 
   });
 
+  it('array to array', function() {
+
+    var link = {
+      other: [
+        'Three Things',
+        'Four Things'
+      ],
+      things: {
+        one: 'One Thing',
+        two: 'Two Things',
+        target: [
+          'already here'
+        ]
+      }
+    };
+
+    var expected = {
+      things: {
+        one: 'One Thing',
+        two: 'Two Things',
+        target: [
+          'already here',
+          'Three Things',
+          'Four Things'
+        ]
+      }
+    };
+
+    dj.move('other',  'things.target', link, true);
+
+    link.should.eql(expected);
+
+  });
+
 });
