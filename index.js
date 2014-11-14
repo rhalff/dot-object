@@ -23,7 +23,7 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
         obj[k] = {};
       } else {
         throw new Error(
-          'Trying to redefine \'' + k + '\' which is a ' + typeof obj[k]
+          'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
         );
       }
     }
