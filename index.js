@@ -55,7 +55,7 @@ DotObject.prototype.process = function(v, mod) {
 DotObject.prototype.object = function(obj, mods) {
   var self = this;
 
-  Object.keys(obj).forEach(function(k, i) {
+  Object.keys(obj).forEach(function(k) {
     var mod = mods === undefined ? null : mods[k];
 
     if (k.indexOf(self.seperator) !== -1) {
