@@ -15,7 +15,7 @@
   },
   "main": "index",
   "scripts": {
-    "test": "mocha"
+    "test": "gulp test"
   },
   "devDependencies": {
     "underscore.string": "latest",
