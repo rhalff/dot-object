@@ -21,7 +21,6 @@
     "underscore.string": "latest",
     "mocha": "1.x.x",
     "should": "1.x.x",
-    "gulp-watch": "^1.2.0",
     "gulp-jshint": "^1.9.0",
     "gulp-mocha": "^1.1.1",
     "gulp": "^3.8.10"
