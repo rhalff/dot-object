@@ -29,6 +29,4 @@ gulp.task('watch', function() {
   gulp.watch(paths, ['default']);
 });
 
-gulp.task('default', function () {
-  gulp.run('jshint:app', 'test');
-});
+gulp.task('default', ['jshint:app', 'test']);
