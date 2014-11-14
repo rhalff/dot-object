@@ -6,5 +6,9 @@
   "strict": true,
   "maxlen": 80,
   "newcap": false,
-  "node": true
+  "node": true,
+  "globals": {
+    "it": true,
+    "describe": true
+  }
 }

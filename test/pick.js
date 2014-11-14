@@ -1,10 +1,11 @@
+'use strict';
+
 require('should');
-var _s = require('underscore.string');
 var DJ = require('../index.js');
 
-describe("DJ value picker:", function () {
+describe('DJ value picker:', function() {
 
-  it("Should be able to pick a value", function (done) {
+  it('Should be able to pick a value', function() {
 
     var dj = new DJ('.', true);
 
@@ -17,11 +18,9 @@ describe("DJ value picker:", function () {
 
     val.should.eql('value');
 
-    done();
-
   });
 
-  it("Should be able to pick dotted value", function (done) {
+  it('Should be able to pick dotted value', function() {
 
     var dj = new DJ();
 
@@ -34,8 +33,6 @@ describe("DJ value picker:", function () {
     var val = dj.pick('some.other', obj);
 
     val.should.eql('value');
-
-    done();
 
   });
 

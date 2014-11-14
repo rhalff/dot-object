@@ -1,10 +1,12 @@
+'use strict';
+
 require('should');
 var _s = require('underscore.string');
 var DJ = require('../index.js');
 
-describe("Dot Object test:", function () {
+describe('Dot Object test:', function() {
 
-  it("Should Dot object keys", function (done) {
+  it('Should Dot object keys', function() {
 
     var dj = new DJ();
 
@@ -19,26 +21,24 @@ describe("Dot Object test:", function () {
     dj.object(row);
 
     row.should.eql({
-      "id": 2,
-      "contact": {
-        "name": {
-          "first": "John",
-          "last": "Doe"
+      'id': 2,
+      'contact': {
+        'name': {
+          'first': 'John',
+          'last': 'Doe'
         },
-        "email": "example@gmail.com",
-        "info": {
-          "about": {
-            "me": "classified"
+        'email': 'example@gmail.com',
+        'info': {
+          'about': {
+            'me': 'classified'
           }
         }
       }
     });
 
-    done();
-
   });
 
-  it("Should Dot Object a string", function (done) {
+  it('Should Dot Object a string', function() {
 
     var obj = {};
 
@@ -47,38 +47,34 @@ describe("Dot Object test:", function () {
     dj.str('this.is.my.string', 'value', obj);
 
     obj.should.eql({
-      "this": {
-        "is": {
-          "my": {
-            "string": "value"
+      'this': {
+        'is': {
+          'my': {
+            'string': 'value'
           }
         }
       }
     });
 
-    done();
-
   });
 
-  it("DJ.str Redefinition should fail", function (done) {
+  it('DJ.str Redefinition should fail', function() {
 
     var obj = {
       'already': 'set'
     };
 
-    (function () {
+    (function() {
 
       var dj = new DJ();
 
       dj.str('already.new', 'value', obj);
 
-    }).should.throw("Trying to redefine 'already' which is a string");
-
-    done();
+    }).should.throw('Trying to redefine `already` which is a string');
 
   });
 
-  it("DJ.str should process a modifier", function (done) {
+  it('DJ.str should process a modifier', function() {
 
     var obj = {};
 
@@ -87,42 +83,42 @@ describe("Dot Object test:", function () {
     dj.str('this.is.my.string', 'value', obj, _s.capitalize);
 
     obj.should.eql({
-      "this": {
-        "is": {
-          "my": {
-            "string": "Value"
+      'this': {
+        'is': {
+          'my': {
+            'string': 'Value'
           }
         }
       }
     });
 
-    done();
-
   });
 
-  it("DOT.str should process multiple modifiers", function (done) {
+  it('DOT.str should process multiple modifiers', function() {
 
     var obj = {};
 
     var dj = new DJ();
 
-    dj.str('this.is.my.string', '  this is a test   ', obj, [_s.trim, _s.underscored]);
+    dj.str(
+      'this.is.my.string',
+      '  this is a test   ',
+      obj, [_s.trim, _s.underscored]
+    );
 
     obj.should.eql({
-      "this": {
-        "is": {
-          "my": {
-            "string": "this_is_a_test"
+      'this': {
+        'is': {
+          'my': {
+            'string': 'this_is_a_test'
           }
         }
       }
     });
 
-    done();
-
   });
 
-  it("DJ.object should process a modifier", function (done) {
+  it('DJ.object should process a modifier', function() {
 
     var row = {
       'page.title': 'my page',
@@ -130,92 +126,56 @@ describe("Dot Object test:", function () {
     };
 
     var mods = {
-      "page.title": _s.titleize,
-      "page.slug": _s.slugify
+      'page.title': _s.titleize,
+      'page.slug': _s.slugify
     };
 
     var dj = new DJ();
 
     dj.object(row, mods);
 
-    row.should.eql({
-      "page": {
-        "title": "My Page",
-        "slug": "my-page"
-      }
-    });
-
-    done();
+    row.should.eql({'page': {'title': 'My Page', 'slug': 'my-page'}});
 
   });
 
-  it("DJ.object should not process non dot notation value with modifier when DJ.override is false", function (done) {
+  it('should not process non dot value with modifier when override is false',
+    function() {
 
-    var row = {
-      'title': 'my page',
-      'slug': 'My Page'
-    };
+      var row = {'title': 'my page', 'slug': 'My Page'};
 
-    var mods = {
-      "title": _s.titleize,
-      "slug": _s.slugify
-    };
+      var mods = {'title': _s.titleize, 'slug': _s.slugify};
+
+      var dj = new DJ();
+      dj.object(row, mods);
+
+      row.should.eql({'title': 'my page', 'slug': 'My Page'});
+
+    }
+  );
+
+  it('DJ.object should process multiple modifiers', function() {
+
+    var row = {'page.name': '    My Page    '};
+
+    var mods = {'page.name': [_s.trim, _s.underscored]};
 
     var dj = new DJ();
     dj.object(row, mods);
 
-    row.should.eql({
-      "title": "my page",
-      "slug": "My Page"
-    });
-
-    done();
+    row.should.eql({'page': {'name': 'my_page'}});
 
   });
 
-  it("DJ.object should process multiple modifiers", function (done) {
+  it('DJ.object should work with a different seperator', function() {
 
-    var row = {
-      'page.name': '    My Page    '
-    };
+    var row = {'page=>name': '    My Page    '};
 
-    var mods = {
-      "page.name": [_s.trim, _s.underscored]
-    };
+    var mods = {'page=>name': [_s.trim, _s.underscored]};
 
-    var dj = new DJ();
+    var dj = new DJ('=>', false);
     dj.object(row, mods);
 
-    row.should.eql({
-      "page": {
-        "name": "my_page"
-      }
-    });
-
-    done();
-
-  });
-
-  it("DJ.object should work with a different seperator", function (done) {
-
-    var row = {
-      'page=>name': '    My Page    '
-    };
-
-    var mods = {
-      "page=>name": [_s.trim, _s.underscored]
-    };
-
-    var dj = new DJ("=>", false);
-    dj.object(row, mods);
-
-    row.should.eql({
-      "page": {
-        "name": "my_page"
-      }
-    });
-
-    done();
+    row.should.eql({'page': {'name': 'my_page'}});
 
   });
 

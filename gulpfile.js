@@ -5,7 +5,7 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 
-var paths = ['gulpfile.js', 'index.js', 'tests/**/*.js'];
+var paths = ['gulpfile.js', 'index.js', 'test/**/*.js'];
 
 gulp.task('jscheck', function() {
   gulp.src(paths)
