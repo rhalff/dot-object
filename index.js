@@ -198,7 +198,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
       if (i === (keys.length - 1)) {
-        if (merge && isObject(val)) {
+        if (merge && isObject(val) && isObject(obj[keys[i]])) {
           for (k in val) {
             if (val.hasOwnProperty(k)) {
               obj[keys[i]][k] = val[k];
