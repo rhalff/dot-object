@@ -171,6 +171,27 @@ DotObject.prototype.transfer = function(source, target, obj1, obj2, merge) {
 
 };
 
+/**
+ *
+ * Copy a property from one object to another object.
+ *
+ * If the source path does not exist (undefined)
+ * the property on the other object will not be set.
+ *
+ * @param {String} source
+ * @param {String} target
+ * @param {Object} obj1
+ * @param {Object} obj2
+ * @param {Boolean} merge
+ */
+DotObject.prototype.copy = function(source, target, obj1, obj2, merge) {
+
+  this.set(target, this.pick(source, obj1, false), obj2, merge);
+
+  return obj2;
+
+};
+
 function isObject(val) {
   return Object.prototype.toString.call(val) === '[object Object]';
 }

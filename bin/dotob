@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+// vim: set filetype=javascript:
+'use strict';
+
+var glob = require('glob');
+var fs = require('fs');
+
+/**
+ *
+ *  dotob <pattern> -f require -t dependencies.npm
+ *
+ */
+var dotob = require('../index.js')();
+var program = require('commander');
+var pkg = require('../package.json');
+
+program
+  .version(pkg.version)
+  .usage('[options]')
+  .option('-p, --pattern [pattern]', 'Pattern to match')
+  .option('-f, --from [path]', 'From path')
+  .option('-t, --to [path]', 'To path')
+  .option('-m, --merge', 'Merge into target')
+  .option('-v, --verbose', 'Be verbose')
+  .option('-d, --dry', 'Dry run do not modify files')
+  .parse(process.argv);
+
+function must(program, option) {
+  if(!program.hasOwnProperty(option)) {
+    console.log([
+      'The', option, 'is required'
+    ].join(' '));
+    process.exit(1);
+  }
+}
+
+must(program, 'pattern');
+must(program, 'from');
+must(program, 'to');
+
+var g = glob(program.pattern);
+
+function finish(program, file, orig, json) {
+
+  return function(err) {
+    if (err) {
+      throw err;
+    } else {
+      if (program.verbose) {
+        if (JSON.stringify(orig) !== JSON.stringify(json)) {
+          console.log(file + ': updated.');
+        } else {
+          console.log(file + ': no matches.');
+        }
+      }
+    }
+  };
+}
+
+function processFile(file) {
+
+  fs.readFile(file, 'utf8', function(err, contents) {
+    var json, orig;
+    try {
+      orig = JSON.parse(contents);
+      json = JSON.parse(contents);
+      dotob.move(program.from, program.to, json, program.merge);
+      if(program.dry) {
+        console.log(json);
+        finish(program, file, orig, json)();
+      } else {
+        fs.writeFile(file, JSON.stringify(json, null, 2), finish(
+          program, file, orig, json
+        ));
+      }
+    } catch (e) {
+      console.log(file + ': ', e);
+    }
+  });
+}
+
+g.on('match', function(file) {
+  processFile(file);
+});

@@ -34,5 +34,8 @@
     "transform",
     "dot notation",
     "dot"
-  ]
+  ],
+  "dependencies": {
+    "commander": "^2.5.0"
+  }
 }
