@@ -209,7 +209,6 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   var i;
   var k;
   var keys;
-  var isArray;
 
   // Do not operate if the value is undefined.
   if (typeof val === 'undefined') {
