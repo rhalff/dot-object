@@ -101,7 +101,7 @@ DotObject.prototype.pick = function(path, obj, remove) {
   if (path.indexOf(this.seperator) !== -1) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
-      if (obj && obj.hasOwnProperty(keys[i])) {
+      if (obj && typeof obj === 'object' && keys[i] in obj) {
         if (i === (keys.length - 1)) {
           if (remove) {
             val = obj[keys[i]];

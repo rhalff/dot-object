@@ -78,4 +78,23 @@ describe('DJ value picker:', function() {
 
   });
 
+  it('Should check down the object\'s prototype chain', function() {
+
+    var dj = new DJ();
+
+    var obj = {
+      'some': {
+        'other': 'value'
+      }
+    };
+
+    var objIns = Object.create(obj);    
+
+    objIns.should.have.property('some');
+
+    var val = dj.pick('some.other', objIns);
+    val.should.be.an.Object;
+
+  });
+
 });
