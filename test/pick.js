@@ -1,5 +1,7 @@
 'use strict';
 
+/*jshint -W030 */
+
 require('should');
 var Dot  = require('../index.js');
 
@@ -56,17 +58,19 @@ describe('Pick:', function() {
 
   });
 
-  it('Should return undefined when picking an non-existing dotted value', function() {
+  it('Should return undefined when picking an non-existing dotted value',
+    function() {
 
-    var obj = {
-      'some': null
-    };
+      var obj = {
+        'some': null
+      };
 
-    var val = Dot.pick('some.other', obj);
+      var val = Dot.pick('some.other', obj);
 
-    (val === undefined).should.be.true;
+      (val === undefined).should.be.true;
 
-  });
+    }
+  );
 
   it('Should check down the object\'s prototype chain', function() {
 

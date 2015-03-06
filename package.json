@@ -15,18 +15,19 @@
   },
   "main": "index",
   "scripts": {
-    "test": "gulp test"
+    "test": "jshint index.js && jshint test/*.js && gulp test"
   },
   "devDependencies": {
-    "underscore.string": "latest",
-    "mocha": "1.x.x",
-    "should": "1.x.x",
-    "gulp-jshint": "^1.9.0",
-    "gulp-mocha": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-jscs": "^1.3.0",
+    "gulp-jshint": "^1.9.0",
+    "gulp-mocha": "^1.1.1",
     "jscs": "^1.7.3",
-    "jscs-jsdoc": "0.0.23"
+    "jscs-jsdoc": "0.0.23",
+    "jshint": "^2.6.3",
+    "mocha": "1.x.x",
+    "should": "1.x.x",
+    "underscore.string": "latest"
   },
   "keywords": [
     "json",
