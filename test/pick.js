@@ -1,20 +1,18 @@
 'use strict';
 
 require('should');
-var DJ = require('../index.js');
+var Dot  = require('../index.js');
 
-describe('DJ value picker:', function() {
+describe('Pick:', function() {
 
   it('Should be able to pick a value', function() {
-
-    var dj = new DJ('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    var val = dj.pick('some', obj);
+    var val = Dot.pick('some', obj);
 
     val.should.eql('value');
 
@@ -22,15 +20,13 @@ describe('DJ value picker:', function() {
 
   it('Should be able to pick dotted value', function() {
 
-    var dj = new DJ();
-
     var obj = {
       'some': {
         'other': 'value'
       }
     };
 
-    var val = dj.pick('some.other', obj);
+    var val = Dot.pick('some.other', obj);
 
     val.should.eql('value');
 
@@ -38,13 +34,11 @@ describe('DJ value picker:', function() {
 
   it('Should be able to pick null properties', function() {
 
-    var dj = new DJ();
-
     var obj = {
       'some': null
     };
 
-    var val = dj.pick('some', obj);
+    var val = Dot.pick('some', obj);
 
     (val === null).should.be.true;
 
@@ -52,13 +46,11 @@ describe('DJ value picker:', function() {
 
   it('Should return undefined when picking an non-existing value', function() {
 
-    var dj = new DJ();
-
     var obj = {
       'some': null
     };
 
-    var val = dj.pick('other', obj);
+    var val = Dot.pick('other', obj);
 
     (val === undefined).should.be.true;
 
@@ -66,13 +58,11 @@ describe('DJ value picker:', function() {
 
   it('Should return undefined when picking an non-existing dotted value', function() {
 
-    var dj = new DJ();
-
     var obj = {
       'some': null
     };
 
-    var val = dj.pick('some.other', obj);
+    var val = Dot.pick('some.other', obj);
 
     (val === undefined).should.be.true;
 
@@ -80,19 +70,17 @@ describe('DJ value picker:', function() {
 
   it('Should check down the object\'s prototype chain', function() {
 
-    var dj = new DJ();
-
     var obj = {
       'some': {
         'other': 'value'
       }
     };
 
-    var objIns = Object.create(obj);    
+    var objIns = Object.create(obj);
 
     objIns.should.have.property('some');
 
-    var val = dj.pick('some.other', objIns);
+    var val = Dot.pick('some.other', objIns);
     val.should.be.an.Object;
 
   });

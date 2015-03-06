@@ -2,20 +2,20 @@
 
 require('should');
 var _s = require('underscore.string');
-var DJ = require('../index.js');
+var Dot = require('../index.js');
 
-describe('DJ test:', function() {
+describe('Override test:', function() {
 
   it('Redefinition should _not_ fail if override is true', function() {
 
-    var dj = new DJ('.', true);
+    var dot = new Dot('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    dj.str('already.new', 'value', obj);
+    dot.str('already.new', 'value', obj);
 
     obj.should.eql({
       'some': 'value',
@@ -24,17 +24,17 @@ describe('DJ test:', function() {
 
   });
 
-  it('Redefinition should _not_ fail if override is true', function() {
+  it('Redefinition should _not_ fail if override is true (2)', function() {
 
-    var dj = new DJ('.', true);
+    var dot = new Dot('.', true);
 
     var obj = {
       'some': 'value',
       'already': 'set'
     };
 
-    dj.str('already.new', 'value', obj);
-    dj.str('some', 'new_value', obj);
+    dot.str('already.new', 'value', obj);
+    dot.str('some', 'new_value', obj);
 
     obj.should.eql({
       'some': 'new_value',
@@ -46,7 +46,7 @@ describe('DJ test:', function() {
   it('should process non dot notation value with modifier if override is true',
     function() {
 
-      var dj = new DJ('.', true);
+      var dot = new Dot('.', true);
 
       var row = {
         'title': 'my page',
@@ -58,7 +58,7 @@ describe('DJ test:', function() {
         'slug': _s.slugify
       };
 
-      dj.object(row, mods);
+      dot.object(row, mods);
 
       row.should.eql({
         'title': 'My Page',

@@ -2,13 +2,11 @@
 
 require('should');
 var _s = require('underscore.string');
-var DJ = require('../index.js');
+var Dot = require('../index.js');
 
-describe('Dot Object test:', function() {
+describe('Object test:', function() {
 
-  it('Should Dot object keys', function() {
-
-    var dj = new DJ();
+  it('Should expand dotted keys', function() {
 
     var row = {
       'id': 2,
@@ -18,7 +16,7 @@ describe('Dot Object test:', function() {
       'contact.info.about.me': 'classified'
     };
 
-    dj.object(row);
+    Dot.object(row);
 
     row.should.eql({
       'id': 2,
@@ -38,15 +36,13 @@ describe('Dot Object test:', function() {
 
   });
 
-  it('Should Dot Object a string', function() {
+  it('Should expand dotted string', function() {
 
-    var obj = {};
+    var tgt = {};
 
-    var dj = new DJ();
+    Dot.str('this.is.my.string', 'value', tgt);
 
-    dj.str('this.is.my.string', 'value', obj);
-
-    obj.should.eql({
+    tgt.should.eql({
       'this': {
         'is': {
           'my': {
@@ -58,31 +54,27 @@ describe('Dot Object test:', function() {
 
   });
 
-  it('DJ.str Redefinition should fail', function() {
+  it('Dot.str Redefinition should fail', function() {
 
-    var obj = {
+    var tgt = {
       'already': 'set'
     };
 
     (function() {
 
-      var dj = new DJ();
-
-      dj.str('already.new', 'value', obj);
+      Dot.str('already.new', 'value', tgt);
 
     }).should.throw('Trying to redefine `already` which is a string');
 
   });
 
-  it('DJ.str should process a modifier', function() {
+  it('Dot.str should process a modifier', function() {
 
-    var obj = {};
+    var tgt = {};
 
-    var dj = new DJ();
+    Dot.str('this.is.my.string', 'value', tgt, _s.capitalize);
 
-    dj.str('this.is.my.string', 'value', obj, _s.capitalize);
-
-    obj.should.eql({
+    tgt.should.eql({
       'this': {
         'is': {
           'my': {
@@ -94,19 +86,17 @@ describe('Dot Object test:', function() {
 
   });
 
-  it('DOT.str should process multiple modifiers', function() {
+  it('Dot.str should process multiple modifiers', function() {
 
-    var obj = {};
+    var tgt = {};
 
-    var dj = new DJ();
-
-    dj.str(
+    Dot.str(
       'this.is.my.string',
       '  this is a test   ',
-      obj, [_s.trim, _s.underscored]
+      tgt, [_s.trim, _s.underscored]
     );
 
-    obj.should.eql({
+    tgt.should.eql({
       'this': {
         'is': {
           'my': {
@@ -118,7 +108,7 @@ describe('Dot Object test:', function() {
 
   });
 
-  it('DJ.object should process a modifier', function() {
+  it('Dot.object should process a modifier', function() {
 
     var row = {
       'page.title': 'my page',
@@ -130,9 +120,7 @@ describe('Dot Object test:', function() {
       'page.slug': _s.slugify
     };
 
-    var dj = new DJ();
-
-    dj.object(row, mods);
+    Dot.object(row, mods);
 
     row.should.eql({'page': {'title': 'My Page', 'slug': 'my-page'}});
 
@@ -145,35 +133,33 @@ describe('Dot Object test:', function() {
 
       var mods = {'title': _s.titleize, 'slug': _s.slugify};
 
-      var dj = new DJ();
-      dj.object(row, mods);
+      Dot.object(row, mods);
 
       row.should.eql({'title': 'my page', 'slug': 'My Page'});
 
     }
   );
 
-  it('DJ.object should process multiple modifiers', function() {
+  it('Dot.object should process multiple modifiers', function() {
 
     var row = {'page.name': '    My Page    '};
 
     var mods = {'page.name': [_s.trim, _s.underscored]};
 
-    var dj = new DJ();
-    dj.object(row, mods);
+    Dot.object(row, mods);
 
     row.should.eql({'page': {'name': 'my_page'}});
 
   });
 
-  it('DJ.object should work with a different seperator', function() {
+  it('Dot.object should work with a different seperator', function() {
 
     var row = {'page=>name': '    My Page    '};
 
     var mods = {'page=>name': [_s.trim, _s.underscored]};
 
-    var dj = new DJ('=>', false);
-    dj.object(row, mods);
+    var dot = new Dot('=>', false);
+    dot.object(row, mods);
 
     row.should.eql({'page': {'name': 'my_page'}});
 

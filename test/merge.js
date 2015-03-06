@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-var dj = require('../index.js')();
+var Dot = require('../index.js');
 
 describe('Should be able to merge:', function() {
 
@@ -27,7 +27,7 @@ describe('Should be able to merge:', function() {
       }
     };
 
-    dj.move('other',  'things', link, true);
+    Dot.move('other',  'things', link, true);
 
     link.should.eql(expected);
 
@@ -61,7 +61,7 @@ describe('Should be able to merge:', function() {
       }
     };
 
-    dj.move('other',  'things.target', link, true);
+    Dot.move('other',  'things.target', link, true);
 
     link.should.eql(expected);
 
@@ -95,7 +95,7 @@ describe('Should be able to merge:', function() {
       }
     };
 
-    dj.move('other',  'things.target', link, true);
+    Dot.move('other',  'things.target', link, true);
 
     link.should.eql(expected);
 

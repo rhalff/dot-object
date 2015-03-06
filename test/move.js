@@ -1,9 +1,9 @@
 'use strict';
 
 require('should');
-var dj = require('../index.js')();
+var Dot = require('../index.js');
 
-describe('DJ value picker:', function() {
+describe('Move test:', function() {
 
   it('Should be able to move properties', function() {
 
@@ -21,10 +21,10 @@ describe('DJ value picker:', function() {
      target: {id: '527402d6b15d1800008755cf', port: 'in'}
     };
 
-    dj.move('source', 'source.id', link);
-    dj.move('out',  'source.port', link);
-    dj.move('target', 'target.id', link);
-    dj.move('in',   'target.port', link);
+    Dot.move('source', 'source.id', link);
+    Dot.move('out',  'source.port', link);
+    Dot.move('target', 'target.id', link);
+    Dot.move('in',   'target.port', link);
 
     link.should.eql(expected);
 
@@ -45,10 +45,10 @@ describe('DJ value picker:', function() {
      out: 'github'
     };
 
-    dj.move('source', 'source.id', link);
-    dj.move('out.er.nope',  'source.port', link);
-    dj.move('target.bla.di.bla', 'target.id', link);
-    dj.move('in',   'target.port', link);
+    Dot.move('source', 'source.id', link);
+    Dot.move('out.er.nope',  'source.port', link);
+    Dot.move('target.bla.di.bla', 'target.id', link);
+    Dot.move('in',   'target.port', link);
 
     link.should.eql(expected);
 
