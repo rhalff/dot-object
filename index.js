@@ -12,6 +12,13 @@ function DotObject(seperator, override) {
   this.override = override;
 }
 
+var dotDefault = new DotObject('.', false);
+function wrap(method) {
+  return function() {
+    return dotDefault[method].apply(dotDefault, arguments);
+  };
+}
+
 DotObject.prototype._fill = function(a, obj, v, mod) {
   var k = a.shift();
 
@@ -257,5 +264,13 @@ DotObject.prototype.set = function(path, val, obj, merge) {
     return obj;
   }
 };
+
+DotObject.pick = wrap('pick');
+DotObject.move = wrap('move');
+DotObject.transfer = wrap('transfer');
+DotObject.copy = wrap('copy');
+DotObject.object = wrap('object');
+DotObject.str = wrap('str');
+DotObject.set = wrap('set');
 
 module.exports = DotObject;
