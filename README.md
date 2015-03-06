@@ -8,17 +8,15 @@ Dot-Object makes it possible to transform javascript objects using dot notation.
 
 #### Move a property within one object to another location
 ```javascript
-var DJ = require('dot-object');
-
-var dj = new DJ();
+var dot = require('dot-object');
 
 var obj = {
   'first_name': 'John',
   'last_name': 'Doe'
 };
 
-dj.move('first_name', 'contact.firstname', obj);
-dj.move('last_name', 'contact.lastname', obj);
+dot.move('first_name', 'contact.firstname', obj);
+dot.move('last_name', 'contact.lastname', obj);
 
 console.log(obj);
 
@@ -31,12 +29,56 @@ console.log(obj);
 
 ```
 
+#### Copy property from one object to another
+```javascript
+var dot = require('dot-object');
+
+var src = {
+  name: 'John',
+  stuff: {
+    phone: {
+      brand: 'iphone',
+      version: 6
+    }
+  }
+};
+
+var tgt = {name: 'Brandon'};
+
+dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt);
+
+console.log(tgt);
+
+{
+  name: 'Brandon',
+  wanna: {
+    haves: {
+      phone: {
+        brand: 'iphone',
+        version: 6
+      }
+    }
+  }
+}
+
+```
+
+#### Transfer property from one object to another
+
+Does the same as copy but removes the value from the source object:
+
+```javascript
+dot.transfer('stuff.phone', 'wanna.haves.phone', src, tgt);
+
+// src: {"name":"John","stuff":{}}
+// tgt: {"name":"Brandon","wanna":{"haves":{"phone":{"brand":"iphone","version":6}}}
+```
+
+
 #### Transform an object
 
 ```javascript
-var DJ = require('dot-object');
-
-var dj = new DJ();
+var dot = require('dot-object');
 
 var row = {
   'id': 2,
@@ -46,7 +88,7 @@ var row = {
   'contact.info.about.me': 'classified'
 };
 
-dj.object(row);
+dot.object(row);
 
 console.log(row);
 
@@ -69,14 +111,12 @@ console.log(row);
 
 To convert manually per string use:
 ```javascript
-var DJ = require('dot-object');
+var dot = require('dot-object');
 
-var dj = new DJ();
+var tgt = { val: 'test' };
+dot.str('this.is.my.string', 'value', tgt);
 
-var obj = { val: 'test' };
-dj.str('this.is.my.string', 'value', obj);
-
-console.log(obj);
+console.log(tgt);
 
 {
   "val": "test",
@@ -92,6 +132,8 @@ console.log(obj);
 
 #### Pick a value using dot notation:
 ```
+var dot = require('dot-object');
+
 var obj = {
  some: {
    nested: {
@@ -100,7 +142,7 @@ var obj = {
  }
 };
 
-var val = dj.pick('some.nested.key', obj);
+var val = dot.pick('some.nested.key', obj);
 console.log(val);
 
 Hi there!
@@ -115,9 +157,7 @@ This example uses the [underscore.string](https://github.com/epeli/underscore.st
 
 
 ```javascript
-var DJ = require('dot-object');
-
-var dj = new DJ();
+var dot = require('dot-object');
 
 var _s = require('underscore.string');
 
@@ -130,7 +170,7 @@ var mods = {
   "doc.name": [_s.trim, _s.underscored],
 };
 
-dj.object(row, mods);
+dot.object(row, mods);
 
 console.log(row);
 ```
@@ -148,17 +188,15 @@ Or using .str() directy:
 
 ```javascript
 
-var DJ = require('dot-object');
+var dot = require('dot-object');
 var _s = require('underscore.string');
 var obj = { id: 100 };
 
-var dj = new DJ();
-
 // use one modifier
-dj.str('my.title', 'this is my title', obj, _s.slugify);
+dot.str('my.title', 'this is my title', obj, _s.slugify);
 
 // multiple modifiers
-dj.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
+dot.str('my.title', '   this is my title  ', obj, [_s.trim, _s.slugify]);
 
 console.log(obj);
 ```
@@ -177,9 +215,9 @@ Result:
 If you do not like dot notation, you are free to specify a different seperator.
 
 ```javascript
-var DJ = require('dot-object');
+var Dot = require('dot-object');
 
-var dj = new DJ('->');
+var dot = new Dot('->');
 
 var _s = require('underscore.string');
 
@@ -192,7 +230,7 @@ var mods = {
   "doc->name": [_s.trim, _s.underscored],
 };
 
-dj.object(row, mods);
+dot.object(row, mods);
 
 console.log(row);
 ```
