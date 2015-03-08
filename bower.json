@@ -1,0 +1,35 @@
+{
+  "name": "dot-object",
+  "description": "dot-object makes it possible to transform and read (JSON) objects using dot notation.",
+  "main": "index.js",
+  "authors": [
+    { "name": "Rob Halff", "email": "rob.halff@gmail.com" }
+  ],
+  "ignore": [
+    ".*",
+    "!index.js",
+    "!MIT-LICENSE",
+    "!CHANGELOG.md",
+    "!README.md"
+  ],
+  "keywords": [
+    "json",
+    "filter",
+    "transform",
+    "dot",
+    "notation",
+    "dot"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rhalff/dot-object.git"
+  },
+  "version": "0.8.0",
+  "homepage": "https://github.com/rhalff/dot-object",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ]
+}
