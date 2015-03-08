@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 2015-03-09, Version 0.8.1
+
+* [[`679f87590f`](https://github.com/rhalff/dot-object/commit/679f87590f)] - add to bower
+* [[`9a026982d8`](https://github.com/rhalff/dot-object/commit/9a026982d8)] - consider amd or attaching to window
+
 ## 2015-03-06, Version 0.8.0
 
 * [[`5ce0fe8836`](https://github.com/rhalff/dot-object/commit/5ce0fe8836)] - Simplify API
