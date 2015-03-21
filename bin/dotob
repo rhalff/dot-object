@@ -17,7 +17,7 @@ var pkg = require('../package.json');
 program
   .version(pkg.version)
   .usage('[options]')
-  .option('-p, --pattern [pattern]', 'File pattern to match or just the file')
+  .option('-p, --pattern [pattern]', 'Files pattern to match or just the file')
   .option('-f, --from [path,..]', 'From path')
   .option('-t, --to [path,..]', 'To path (number of replacements must match --to values)')
   .option('-m, --merge', 'Merge into target')
