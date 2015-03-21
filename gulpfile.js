@@ -4,20 +4,23 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
+var hf = require('gulp-headerfooter');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
+var beautify = require('gulp-beautify');
 
-var paths = ['gulpfile.js', 'index.js', 'test/**/*.js'];
+var DEST = 'dist/';
+
+var paths = ['gulpfile.js', 'src/dot-object.js', 'test/**/*.js'];
 
 gulp.task('jscheck', function() {
   gulp.src(paths)
+    .pipe(jshint())
     .pipe(jscs())
-    .pipe(jshint({
-        maxlen: 80,
-        quotmark: 'single'
-      }))
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('test', function() {
+gulp.task('mocha', function() {
   gulp.src(['test/**/*.js'])
     .pipe(mocha());
 });
@@ -26,4 +29,24 @@ gulp.task('watch', function() {
   gulp.watch(paths, ['default']);
 });
 
-gulp.task('default', ['jscheck', 'test']);
+gulp.task('build-node', function() {
+  gulp.src('src/dot-object.js')
+    .pipe(hf.footer('\nmodule.exports = DotObject;\n'))
+    .pipe(rename({basename: 'index'}))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('dist', function() {
+  gulp.src('src/dot-object.js')
+    .pipe(hf.header('src/header.tpl'))
+    .pipe(hf.footer('src/footer.tpl'))
+    .pipe(beautify({indentSize: 2}))
+    .pipe(gulp.dest(DEST))
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest(DEST));
+});
+
+gulp.task('test', ['jscheck', 'build-node', 'mocha']);
+
+gulp.task('default', ['test']);
