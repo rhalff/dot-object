@@ -51,7 +51,7 @@ function finish(program, file, orig, json) {
       throw err;
     } else {
       if (program.verbose) {
-        if (JSON.stringify(orig) !== JSON.stringify(json)) {
+        if (orig !== JSON.stringify(json)) {
           console.log(file + ': updated.');
         } else {
           console.log(file + ': no matches.');
@@ -69,9 +69,8 @@ function splim(path) {
 function processFile(file) {
 
   fs.readFile(file, 'utf8', function(err, contents) {
-    var json, orig;
+    var json;
     try {
-      orig = JSON.parse(contents);
       json = JSON.parse(contents);
 
       if(program.remove) {
@@ -93,10 +92,10 @@ function processFile(file) {
       }
       if(program.dry) {
         console.log(json);
-        finish(program, file, orig, json)();
+        finish(program, file, contents, json)();
       } else {
         fs.writeFile(file, JSON.stringify(json, null, 2), finish(
-          program, file, orig, json
+          program, file, contents, json
         ));
       }
     } catch (e) {
