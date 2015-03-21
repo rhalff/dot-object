@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-var Dot = require('../index.js');
+var Dot = require('../index');
 
 describe('Should be able to merge:', function() {
 

@@ -2,7 +2,7 @@
 
 require('should');
 var _s = require('underscore.string');
-var Dot = require('../index.js');
+var Dot = require('../index');
 
 describe('Override test:', function() {
 

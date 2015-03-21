@@ -3,7 +3,7 @@
 /*jshint -W030 */
 
 require('should');
-var Dot  = require('../index.js');
+var Dot  = require('../index');
 
 describe('Pick:', function() {
 

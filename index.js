@@ -138,6 +138,21 @@
       }
     }
   };
+  
+  /**
+   *
+   * Remove value from an object using dot notation.
+   *
+   * @param {String} path
+   * @param {Object} obj
+   * @return The removed value
+   */
+  DotObject.prototype.remove = function(path, obj) {
+    return this.pick(path, obj, true);
+  };
+ 
+  // alias method
+  DotObject.prototype.del = DotObject.prototype.remove;
 
   /**
    *
@@ -275,6 +290,7 @@
   DotObject.object = wrap('object');
   DotObject.str = wrap('str');
   DotObject.set = wrap('set');
+  DotObject.del = DotObject.remove = wrap('remove');
 
   if (typeof define === 'function' && define.amd) {
     define(function() {
