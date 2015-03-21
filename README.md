@@ -5,6 +5,25 @@ Dot-Object
 
 Dot-Object makes it possible to transform javascript objects using dot notation.
 
+### Installation
+
+Install from npm:
+```
+  npm install dot-object --save
+```
+
+Install from bower:
+
+```
+  bower install dot-object --save
+```
+
+### Download
+
+  * [Development version](https://raw.github.com/rhalff/dot-object/master/dist/dot-object.js) *Uncompressed with Comments*
+  * [Production version](https://github.com/rhalff/dot-object/raw/master/dist/dot-object.min.js) *Minified*
+
+## Usage
 
 #### Move a property within one object to another location
 ```javascript
@@ -130,7 +149,7 @@ console.log(tgt);
 }
 ```
 
-#### Pick a value using dot notation:
+#### Pick/remove a value using dot notation:
 ```
 var dot = require('dot-object');
 
@@ -142,10 +161,20 @@ var obj = {
  }
 };
 
-var val = dot.pick('some.nested.key', obj);
+var val = dot.pick('some.nested.value', obj);
 console.log(val);
 
 Hi there!
+
+// Pick & Remove the value
+val = dot.pick('some.nested.value', obj, true);
+
+// shorthand
+val = dot.remove('some.nested.value', obj);
+
+// or use the alias `del`
+val = dot.del('some.nested.value', obj);
+
 ```
 
 ### Using modifiers
