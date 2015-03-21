@@ -106,6 +106,4 @@ function processFile(file) {
   });
 }
 
-g.on('match', function(file) {
-  processFile(file);
-});
+g.on('match', processFile);
