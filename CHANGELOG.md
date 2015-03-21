@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 2015-03-09, Version 0.9.0
+* support multiple replacements/deletions (cli)
+* add del/remove method
+* improve bower build
+
 ## 2015-03-09, Version 0.8.1
 
 * [[`679f87590f`](https://github.com/rhalff/dot-object/commit/679f87590f)] - add to bower
