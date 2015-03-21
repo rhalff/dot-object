@@ -72,24 +72,32 @@ function processFile(file) {
     var json;
     try {
       json = JSON.parse(contents);
+      json = Array.isArray(json) ? json : [json];
 
       if(program.remove) {
         // support comma seperate list of removals
         splim(program.remove)
           .forEach(function(path) {
-            dotob.remove(path, json);
+            for (var j = 0; j < json.length; j++) {
+              dotob.remove(path, json[j]);
+            }
           });
       } else {
         var from = splim(program.from);
         var to = splim(program.to);
         if (from.length === to.length) {
           for (var i = 0; i < from.length; i++) {
-            dotob.move(from[i], to[i], json, program.merge);
+            for (var j = 0; j < json.length; j++) {
+              dotob.move(
+                from[i], to[i], json[j], program.merge
+              );
+            }
           }
         } else {
           console.error('--from and --to parameters are not of equal length');
         }
       }
+
       if(program.dry) {
         console.log(json);
         finish(program, file, contents, json)();
