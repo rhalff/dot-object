@@ -18,10 +18,10 @@ program
   .version(pkg.version)
   .usage('[options]')
   .option('-p, --pattern [pattern]', 'File pattern to match or just the file')
-  .option('-f, --from [path]', 'From path')
-  .option('-t, --to [path]', 'To path')
-  .option('-r, --remove [path]', 'Remove property (comma seperated for multiple deletions)')
+  .option('-f, --from [path,..]', 'From path')
+  .option('-t, --to [path,..]', 'To path (number of replacements must match --to values)')
   .option('-m, --merge', 'Merge into target')
+  .option('-r, --remove [path,..]', 'Remove property)')
   .option('-v, --verbose', 'Be verbose')
   .option('-d, --dry', 'Dry run do not modify files')
   .parse(process.argv);
