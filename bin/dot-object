@@ -70,6 +70,12 @@ function processFile(file) {
 
   fs.readFile(file, 'utf8', function(err, contents) {
     var json;
+
+    if (err) {
+      console.log(err);
+      return;
+    }
+
     try {
       json = JSON.parse(contents);
       json = Array.isArray(json) ? json : [json];
