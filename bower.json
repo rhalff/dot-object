@@ -6,11 +6,11 @@
     { "name": "Rob Halff", "email": "rob.halff@gmail.com" }
   ],
   "ignore": [
-    ".*",
-    "!index.js",
-    "!MIT-LICENSE",
-    "!CHANGELOG.md",
-    "!README.md"
+    "bin",
+    "node_modules",
+    "src",
+    "gulpfile.js",
+    "index.js"
   ],
   "keywords": [
     "json",
