@@ -10,16 +10,17 @@ var fs = require('fs');
  *  dotob <pattern> -f require -t dependencies.npm
  *
  */
-var dotob = require('../index.js')();
+var dotob = require('../index.js');
 var program = require('commander');
 var pkg = require('../package.json');
 
 program
   .version(pkg.version)
   .usage('[options]')
-  .option('-p, --pattern [pattern]', 'Pattern to match')
+  .option('-p, --pattern [pattern]', 'File pattern to match or just the file')
   .option('-f, --from [path]', 'From path')
   .option('-t, --to [path]', 'To path')
+  .option('-r, --remove [path]', 'Remove property (comma seperated for multiple deletions)')
   .option('-m, --merge', 'Merge into target')
   .option('-v, --verbose', 'Be verbose')
   .option('-d, --dry', 'Dry run do not modify files')
@@ -35,8 +36,11 @@ function must(program, option) {
 }
 
 must(program, 'pattern');
-must(program, 'from');
-must(program, 'to');
+
+if (!program.remove) {
+  must(program, 'from');
+  must(program, 'to');
+}
 
 var g = glob(program.pattern);
 
@@ -64,7 +68,18 @@ function processFile(file) {
     try {
       orig = JSON.parse(contents);
       json = JSON.parse(contents);
-      dotob.move(program.from, program.to, json, program.merge);
+
+      if(program.remove) {
+        // support comma seperate list of removals
+        program.remove
+          .split(',')
+          .map(function(val) { return val.trim();  })
+          .forEach(function(path) {
+            dotob.remove(path, json);
+          });
+      } else {
+        dotob.move(program.from, program.to, json, program.merge);
+      }
       if(program.dry) {
         console.log(json);
         finish(program, file, orig, json)();
@@ -74,7 +89,8 @@ function processFile(file) {
         ));
       }
     } catch (e) {
-      console.log(file + ': ', e);
+      console.log(file + ': ');
+      throw(e);
     }
   });
 }
