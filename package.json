@@ -40,6 +40,7 @@
     "dot"
   ],
   "dependencies": {
-    "commander": "^2.5.0"
+    "commander": "^2.5.0",
+    "glob": "^5.0.3"
   }
 }
