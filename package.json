@@ -14,7 +14,7 @@
     "url": "https://github.com/rhalff/dot-object/issues"
   },
   "main": "index",
-  "bin": "./bin/dotob",
+  "bin": "./bin/dot-object",
   "scripts": {
     "test": "gulp test"
   },
