@@ -61,6 +61,11 @@ function finish(program, file, orig, json) {
   };
 }
 
+function splim(path) {
+  return path.split(',')
+    .map(function(val) { return val.trim();  });
+}
+
 function processFile(file) {
 
   fs.readFile(file, 'utf8', function(err, contents) {
@@ -71,14 +76,20 @@ function processFile(file) {
 
       if(program.remove) {
         // support comma seperate list of removals
-        program.remove
-          .split(',')
-          .map(function(val) { return val.trim();  })
+        splim(program.remove)
           .forEach(function(path) {
             dotob.remove(path, json);
           });
       } else {
-        dotob.move(program.from, program.to, json, program.merge);
+        var from = splim(program.from);
+        var to = splim(program.to);
+        if (from.length === to.length) {
+          for (var i = 0; i < from.length; i++) {
+            dotob.move(from[i], to[i], json, program.merge);
+          }
+        } else {
+          console.error('--from and --to parameters are not of equal length');
+        }
       }
       if(program.dry) {
         console.log(json);
