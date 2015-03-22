@@ -1,6 +1,27 @@
 (function (global, exportName) {
   'use strict';
 
+  function _process(v, mod) {
+    var i;
+    var r;
+
+    if (typeof mod === 'function') {
+      r = mod(v);
+      if (r !== undefined) {
+        v = r;
+      }
+    } else if (Array.isArray(mod)) {
+      for (i = 0; i < mod.length; i++) {
+        r = mod[i](v);
+        if (r !== undefined) {
+          v = r;
+        }
+      }
+    }
+
+    return v;
+  }
+
   function DotObject(seperator, override) {
 
     if (!(this instanceof DotObject)) {
@@ -45,22 +66,8 @@
         throw new Error('Trying to redefine non-empty obj[\'' + k + '\']');
       }
 
-      obj[k] = this.process(v, mod);
+      obj[k] = _process(v, mod);
     }
-  };
-
-  DotObject.prototype.process = function (v, mod) {
-    var i;
-
-    if (typeof mod === 'function') {
-      v = mod(v);
-    } else if (mod instanceof Array) {
-      for (i = 0; i < mod.length; i++) {
-        v = mod[i](v);
-      }
-    }
-
-    return v;
   };
 
   DotObject.prototype.object = function (obj, mods) {
@@ -73,7 +80,7 @@
         self._fill(k.split(self.seperator), obj, obj[k], mod);
         delete obj[k];
       } else if (self.override) {
-        obj[k] = self.process(obj[k], mod);
+        obj[k] = _process(obj[k], mod);
       }
     });
   };
@@ -90,7 +97,7 @@
     if (str.indexOf(this.seperator) !== -1) {
       this._fill(str.split(this.seperator), obj, v, mod);
     } else if (this.override) {
-      obj[str] = this.process(v, mod);
+      obj[str] = _process(v, mod);
     }
   };
 
@@ -165,12 +172,18 @@
    * @param {String} source
    * @param {String} target
    * @param {Object} obj
+   * @param {Function|Array} mods
    * @param {Boolean} merge
    *
    */
-  DotObject.prototype.move = function (source, target, obj, merge) {
+  DotObject.prototype.move = function (source, target, obj, mods, merge) {
 
-    this.set(target, this.pick(source, obj, true), obj, merge);
+    if (typeof mods === 'function' || Array.isArray(mods)) {
+      this.set(target, _process(this.pick(source, obj, true), mods), obj, merge);
+    } else {
+      merge = mods;
+      this.set(target, this.pick(source, obj, true), obj, merge);
+    }
 
     return obj;
 
@@ -187,14 +200,22 @@
    * @param {String} target
    * @param {Object} obj1
    * @param {Object} obj2
+   * @param {Function|Array} mods
    * @param {Boolean} merge
    */
-  DotObject.prototype.transfer = function (source, target, obj1, obj2, merge) {
+  DotObject.prototype.transfer =
 
-    this.set(target, this.pick(source, obj1, true), obj2, merge);
+  function (source, target, obj1, obj2, mods, merge) {
+
+    if (typeof mods === 'function' || Array.isArray(mods)) {
+      this.set(target, _process(
+      this.pick(source, obj1, true), mods), obj2, merge);
+    } else {
+      merge = mods;
+      this.set(target, this.pick(source, obj1, true), obj2, merge);
+    }
 
     return obj2;
-
   };
 
   /**
@@ -208,11 +229,20 @@
    * @param {String} target
    * @param {Object} obj1
    * @param {Object} obj2
+   * @param {Function|Array} mods
    * @param {Boolean} merge
    */
-  DotObject.prototype.copy = function (source, target, obj1, obj2, merge) {
+  DotObject.prototype.copy = function (source, target, obj1, obj2, mods, merge) {
 
-    this.set(target, this.pick(source, obj1, false), obj2, merge);
+    if (typeof mods === 'function' || Array.isArray(mods)) {
+      this.set(target, _process(
+      JSON.parse( // clone what is picked
+      JSON.stringify(
+      this.pick(source, obj1, false))), mods), obj2, merge);
+    } else {
+      merge = mods;
+      this.set(target, this.pick(source, obj1, false), obj2, merge);
+    }
 
     return obj2;
 
@@ -291,6 +321,8 @@
   DotObject.str = wrap('str');
   DotObject.set = wrap('set');
   DotObject.del = DotObject.remove = wrap('remove');
+
+  DotObject._process = _process;
 
 
   if (typeof define === 'function' && define.amd) {
