@@ -230,7 +230,15 @@ DotObject.prototype.transfer = function(source, target, obj1, obj2, mods, merge)
 DotObject.prototype.copy = function(source, target, obj1, obj2, mods, merge) {
 
   if (typeof mods === 'function' || Array.isArray(mods)) {
-    this.set(target, _process(this.pick(source, obj1, false), mods), obj2, merge);
+    this.set(target,
+      _process(
+        JSON.parse( // clone what is picked
+          JSON.stringify(
+            this.pick(source, obj1, false)
+          )
+        ),
+        mods
+      ), obj2, merge);
   } else {
     merge = mods;
     this.set(target, this.pick(source, obj1, false), obj2, merge);
