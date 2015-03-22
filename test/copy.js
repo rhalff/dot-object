@@ -79,7 +79,7 @@ describe('Copy:', function () {
 
     Dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt, up);
 
-    //src.should.eql(src_expected);
+    src.should.eql(src_expected);
     tgt.should.eql(tgt_expected);
 
   });
