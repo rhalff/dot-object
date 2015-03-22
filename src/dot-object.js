@@ -285,54 +285,39 @@ DotObject.prototype.set = function(path, val, obj, merge) {
     return obj;
   }
 
-  if (path.indexOf(this.seperator) !== -1) {
-    keys = path.split(this.seperator);
-    for (i = 0; i < keys.length; i++) {
-      key = keys[i];
-      if (i === (keys.length - 1)) {
-        if (merge && isObject(val) && isObject(obj[key])) {
-          for (k in val) {
-            if (val.hasOwnProperty(k)) {
-              obj[key][k] = val[k];
-            }
+  keys = path.split(this.seperator);
+  for (i = 0; i < keys.length; i++) {
+    key = keys[i];
+    if (i === (keys.length - 1)) {
+      if (merge && isObject(val) && isObject(obj[key])) {
+        for (k in val) {
+          if (val.hasOwnProperty(k)) {
+            obj[key][k] = val[k];
           }
+        }
 
-        } else if (Array.isArray(obj[key]) && Array.isArray(val)) {
-          for (var j = 0; j < val.length; j++) {
-            obj[key].push(val[j]);
-          }
-        } else {
-          obj[key] = val;
+      } else if (Array.isArray(obj[key]) && Array.isArray(val)) {
+        for (var j = 0; j < val.length; j++) {
+          obj[key].push(val[j]);
         }
-      } else if (
-        // force the value to be an object
-        !obj.hasOwnProperty(key) ||
-        (!isObject(obj[key]) && !Array.isArray(obj[key]))
-        ) {
-          // initialize as array if next key is numeric
-        if (/^\d+$/.test(keys[i+1])) {
-          obj[key] = [];
-        } else {
-          obj[key] = {};
-        }
+      } else {
+        obj[key] = val;
       }
-      obj = obj[key];
-    }
-    return obj;
-  } else {
-    if (merge && isObject(val)) {
-      for (k in val) {
-        if (val.hasOwnProperty(k)) {
-          obj[path][k] = val[k];
-        }
+    } else if (
+      // force the value to be an object
+      !obj.hasOwnProperty(key) ||
+      (!isObject(obj[key]) && !Array.isArray(obj[key]))
+      ) {
+        // initialize as array if next key is numeric
+      if (/^\d+$/.test(keys[i+1])) {
+        obj[key] = [];
+      } else {
+        obj[key] = {};
       }
-    } else if (Array.isArray(obj[path]) && Array.isArray(val)) {
-      obj[path].push(val);
-    } else {
-      obj[path] = val;
     }
-    return obj;
+    obj = obj[key];
   }
+  return obj;
 };
 
 DotObject.pick = wrap('pick');
