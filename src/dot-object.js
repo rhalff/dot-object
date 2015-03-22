@@ -2,12 +2,19 @@
 
 function _process(v, mod) {
   var i;
+  var r;
 
   if (typeof mod === 'function') {
-    v = mod(v);
+    r = mod(v);
+    if (r !== undefined) {
+      v = r;
+    }
   } else if (Array.isArray(mod)) {
     for (i = 0; i < mod.length; i++) {
-      v = mod[i](v);
+      r = mod[i](v);
+      if (r !== undefined) {
+        v = r;
+      }
     }
   }
 
@@ -307,3 +314,5 @@ DotObject.object = wrap('object');
 DotObject.str = wrap('str');
 DotObject.set = wrap('set');
 DotObject.del = DotObject.remove = wrap('remove');
+
+DotObject._process = _process;
