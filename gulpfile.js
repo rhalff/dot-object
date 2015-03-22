@@ -38,7 +38,7 @@ gulp.task('build-node', function() {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('dist', function() {
+gulp.task('build-bower', function() {
   gulp.src('src/dot-object.js')
     .pipe(hf.header('src/header.tpl'))
     .pipe(hf.footer('src/footer.tpl'))
@@ -48,6 +48,8 @@ gulp.task('dist', function() {
     .pipe(rename({extname: '.min.js'}))
     .pipe(gulp.dest(DEST));
 });
+
+gulp.task('dist', ['jshint', 'build-node', 'mocha', 'build-bower']);
 
 gulp.task('test', ['jshint', 'build-node', 'mocha']);
 
