@@ -1,6 +1,10 @@
 # ChangeLog
 
-## 2015-03-09, Version 0.9.0
+## 2015-03-22, Version 0.10.0
+* Make return value optional for Object/Array modifier(s)
+* Add modifier option to move(), transfer() & copy()
+
+## 2015-03-21, Version 0.9.0
 * support multiple replacements/deletions (cli)
 * add del/remove method
 * improve bower build
