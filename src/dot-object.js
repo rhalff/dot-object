@@ -278,6 +278,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   var i;
   var k;
   var keys;
+  var key;
 
   // Do not operate if the value is undefined.
   if (typeof val === 'undefined') {
@@ -287,28 +288,29 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   if (path.indexOf(this.seperator) !== -1) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
+      key = keys[i]
       if (i === (keys.length - 1)) {
-        if (merge && isObject(val) && isObject(obj[keys[i]])) {
+        if (merge && isObject(val) && isObject(obj[key])) {
           for (k in val) {
             if (val.hasOwnProperty(k)) {
-              obj[keys[i]][k] = val[k];
+              obj[key][k] = val[k];
             }
           }
 
-        } else if (Array.isArray(obj[keys[i]]) && Array.isArray(val)) {
+        } else if (Array.isArray(obj[key]) && Array.isArray(val)) {
           for (var j = 0; j < val.length; j++) {
-            obj[keys[i]].push(val[j]);
+            obj[key].push(val[j]);
           }
         } else {
-          obj[keys[i]] = val;
+          obj[key] = val;
         }
       } else if (
         // force the value to be an object
-        !obj.hasOwnProperty(keys[i]) ||
-        !isObject(obj[keys[i]])) {
-        obj[keys[i]] = {};
+        !obj.hasOwnProperty(key) ||
+        !isObject(obj[key])) {
+        obj[key] = {};
       }
-      obj = obj[keys[i]];
+      obj = obj[key];
     }
     return obj;
   } else {
