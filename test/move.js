@@ -53,5 +53,27 @@ describe('Move test:', function() {
     link.should.eql(expected);
 
   });
+  
+   it('Should process modifiers', function() {
+
+    var link = {
+      source: 'one',
+      target: 'two',
+    };
+
+    var expected = {
+     source: {id: 'ONE'},
+     target: {port: 'TWO'},
+    };
+    
+    var up = function(val) { return val.toUpperCase(); }
+
+    Dot.move('source', 'source.id', link, up);
+    Dot.move('target', 'target.port', link, up);
+
+    link.should.eql(expected);
+
+  });
+
 
 });
