@@ -28,7 +28,7 @@ gulp.task('mocha', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths, ['mocha']);
+  gulp.watch(paths, ['build-node', 'mocha']);
 });
 
 gulp.task('build-node', function() {
