@@ -25,6 +25,7 @@ describe('Copy:', function() {
 
     var tgtExpected = {
       name: 'Brandon',
+      copied: 'John',
       wanna: {
         haves: {
           phone: {
@@ -35,7 +36,11 @@ describe('Copy:', function() {
       }
     };
 
+    // copy object
     Dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt);
+
+    // copy string
+    Dot.copy('name', 'copied', src, tgt);
 
     src.should.eql(srcExpected);
     tgt.should.eql(tgtExpected);
