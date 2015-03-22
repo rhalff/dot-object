@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
@@ -22,11 +23,12 @@ gulp.task('jscheck', function() {
 
 gulp.task('mocha', function() {
   gulp.src(['test/**/*.js'])
-    .pipe(mocha());
+    .pipe(mocha())
+     .on('error', gutil.log);
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths, ['default']);
+  gulp.watch(paths, ['mocha']);
 });
 
 gulp.task('build-node', function() {
