@@ -9,7 +9,9 @@
   "node": true,
   "globals": {
     "it": true,
+    "xit": true,
     "describe": true,
+    "xdescribe": true,
     "beforeEach": true
   }
 }
