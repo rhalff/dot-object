@@ -23,7 +23,7 @@ function _process(v, mod) {
 
 function parseKey(key, val) {
   // detect negative index notation
-  if (key[0] === '-' && Array.isArray(val) && /-\d+/.test(key)) {
+  if (key[0] === '-' && Array.isArray(val) && /^-\d+$/.test(key)) {
     return val.length + parseInt(key, 10);
   }
   return key;
@@ -288,7 +288,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   if (path.indexOf(this.seperator) !== -1) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
-      key = keys[i]
+      key = keys[i];
       if (i === (keys.length - 1)) {
         if (merge && isObject(val) && isObject(obj[key])) {
           for (k in val) {
@@ -307,8 +307,14 @@ DotObject.prototype.set = function(path, val, obj, merge) {
       } else if (
         // force the value to be an object
         !obj.hasOwnProperty(key) ||
-        !isObject(obj[key])) {
-        obj[key] = {};
+        (!isObject(obj[key]) && !Array.isArray(obj[key]))
+        ) {
+          // initialize as array if next key is numeric
+        if (/^\d+$/.test(keys[i+1])) {
+          obj[key] = [];
+        } else {
+          obj[key] = {};
+        }
       }
       obj = obj[key];
     }
