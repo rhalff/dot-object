@@ -22,6 +22,14 @@
     return v;
   }
 
+  function parseKey(key, val) {
+    // detect negative index notation
+    if (key[0] === '-' && Array.isArray(val) && /-\d+/.test(key)) {
+      return val.length + parseInt(key, 10);
+    }
+    return key;
+  }
+
   function DotObject(seperator, override) {
 
     if (!(this instanceof DotObject)) {
@@ -115,21 +123,23 @@
     var i;
     var keys;
     var val;
+    var key;
 
     if (path.indexOf(this.seperator) !== -1) {
       keys = path.split(this.seperator);
       for (i = 0; i < keys.length; i++) {
-        if (obj && typeof obj === 'object' && keys[i] in obj) {
+        key = parseKey(keys[i], obj);
+        if (obj && typeof obj === 'object' && key in obj) {
           if (i === (keys.length - 1)) {
             if (remove) {
-              val = obj[keys[i]];
-              delete obj[keys[i]];
+              val = obj[key];
+              delete obj[key];
               return val;
             } else {
-              return obj[keys[i]];
+              return obj[key];
             }
           } else {
-            obj = obj[keys[i]];
+            obj = obj[key];
           }
         } else {
           return undefined;
