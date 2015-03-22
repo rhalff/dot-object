@@ -85,7 +85,7 @@ describe('Pick:', function() {
     objIns.should.have.property('some');
 
     var val = Dot.pick('some.other', objIns);
-    val.should.be.an.Object;
+    val.should.be.a.String;
 
   });
 
