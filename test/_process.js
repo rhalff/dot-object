@@ -85,6 +85,54 @@ describe('_process:', function () {
 
     });
 
+    describe('if value is an array', function () {
+
+      function withReturn(val) {
+        val.push('return');
+        return val;
+      }
+
+      function noReturn(val) {
+        val.push('no return');
+      }
+
+      it('using a single modifier *with* return', function () {
+        var a = [1];
+
+        var expected = [1, 'return'];
+
+        var ret = Dot._process(a, withReturn);
+        a.should.eql(expected);
+        ret.should.eql(expected);
+
+      });
+
+      it('using a single modifier *without* return', function () {
+        var a = [1];
+
+        var expected = [1, 'no return'];
+
+        var ret = Dot._process(a, noReturn);
+        a.should.eql(expected);
+        ret.should.eql(expected);
+      });
+
+      it('using an array of modifiers *with* return and *without* return', function () {
+
+        var a = [1];
+
+        var expected = [1, 'return', 'no return'];
+
+        var ret = Dot._process(a, [withReturn, noReturn]);
+
+        a.should.eql(expected);
+        ret.should.eql(expected);
+
+      });
+
+    });
+
+
   });
 
 });
