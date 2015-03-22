@@ -181,7 +181,6 @@ DotObject.prototype.move = function(source, target, obj, mods, merge) {
     this.set(target, this.pick(source, obj, true), obj, merge);
   }
 
-
   return obj;
 
 };
@@ -200,18 +199,22 @@ DotObject.prototype.move = function(source, target, obj, mods, merge) {
  * @param {Function|Array} mods
  * @param {Boolean} merge
  */
-DotObject.prototype.transfer = function(source, target, obj1, obj2, mods, merge) {
+DotObject.prototype.transfer =
+  function(source, target, obj1, obj2, mods, merge) {
 
-  if (typeof mods === 'function' || Array.isArray(mods)) {
-    this.set(target, _process(this.pick(source, obj1, true), mods), obj2, merge);
-  } else {
-    merge = mods;
-    this.set(target, this.pick(source, obj1, true), obj2, merge);
-  }
+    if (typeof mods === 'function' || Array.isArray(mods)) {
+      this.set(target,
+        _process(
+          this.pick(source, obj1, true),
+          mods
+        ), obj2, merge);
+    } else {
+      merge = mods;
+      this.set(target, this.pick(source, obj1, true), obj2, merge);
+    }
 
-  return obj2;
-
-};
+    return obj2;
+  };
 
 /**
  *

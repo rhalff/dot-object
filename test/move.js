@@ -53,8 +53,8 @@ describe('Move test:', function() {
     link.should.eql(expected);
 
   });
-  
-   it('Should process modifiers', function() {
+
+  it('Should process modifiers', function() {
 
     var link = {
       source: 'one',
@@ -65,8 +65,8 @@ describe('Move test:', function() {
      source: {id: 'ONE'},
      target: {port: 'TWO'},
     };
-    
-    var up = function(val) { return val.toUpperCase(); }
+
+    function up(val) { return val.toUpperCase(); }
 
     Dot.move('source', 'source.id', link, up);
     Dot.move('target', 'target.port', link, up);
@@ -74,6 +74,5 @@ describe('Move test:', function() {
     link.should.eql(expected);
 
   });
-
 
 });
