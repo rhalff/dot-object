@@ -125,47 +125,35 @@ DotObject.prototype.pick = function(path, obj, remove) {
   var key;
   var cp;
 
-  //if (path.indexOf(this.seperator) !== -1) {
-    keys = path.split(this.seperator);
-    for (i = 0; i < keys.length; i++) {
-      key = parseKey(keys[i], obj);
-      if (obj && typeof obj === 'object' && key in obj) {
-        if (i === (keys.length - 1)) {
-          if (remove) {
-            val = obj[key];
-            delete obj[key];
-            if (Array.isArray(obj)) {
-              cp = keys.slice(0, -1).join('.');
-              if (this.cleanup.indexOf(cp) === -1) {
-                this.cleanup.push(cp);
-              }
+  keys = path.split(this.seperator);
+  for (i = 0; i < keys.length; i++) {
+    key = parseKey(keys[i], obj);
+    if (obj && typeof obj === 'object' && key in obj) {
+      if (i === (keys.length - 1)) {
+        if (remove) {
+          val = obj[key];
+          delete obj[key];
+          if (Array.isArray(obj)) {
+            cp = keys.slice(0, -1).join('.');
+            if (this.cleanup.indexOf(cp) === -1) {
+              this.cleanup.push(cp);
             }
-            return val;
-          } else {
-            return obj[key];
           }
+          return val;
         } else {
-          obj = obj[key];
+          return obj[key];
         }
       } else {
-        return undefined;
+        obj = obj[key];
       }
-    }
-    if (remove && Array.isArray(obj)) {
-      obj = obj.filter(function(n){ return n != undefined });
-    }
-    return obj;
-    /*
-  } else {
-    if (remove) {
-      val = obj[path];
-      delete obj[path];
-      return val;
     } else {
-      return obj[path];
+      return undefined;
     }
   }
-  */
+  if (remove && Array.isArray(obj)) {
+    obj = obj.filter(function(n) { return n !== undefined; });
+  }
+  return obj;
 };
 
 /**
@@ -181,7 +169,7 @@ DotObject.prototype.remove = function(path, obj) {
 
   this.cleanup = [];
   if (Array.isArray(path)) {
-    for(i = 0; i < path.length; i++) {
+    for (i = 0; i < path.length; i++) {
       this.pick(path[i], obj, true);
     }
     this._cleanup(obj);
@@ -197,7 +185,7 @@ DotObject.prototype._cleanup = function(obj) {
   var keys;
   var root;
   if (this.cleanup.length) {
-    for(i = 0; i < this.cleanup.length; i++) {
+    for (i = 0; i < this.cleanup.length; i++) {
       keys = this.cleanup[i].split('.');
       root = keys.splice(0, -1).join('.');
       ret = root ? this.pick(root, obj) : obj;
@@ -352,7 +340,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
       (!isObject(obj[key]) && !Array.isArray(obj[key]))
       ) {
         // initialize as array if next key is numeric
-      if (/^\d+$/.test(keys[i+1])) {
+      if (/^\d+$/.test(keys[i + 1])) {
         obj[key] = [];
       } else {
         obj[key] = {};

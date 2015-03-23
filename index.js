@@ -23,7 +23,7 @@ function _process(v, mod) {
 
 function parseKey(key, val) {
   // detect negative index notation
-  if (key[0] === '-' && Array.isArray(val) && /-\d+/.test(key)) {
+  if (key[0] === '-' && Array.isArray(val) && /^-\d+$/.test(key)) {
     return val.length + parseInt(key, 10);
   }
   return key;
@@ -39,6 +39,9 @@ function DotObject(seperator, override) {
   if (typeof override === 'undefined') { override = false; }
   this.seperator = seperator;
   this.override = override;
+
+  // contains touched arrays
+  this.cleanup = [];
 }
 
 var dotDefault = new DotObject('.', false);
@@ -120,8 +123,9 @@ DotObject.prototype.pick = function(path, obj, remove) {
   var keys;
   var val;
   var key;
+  var cp;
 
-  if (path.indexOf(this.seperator) !== -1) {
+  //if (path.indexOf(this.seperator) !== -1) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
       key = parseKey(keys[i], obj);
@@ -130,6 +134,12 @@ DotObject.prototype.pick = function(path, obj, remove) {
           if (remove) {
             val = obj[key];
             delete obj[key];
+            if (Array.isArray(obj)) {
+              cp = keys.slice(0, -1).join('.');
+              if (this.cleanup.indexOf(cp) === -1) {
+                this.cleanup.push(cp);
+              }
+            }
             return val;
           } else {
             return obj[key];
@@ -141,7 +151,11 @@ DotObject.prototype.pick = function(path, obj, remove) {
         return undefined;
       }
     }
+    if (remove && Array.isArray(obj)) {
+      obj = obj.filter(function(n){ return n != undefined });
+    }
     return obj;
+    /*
   } else {
     if (remove) {
       val = obj[path];
@@ -151,6 +165,7 @@ DotObject.prototype.pick = function(path, obj, remove) {
       return obj[path];
     }
   }
+  */
 };
 
 /**
@@ -162,7 +177,35 @@ DotObject.prototype.pick = function(path, obj, remove) {
  * @return The removed value
  */
 DotObject.prototype.remove = function(path, obj) {
-  return this.pick(path, obj, true);
+  var i;
+
+  this.cleanup = [];
+  if (Array.isArray(path)) {
+    for(i = 0; i < path.length; i++) {
+      this.pick(path[i], obj, true);
+    }
+    this._cleanup(obj);
+    return obj;
+  } else {
+    return this.pick(path, obj, true);
+  }
+};
+
+DotObject.prototype._cleanup = function(obj) {
+  var ret;
+  var i;
+  var keys;
+  var root;
+  if (this.cleanup.length) {
+    for(i = 0; i < this.cleanup.length; i++) {
+      keys = this.cleanup[i].split('.');
+      root = keys.splice(0, -1).join('.');
+      ret = root ? this.pick(root, obj) : obj;
+      ret = ret[keys[0]].filter(function(v) { return v !== undefined; });
+      this.set(this.cleanup[i], ret, obj);
+    }
+    this.cleanup = [];
+  }
 };
 
 // alias method
@@ -278,53 +321,46 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   var i;
   var k;
   var keys;
+  var key;
 
   // Do not operate if the value is undefined.
   if (typeof val === 'undefined') {
     return obj;
   }
+  keys = path.split(this.seperator);
 
-  if (path.indexOf(this.seperator) !== -1) {
-    keys = path.split(this.seperator);
-    for (i = 0; i < keys.length; i++) {
-      if (i === (keys.length - 1)) {
-        if (merge && isObject(val) && isObject(obj[keys[i]])) {
-          for (k in val) {
-            if (val.hasOwnProperty(k)) {
-              obj[keys[i]][k] = val[k];
-            }
+  for (i = 0; i < keys.length; i++) {
+    key = keys[i];
+    if (i === (keys.length - 1)) {
+      if (merge && isObject(val) && isObject(obj[key])) {
+        for (k in val) {
+          if (val.hasOwnProperty(k)) {
+            obj[key][k] = val[k];
           }
+        }
 
-        } else if (Array.isArray(obj[keys[i]]) && Array.isArray(val)) {
-          for (var j = 0; j < val.length; j++) {
-            obj[keys[i]].push(val[j]);
-          }
-        } else {
-          obj[keys[i]] = val;
+      } else if (merge && Array.isArray(obj[key]) && Array.isArray(val)) {
+        for (var j = 0; j < val.length; j++) {
+          obj[keys[i]].push(val[j]);
         }
-      } else if (
-        // force the value to be an object
-        !obj.hasOwnProperty(keys[i]) ||
-        !isObject(obj[keys[i]])) {
-        obj[keys[i]] = {};
+      } else {
+        obj[key] = val;
       }
-      obj = obj[keys[i]];
-    }
-    return obj;
-  } else {
-    if (merge && isObject(val)) {
-      for (k in val) {
-        if (val.hasOwnProperty(k)) {
-          obj[path][k] = val[k];
-        }
+    } else if (
+      // force the value to be an object
+      !obj.hasOwnProperty(key) ||
+      (!isObject(obj[key]) && !Array.isArray(obj[key]))
+      ) {
+        // initialize as array if next key is numeric
+      if (/^\d+$/.test(keys[i+1])) {
+        obj[key] = [];
+      } else {
+        obj[key] = {};
       }
-    } else if (Array.isArray(obj[path]) && Array.isArray(val)) {
-      obj[path].push(val);
-    } else {
-      obj[path] = val;
     }
-    return obj;
+    obj = obj[key];
   }
+  return obj;
 };
 
 DotObject.pick = wrap('pick');
