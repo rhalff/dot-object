@@ -39,6 +39,9 @@ function DotObject(seperator, override) {
   if (typeof override === 'undefined') { override = false; }
   this.seperator = seperator;
   this.override = override;
+
+  // contains touched arrays
+  this.cleanup = [];
 }
 
 var dotDefault = new DotObject('.', false);
@@ -120,8 +123,9 @@ DotObject.prototype.pick = function(path, obj, remove) {
   var keys;
   var val;
   var key;
+  var cp;
 
-  if (path.indexOf(this.seperator) !== -1) {
+  //if (path.indexOf(this.seperator) !== -1) {
     keys = path.split(this.seperator);
     for (i = 0; i < keys.length; i++) {
       key = parseKey(keys[i], obj);
@@ -130,6 +134,12 @@ DotObject.prototype.pick = function(path, obj, remove) {
           if (remove) {
             val = obj[key];
             delete obj[key];
+            if (Array.isArray(obj)) {
+              cp = keys.slice(0, -1).join('.');
+              if (this.cleanup.indexOf(cp) === -1) {
+                this.cleanup.push(cp);
+              }
+            }
             return val;
           } else {
             return obj[key];
@@ -141,7 +151,11 @@ DotObject.prototype.pick = function(path, obj, remove) {
         return undefined;
       }
     }
+    if (remove && Array.isArray(obj)) {
+      obj = obj.filter(function(n){ return n != undefined });
+    }
     return obj;
+    /*
   } else {
     if (remove) {
       val = obj[path];
@@ -151,6 +165,7 @@ DotObject.prototype.pick = function(path, obj, remove) {
       return obj[path];
     }
   }
+  */
 };
 
 /**
@@ -162,7 +177,35 @@ DotObject.prototype.pick = function(path, obj, remove) {
  * @return The removed value
  */
 DotObject.prototype.remove = function(path, obj) {
-  return this.pick(path, obj, true);
+  var i;
+
+  this.cleanup = [];
+  if (Array.isArray(path)) {
+    for(i = 0; i < path.length; i++) {
+      this.pick(path[i], obj, true);
+    }
+    this._cleanup(obj);
+    return obj;
+  } else {
+    return this.pick(path, obj, true);
+  }
+};
+
+DotObject.prototype._cleanup = function(obj) {
+  var ret;
+  var i;
+  var keys;
+  var root;
+  if (this.cleanup.length) {
+    for(i = 0; i < this.cleanup.length; i++) {
+      keys = this.cleanup[i].split('.');
+      root = keys.splice(0, -1).join('.');
+      ret = root ? this.pick(root, obj) : obj;
+      ret = ret[keys[0]].filter(function(v) { return v !== undefined; });
+      this.set(this.cleanup[i], ret, obj);
+    }
+    this.cleanup = [];
+  }
 };
 
 // alias method
@@ -284,8 +327,8 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   if (typeof val === 'undefined') {
     return obj;
   }
-
   keys = path.split(this.seperator);
+
   for (i = 0; i < keys.length; i++) {
     key = keys[i];
     if (i === (keys.length - 1)) {
@@ -296,9 +339,9 @@ DotObject.prototype.set = function(path, val, obj, merge) {
           }
         }
 
-      } else if (Array.isArray(obj[key]) && Array.isArray(val)) {
+      } else if (merge && Array.isArray(obj[key]) && Array.isArray(val)) {
         for (var j = 0; j < val.length; j++) {
-          obj[key].push(val[j]);
+          obj[keys[i]].push(val[j]);
         }
       } else {
         obj[key] = val;
