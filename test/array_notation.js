@@ -144,7 +144,6 @@ describe('Dotted Array notation', function() {
 
         var obj = {path: ['still', 'shall', 'really', 'be', 'gone', 'here']};
 
-        // err ok, reference problem somewhere, spliceee, index thing
         Dot.remove('path.1', obj);
         Dot.remove('path.2', obj);
         Dot.del('path.3', obj); // use alias
