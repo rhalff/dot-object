@@ -7,7 +7,6 @@ var Dot = require('../index');
 
 describe('Dotted Array notation', function() {
 
-  var template;
   var src;
 
   beforeEach(function() {

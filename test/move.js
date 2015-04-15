@@ -16,9 +16,9 @@ describe('Move test:', function() {
     };
 
     var expected = {
-     id: '527423a65e380f0000588e47',
-     source: {id: '526dd5c6b4c4aa8770000001', port: 'github'},
-     target: {id: '527402d6b15d1800008755cf', port: 'in'}
+      id: '527423a65e380f0000588e47',
+      source: {id: '526dd5c6b4c4aa8770000001', port: 'github'},
+      target: {id: '527402d6b15d1800008755cf', port: 'in'}
     };
 
     Dot.move('source', 'source.id', link);
@@ -40,9 +40,9 @@ describe('Move test:', function() {
     };
 
     var expected = {
-     source: {id: '526dd5c6b4c4aa8770000001'},
-     target: {port: 'in'},
-     out: 'github'
+      source: {id: '526dd5c6b4c4aa8770000001'},
+      target: {port: 'in'},
+      out: 'github'
     };
 
     Dot.move('source', 'source.id', link);
@@ -62,8 +62,8 @@ describe('Move test:', function() {
     };
 
     var expected = {
-     source: {id: 'ONE'},
-     target: {port: 'TWO'},
+      source: {id: 'ONE'},
+      target: {port: 'TWO'},
     };
 
     function up(val) { return val.toUpperCase(); }
