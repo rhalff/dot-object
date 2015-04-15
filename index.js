@@ -29,6 +29,15 @@ function parseKey(key, val) {
   return key;
 }
 
+function parsePath(path, sep) {
+  if (path.indexOf('[') >= 0) {
+    path = path.
+      replace(['['], '.').
+      replace(']', '');
+  }
+  return path.split(sep);
+}
+
 function DotObject(seperator, override) {
 
   if (!(this instanceof DotObject)) {
@@ -124,8 +133,8 @@ DotObject.prototype.pick = function(path, obj, remove) {
   var val;
   var key;
   var cp;
-
-  keys = path.split(this.seperator);
+ 
+  keys = parsePath(path, this.seperator);
   for (i = 0; i < keys.length; i++) {
     key = parseKey(keys[i], obj);
     if (obj && typeof obj === 'object' && key in obj) {
@@ -315,7 +324,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
   if (typeof val === 'undefined') {
     return obj;
   }
-  keys = path.split(this.seperator);
+  keys = parsePath(path, this.seperator);
 
   for (i = 0; i < keys.length; i++) {
     key = keys[i];
