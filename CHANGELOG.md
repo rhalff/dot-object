@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2015-04-15, Version 0.11.0
+* Add support for bracket notation
+
 ## 2015-03-22, Version 0.10.0
 * Make return value optional for Object/Array modifier(s)
 * Add modifier option to move(), transfer() & copy()
