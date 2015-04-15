@@ -14,7 +14,7 @@ var DEST = 'dist/';
 
 var paths = ['gulpfile.js', 'src/dot-object.js', 'test/**/*.js'];
 
-gulp.task('jshint', function() {
+gulp.task('lint', function() {
   gulp.src(paths)
     .pipe(jshint())
     .pipe(jscs())
@@ -49,8 +49,8 @@ gulp.task('build-bower', function() {
     .pipe(gulp.dest(DEST));
 });
 
-gulp.task('dist', ['jshint', 'build-node', 'mocha', 'build-bower']);
+gulp.task('dist', ['lint', 'build-node', 'mocha', 'build-bower']);
 
-gulp.task('test', ['jshint', 'build-node', 'mocha']);
+gulp.task('test', ['lint', 'build-node', 'mocha']);
 
 gulp.task('default', ['test']);
