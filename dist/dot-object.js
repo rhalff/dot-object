@@ -30,6 +30,15 @@
     return key;
   }
 
+  function parsePath(path, sep) {
+    if (path.indexOf('[') >= 0) {
+      path = path.
+      replace(/\[/g, '.').
+      replace(/]/g, '');
+    }
+    return path.split(sep);
+  }
+
   function DotObject(seperator, override) {
 
     if (!(this instanceof DotObject)) {
@@ -129,7 +138,7 @@
     var key;
     var cp;
 
-    keys = path.split(this.seperator);
+    keys = parsePath(path, this.seperator);
     for (i = 0; i < keys.length; i++) {
       key = parseKey(keys[i], obj);
       if (obj && typeof obj === 'object' && key in obj) {
@@ -281,7 +290,8 @@
 
     if (typeof mods === 'function' || Array.isArray(mods)) {
       this.set(target, _process(
-      JSON.parse( // clone what is picked
+      // clone what is picked
+      JSON.parse(
       JSON.stringify(
       this.pick(source, obj1, false))), mods), obj2, merge);
     } else {
@@ -316,7 +326,7 @@
     if (typeof val === 'undefined') {
       return obj;
     }
-    keys = path.split(this.seperator);
+    keys = parsePath(path, this.seperator);
 
     for (i = 0; i < keys.length; i++) {
       key = keys[i];
