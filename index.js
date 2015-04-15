@@ -32,8 +32,8 @@ function parseKey(key, val) {
 function parsePath(path, sep) {
   if (path.indexOf('[') >= 0) {
     path = path.
-      replace(['['], '.').
-      replace(']', '');
+      replace(/\[/g, '.').
+      replace(/]/g, '');
   }
   return path.split(sep);
 }
@@ -133,7 +133,7 @@ DotObject.prototype.pick = function(path, obj, remove) {
   var val;
   var key;
   var cp;
- 
+
   keys = parsePath(path, this.seperator);
   for (i = 0; i < keys.length; i++) {
     key = parseKey(keys[i], obj);
@@ -285,7 +285,8 @@ DotObject.prototype.copy = function(source, target, obj1, obj2, mods, merge) {
   if (typeof mods === 'function' || Array.isArray(mods)) {
     this.set(target,
       _process(
-        JSON.parse( // clone what is picked
+        // clone what is picked
+        JSON.parse(
           JSON.stringify(
             this.pick(source, obj1, false)
           )
@@ -348,7 +349,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
       !obj.hasOwnProperty(key) ||
       (!isObject(obj[key]) && !Array.isArray(obj[key]))
       ) {
-        // initialize as array if next key is numeric
+      // initialize as array if next key is numeric
       if (/^\d+$/.test(keys[i + 1])) {
         obj[key] = [];
       } else {

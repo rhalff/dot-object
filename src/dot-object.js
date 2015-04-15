@@ -32,8 +32,8 @@ function parseKey(key, val) {
 function parsePath(path, sep) {
   if (path.indexOf('[') >= 0) {
     path = path.
-      replace(['['], '.').
-      replace(']', '');
+      replace(/\[/g, '.').
+      replace(/]/g, '');
   }
   return path.split(sep);
 }

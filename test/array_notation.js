@@ -68,6 +68,22 @@ describe('Dotted Array notation', function() {
         (typeof Dot.pick(v('path.-9'), src)).should.eql('undefined');
       });
 
+      it('multiple indexes', function() {
+        var src = {
+          I: [
+            {am: [{nes: ['ted']}]},
+            {me: 'too'}
+          ]
+        };
+
+        Dot.pick(v('I.0'), src).should.eql(src.I[0]);
+        Dot.pick(v('I.0.am'), src).should.eql(src.I[0].am);
+        Dot.pick(v('I.0.am.0'), src).should.eql(src.I[0].am[0]);
+        Dot.pick(v('I.0.am.0.nes'), src).should.eql(src.I[0].am[0].nes);
+        Dot.pick(v('I.0.am.0.nes.0'), src).should.eql('ted');
+        Dot.pick(v('I.1.me'), src).should.eql('too');
+      });
+
     });
 
     describe('can set', function() {
