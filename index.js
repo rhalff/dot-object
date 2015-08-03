@@ -86,6 +86,28 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
   }
 };
 
+/**
+ *
+ * Converts an object with dotted-key/value pairs to it's expanded version
+ *
+ * Optionally transformed by a set of modifiers.
+ *
+ * Usage:
+ *
+ *   var row = {
+ *     'nr': 200,
+ *     'doc.name': '  My Document  '
+ *   };
+ *
+ *   var mods = {
+ *     'doc.name': [_s.trim, _s.underscored]
+ *   };
+ *
+ *   dot.object(row, mods);
+ *
+ * @param {Object} obj
+ * @param {Object} mods
+ */
 DotObject.prototype.object = function(obj, mods) {
   var self = this;
 
@@ -102,18 +124,16 @@ DotObject.prototype.object = function(obj, mods) {
 };
 
 /**
- *
- * @param {String} str
- * @param {String} v
- * @param {Object} obj
- * @param {Function|Array} mod
- *
+ * @param {String} path dotted path
+ * @param {String} v value to be set
+ * @param {Object} obj object to be modified
+ * @param {Function|Array} mod optional modifier
  */
-DotObject.prototype.str = function(str, v, obj, mod) {
-  if (str.indexOf(this.seperator) !== -1) {
-    this._fill(str.split(this.seperator), obj, v, mod);
+DotObject.prototype.str = function(path, v, obj, mod) {
+  if (path.indexOf(this.seperator) !== -1) {
+    this._fill(path.split(this.seperator), obj, v, mod);
   } else if (this.override) {
-    obj[str] = _process(v, mod);
+    obj[path] = _process(v, mod);
   }
 };
 
@@ -220,7 +240,6 @@ DotObject.prototype.del = DotObject.prototype.remove;
  * @param {Object} obj
  * @param {Function|Array} mods
  * @param {Boolean} merge
- *
  */
 DotObject.prototype.move = function(source, target, obj, mods, merge) {
 
@@ -363,7 +382,7 @@ DotObject.prototype.set = function(path, val, obj, merge) {
 
 /**
  *
- * Convert obj to dotted-key/value pair
+ * Convert object to dotted-key/value pair
  *
  * Usage:
  *
