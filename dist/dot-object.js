@@ -360,6 +360,36 @@
     return obj;
   };
 
+  /**
+   *
+   * Convert obj to dotted-key/value pair
+   *
+   * Usage:
+   *
+   *   var tgt = dot.dot(obj);
+   *
+   *   or
+   *
+   *   var tgt = {};
+   *   dot.dot(obj, tgt);
+   *
+   * @param {Object} obj source object
+   * @param {Object} tgt target object
+   * @param {Array} path path array (internal)
+   */
+  DotObject.prototype.dot = function (obj, tgt, path) {
+    tgt = tgt ? tgt : {};
+    path = path ? path : [];
+    Object.keys(obj).forEach(function (key) {
+      if (Object(obj[key]) === obj[key]) {
+        return this.dot(obj[key], tgt, path.concat(key));
+      } else {
+        tgt[path.concat(key).join(this.seperator)] = obj[key];
+      }
+    }.bind(this));
+    return tgt;
+  };
+
   DotObject.pick = wrap('pick');
   DotObject.move = wrap('move');
   DotObject.transfer = wrap('transfer');
@@ -368,6 +398,7 @@
   DotObject.str = wrap('str');
   DotObject.set = wrap('set');
   DotObject.del = DotObject.remove = wrap('remove');
+  DotObject.dot = wrap('dot');
 
   DotObject._process = _process;
 
