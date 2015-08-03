@@ -238,6 +238,37 @@ Result:
   }
 }
 ```
+### Convert object to dotted-key/value pair
+
+```javascript
+var dot = require('dot-object');
+
+var obj = {
+  id: 'my-id',
+  nes: { ted: { value: true } },
+  other: { nested: { stuff: 5 } },
+  some: { array: ['A', 'B'] }
+};
+
+var tgt = dot.dot(obj);
+
+// or
+
+var tgt = {};
+dot.dot(obj, tgt);
+
+console.log(tgt);
+```
+Result:
+```json
+{
+  id: 'my-id',
+  'nes.ted.value': true,
+  'other.nested.stuff': 5,
+  'some.array.0': 'A',
+  'some.array.1': 'B'
+}
+```
 
 ## Using a different seperator
 
