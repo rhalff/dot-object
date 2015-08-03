@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2015-08-03, Version 1.0.0
+* Convert object to dotted-key/value pairs
+
 ## 2015-04-15, Version 0.11.0
 * Add support for bracket notation
 
