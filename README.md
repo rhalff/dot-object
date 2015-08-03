@@ -262,7 +262,7 @@ console.log(tgt);
 Result:
 ```json
 {
-  id: "my-id",
+  "id": "my-id",
   "nes.ted.value": true,
   "other.nested.stuff": 5,
   "some.array.0": "A",
