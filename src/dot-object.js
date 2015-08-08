@@ -29,6 +29,10 @@ function parseKey(key, val) {
   return key;
 }
 
+function isIndex(k) {
+  return /^\d+/.test(k);
+}
+
 function parsePath(path, sep) {
   if (path.indexOf('[') >= 0) {
     path = path.
@@ -64,7 +68,7 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
   var k = a.shift();
 
   if (a.length > 0) {
-    obj[k] = obj[k] || {};
+    obj[k] = obj[k] || (a.length === 1 && isIndex(a[0]) ? [] : {});
 
     if (obj[k] !== Object(obj[k])) {
       if (this.override) {
@@ -113,9 +117,11 @@ DotObject.prototype.object = function(obj, mods) {
 
   Object.keys(obj).forEach(function(k) {
     var mod = mods === undefined ? null : mods[k];
+    // normalize array notation.
+    var ok = parsePath(k, self.seperator).join(self.seperator);
 
-    if (k.indexOf(self.seperator) !== -1) {
-      self._fill(k.split(self.seperator), obj, obj[k], mod);
+    if (ok.indexOf(self.seperator) !== -1) {
+      self._fill(ok.split(self.seperator), obj, obj[k], mod);
       delete obj[k];
     } else if (self.override) {
       obj[k] = _process(obj[k], mod);

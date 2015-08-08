@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2015-08-08, Version 1.1.0
+* Also let .object() understand array notation.
+
 ## 2015-08-03, Version 1.0.0
 * Convert object to dotted-key/value pairs
 

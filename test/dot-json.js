@@ -36,6 +36,30 @@ describe('Object test:', function() {
 
   });
 
+  it('Should expand dotted keys with array notation', function() {
+
+    var row = {
+      'id': 2,
+      'my.arr.0': 'one',
+      'my.arr.1': 'two',
+      'my.arr.2': 'three',
+      'my.arr2[0]': 'one',
+      'my.arr2[1]': 'two',
+      'my.arr2[2]': 'three'
+    };
+
+    Dot.object(row);
+
+    row.should.eql({
+      'id': 2,
+      'my': {
+        'arr': ['one', 'two', 'three'],
+        'arr2': ['one', 'two', 'three']
+      }
+    });
+
+  });
+
   it('Should expand dotted string', function() {
 
     var tgt = {};
