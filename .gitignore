@@ -1,5 +1,6 @@
 ATTIC
 .c9/
+.idea
 node_modules
 *.log
 *.swp
