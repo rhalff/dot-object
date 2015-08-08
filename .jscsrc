@@ -1,6 +1,3 @@
 {
- "preset": "google",
- "additionalRules": [
-    "node_modules/jscs-jsdoc/lib/rules/*.js"
-  ]
+ "preset": "google"
 }
