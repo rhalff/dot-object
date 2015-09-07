@@ -127,6 +127,8 @@ DotObject.prototype.object = function(obj, mods) {
       obj[k] = _process(obj[k], mod);
     }
   });
+
+  return obj;
 };
 
 /**
@@ -141,6 +143,8 @@ DotObject.prototype.str = function(path, v, obj, mod) {
   } else if (this.override) {
     obj[path] = _process(v, mod);
   }
+
+  return obj;
 };
 
 /**
