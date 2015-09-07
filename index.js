@@ -82,7 +82,8 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
 
     this._fill(a, obj[k], v, mod);
   } else {
-    if (obj[k] === Object(obj[k]) && Object.keys(obj[k]).length) {
+    if (!this.override &&
+      obj[k] === Object(obj[k]) && Object.keys(obj[k]).length) {
       throw new Error('Trying to redefine non-empty obj[\'' + k + '\']');
     }
 
@@ -127,6 +128,8 @@ DotObject.prototype.object = function(obj, mods) {
       obj[k] = _process(obj[k], mod);
     }
   });
+
+  return obj;
 };
 
 /**
@@ -141,6 +144,8 @@ DotObject.prototype.str = function(path, v, obj, mod) {
   } else if (this.override) {
     obj[path] = _process(v, mod);
   }
+
+  return obj;
 };
 
 /**
@@ -425,6 +430,17 @@ DotObject.str = wrap('str');
 DotObject.set = wrap('set');
 DotObject.del = DotObject.remove = wrap('remove');
 DotObject.dot = wrap('dot');
+
+['override', 'overwrite'].forEach(function(prop) {
+  Object.defineProperty(DotObject, prop, {
+    get: function() {
+      return dotDefault.override;
+    },
+    set: function(val) {
+      dotDefault.override = !!val;
+    }
+  });
+});
 
 DotObject._process = _process;
 
