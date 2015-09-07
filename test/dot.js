@@ -45,4 +45,11 @@ describe('dotted-key/value pairs:', function() {
 
   });
 
+  it('dot() should equal object()', function() {
+
+    var pkg = require('./fixtures/package.json');
+    Dot.object(Dot.dot(pkg)).should.eql(pkg);
+
+  });
+
 });
