@@ -43,6 +43,38 @@ describe('Override test:', function() {
 
   });
 
+  it('Allow override even when target is non-empty object',
+    function() {
+
+      var obj = {
+        sample: {
+          dotted: {
+            bar: {
+              baz: 'baz'
+            }
+          }
+        }
+      };
+
+      Dot.override = true;
+
+      Dot.str('sample.dotted.bar', {baz: 'boom'}, obj);
+
+      Dot.override = false;
+
+      obj.should.eql({
+        sample: {
+          dotted: {
+           bar: {
+             baz: 'boom'
+           }
+         }
+        }
+      });
+
+    }
+  );
+
   it('should process non dot notation value with modifier if override is true',
     function() {
 
