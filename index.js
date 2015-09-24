@@ -29,7 +29,7 @@ function parseKey(key, val) {
   return key;
 }
 
-function isIndex(k) {
+function isIndex(k, useIndex) {
   return useIndex && /^\d+/.test(k);
 }
 
@@ -42,15 +42,15 @@ function parsePath(path, sep) {
   return path.split(sep);
 }
 
-function DotObject(seperator, override) {
+function DotObject(seperator, override, useIndex) {
 
   if (!(this instanceof DotObject)) {
-    return new DotObject(seperator, override, useIndex);
+    return new DotObject(seperator, override, true);
   }
 
   if (typeof seperator === 'undefined') { seperator = '.'; }
   if (typeof override === 'undefined') { override = false; }
-  if (typeof useIndex === 'undefined') { override = true; }
+  if (typeof useIndex === 'undefined') { useIndex = true; }
   this.seperator = seperator;
   this.override = override;
   this.useIndex = useIndex;
@@ -70,7 +70,7 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
   var k = a.shift();
 
   if (a.length > 0) {
-    obj[k] = obj[k] || (a.length === 1 && isIndex(a[0]) ? [] : {});
+    obj[k] = obj[k] || (a.length === 1 && isIndex(a[0], this.useIndex) ? [] : {});
 
     if (obj[k] !== Object(obj[k])) {
       if (this.override) {
@@ -219,6 +219,8 @@ DotObject.prototype.remove = function(path, obj) {
   } else {
     return this.pick(path, obj, true);
   }
+  //should return a value. Important for gulp tests. Failure if not present, even if the execution never go there.
+  return;
 };
 
 DotObject.prototype._cleanup = function(obj) {
