@@ -45,7 +45,7 @@ function parsePath(path, sep) {
 function DotObject(seperator, override, useIndex) {
 
   if (!(this instanceof DotObject)) {
-    return new DotObject(seperator, override, true);
+    return new DotObject(seperator, override, useIndex);
   }
 
   if (typeof seperator === 'undefined') { seperator = '.'; }
