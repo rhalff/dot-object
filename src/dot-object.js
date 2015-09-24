@@ -30,7 +30,7 @@ function parseKey(key, val) {
 }
 
 function isIndex(k) {
-  return /^\d+/.test(k);
+  return useIndex && /^\d+/.test(k);
 }
 
 function parsePath(path, sep) {
@@ -45,13 +45,15 @@ function parsePath(path, sep) {
 function DotObject(seperator, override) {
 
   if (!(this instanceof DotObject)) {
-    return new DotObject(seperator, override);
+    return new DotObject(seperator, override, useIndex);
   }
 
   if (typeof seperator === 'undefined') { seperator = '.'; }
   if (typeof override === 'undefined') { override = false; }
+  if (typeof useIndex === 'undefined') { override = true; }
   this.seperator = seperator;
   this.override = override;
+  this.useIndex = useIndex;
 
   // contains touched arrays
   this.cleanup = [];
