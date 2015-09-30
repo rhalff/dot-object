@@ -4,7 +4,7 @@
   "undef": true,
   "unused": true,
   "strict": true,
-  "maxlen": 80,
+  "maxlen": 90,
   "newcap": false,
   "node": true,
   "globals": {
