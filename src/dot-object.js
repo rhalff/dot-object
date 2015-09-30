@@ -42,24 +42,24 @@ function parsePath(path, sep) {
   return path.split(sep);
 }
 
-function DotObject(seperator, override, useIndex) {
+function DotObject(seperator, override, useArray) {
 
   if (!(this instanceof DotObject)) {
-    return new DotObject(seperator, override, useIndex);
+    return new DotObject(seperator, override, useArray);
   }
 
   if (typeof seperator === 'undefined') { seperator = '.'; }
   if (typeof override === 'undefined') { override = false; }
-  if (typeof useIndex === 'undefined') { useIndex = true; }
+  if (typeof useArray === 'undefined') { useArray = true; }
   this.seperator = seperator;
   this.override = override;
-  this.useIndex = useIndex;
+  this.useArray = useArray;
 
   // contains touched arrays
   this.cleanup = [];
 }
 
-var dotDefault = new DotObject('.', false);
+var dotDefault = new DotObject('.', false, true);
 function wrap(method) {
   return function() {
     return dotDefault[method].apply(dotDefault, arguments);
@@ -70,7 +70,8 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
   var k = a.shift();
 
   if (a.length > 0) {
-    obj[k] = obj[k] || (a.length === 1 && isIndex(a[0], this.useIndex) ? [] : {});
+    obj[k] = obj[k] ||
+      (a.length === 1 && isIndex(a[0], this.useArray) ? [] : {});
 
     if (obj[k] !== Object(obj[k])) {
       if (this.override) {
@@ -219,8 +220,6 @@ DotObject.prototype.remove = function(path, obj) {
   } else {
     return this.pick(path, obj, true);
   }
-  //should return a value. Important for gulp tests. Failure if not present, even if the execution never go there.
-  return;
 };
 
 DotObject.prototype._cleanup = function(obj) {
@@ -444,6 +443,15 @@ DotObject.dot = wrap('dot');
       dotDefault.override = !!val;
     }
   });
+});
+
+Object.defineProperty(DotObject, 'useArray', {
+  get: function() {
+    return dotDefault.useArray;
+  },
+  set: function(val) {
+    dotDefault.useArray = val;
+  }
 });
 
 DotObject._process = _process;
