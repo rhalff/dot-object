@@ -1,5 +1,12 @@
 # ChangeLog
 
+## 2015-10-01, Version 1.3.0
+* [[`baa42022bf`](https://github.com/rhalff/dot-object/commit/baa42022bf)] - Adds a parameter (useArray) to allow converting object without using arrays. (Thomas Moiron)
+
+## 2015-09-07, Version 1.2.0
+* allow override even when target is non-empty object
+* also return the object when using object() or str()
+
 ## 2015-08-08, Version 1.1.0
 * Also let .object() understand array notation.
 
