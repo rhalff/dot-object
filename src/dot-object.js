@@ -29,8 +29,8 @@ function parseKey(key, val) {
   return key;
 }
 
-function isIndex(k, useIndex) {
-  return useIndex && /^\d+/.test(k);
+function isIndex(k) {
+  return /^\d+/.test(k);
 }
 
 function parsePath(path, sep) {
@@ -71,7 +71,7 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
 
   if (a.length > 0) {
     obj[k] = obj[k] ||
-      (a.length === 1 && isIndex(a[0], this.useArray) ? [] : {});
+      (a.length === 1 && this.useArray && isIndex(a[0]) ? [] : {});
 
     if (obj[k] !== Object(obj[k])) {
       if (this.override) {
