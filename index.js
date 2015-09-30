@@ -205,7 +205,7 @@ DotObject.prototype.pick = function(path, obj, remove) {
  *
  * @param {String} path
  * @param {Object} obj
- * @return The removed value
+ * @return {Mixed} The removed value
  */
 DotObject.prototype.remove = function(path, obj) {
   var i;
