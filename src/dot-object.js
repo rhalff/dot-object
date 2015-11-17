@@ -71,7 +71,7 @@ DotObject.prototype._fill = function(a, obj, v, mod) {
 
   if (a.length > 0) {
     obj[k] = obj[k] ||
-      (a.length === 1 && this.useArray && isIndex(a[0]) ? [] : {});
+      (this.useArray && isIndex(a[0]) ? [] : {});
 
     if (obj[k] !== Object(obj[k])) {
       if (this.override) {
