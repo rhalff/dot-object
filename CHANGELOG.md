@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2015-11-17, Version 1.3.1
+* [[`e46da6ffc0`](https://github.com/rhalff/dot-object/commit/e46da6ffc0)] - Fix deep array bug. (Reported by ami44 #10)
+
 ## 2015-10-01, Version 1.3.0
 * [[`baa42022bf`](https://github.com/rhalff/dot-object/commit/baa42022bf)] - Adds a parameter (useArray) to allow converting object without using arrays. (Thomas Moiron)
 
