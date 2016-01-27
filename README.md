@@ -20,8 +20,8 @@ Install from bower:
 
 ### Download
 
-  * [Development version](https://raw.github.com/rhalff/dot-object/master/dist/dot-object.js) *Uncompressed with Comments*
-  * [Production version](https://github.com/rhalff/dot-object/raw/master/dist/dot-object.min.js) *Minified*
+  * [Development version](https://npmcdn.com/dot-object/dist/dot-object.js) *Uncompressed with Comments*
+  * [Production version](https://npmcdn.com/dot-object@1.3.1/dist/dot-object.min.js) *Minified*
 
 ## Usage
 
