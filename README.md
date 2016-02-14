@@ -94,7 +94,7 @@ dot.transfer('stuff.phone', 'wanna.haves.phone', src, tgt);
 ```
 
 
-#### Transform an object
+#### Expand to an object
 
 ```javascript
 var dot = require('dot-object');
@@ -254,6 +254,42 @@ Result:
   }
 }
 ```
+
+#### Transform (incomming) object
+
+```javascript
+var dot = require('dot-object');
+
+var source = {
+  "id": 1,
+  "contact": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "example@gmail.com",
+  }
+}
+
+var recipe = {
+  'id': 'nr',
+  'contact.firstName': 'name.first',
+  'contact.lastName': 'name.last',
+  'contact.email': 'email'
+};
+
+dot.transform(recipe, source);
+
+console.log(row);
+{
+  "nr": 1,
+  "name": {
+    "first": "John",
+    "last": "Joe"
+  },
+  "email": "example@gmail.com"
+}
+```
+
+
 ### Convert object to dotted-key/value pair
 
 ```javascript
