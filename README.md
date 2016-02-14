@@ -276,14 +276,18 @@ var recipe = {
   'contact.email': 'email'
 };
 
-dot.transform(recipe, source);
+var tgt = {}
 
-console.log(row);
+var tgt2 = dot.transform(recipe, source, tgt);
+
+// tgt2 === tgt
+
+console.log(tgt);
 {
   "nr": 1,
   "name": {
     "first": "John",
-    "last": "Joe"
+    "last": "Doe"
   },
   "email": "example@gmail.com"
 }
