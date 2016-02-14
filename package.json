@@ -17,7 +17,8 @@
   "bin": "./bin/dot-object",
   "scripts": {
     "test": "gulp test",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "lint": "gulp lint"
   },
   "standard": {
     "globals": ["it", "describe", "beforeEach"]
