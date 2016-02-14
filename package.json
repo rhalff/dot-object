@@ -18,7 +18,8 @@
   "scripts": {
     "test": "gulp test",
     "watch": "gulp watch",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "dist": "gulp dist"
   },
   "standard": {
     "globals": ["it", "describe", "beforeEach"]
