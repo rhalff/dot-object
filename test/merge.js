@@ -1,12 +1,10 @@
-'use strict';
+'use strict'
 
-require('should');
-var Dot = require('../index');
+require('should')
+var Dot = require('../index')
 
-describe('Should be able to merge:', function() {
-
-  it('to property', function() {
-
+describe('Should be able to merge:', function () {
+  it('to property', function () {
     var link = {
       other: {
         three: 'Three Things',
@@ -16,7 +14,7 @@ describe('Should be able to merge:', function() {
         one: 'One Thing',
         two: 'Two Things'
       }
-    };
+    }
 
     var expected = {
       things: {
@@ -25,16 +23,14 @@ describe('Should be able to merge:', function() {
         three: 'Three Things',
         four: 'Four Things'
       }
-    };
+    }
 
-    Dot.move('other',  'things', link, true);
+    Dot.move('other', 'things', link, true)
 
-    link.should.eql(expected);
+    link.should.eql(expected)
+  })
 
-  });
-
-  it('to nested property', function() {
-
+  it('to nested property', function () {
     var link = {
       other: {
         three: 'Three Things',
@@ -47,7 +43,7 @@ describe('Should be able to merge:', function() {
           im: 'already here'
         }
       }
-    };
+    }
 
     var expected = {
       things: {
@@ -59,16 +55,14 @@ describe('Should be able to merge:', function() {
           four: 'Four Things'
         }
       }
-    };
+    }
 
-    Dot.move('other',  'things.target', link, true);
+    Dot.move('other', 'things.target', link, true)
 
-    link.should.eql(expected);
+    link.should.eql(expected)
+  })
 
-  });
-
-  it('array to array', function() {
-
+  it('array to array', function () {
     var link = {
       other: [
         'Three Things',
@@ -81,7 +75,7 @@ describe('Should be able to merge:', function() {
           'already here'
         ]
       }
-    };
+    }
 
     var expected = {
       things: {
@@ -93,12 +87,10 @@ describe('Should be able to merge:', function() {
           'Four Things'
         ]
       }
-    };
+    }
 
-    Dot.move('other',  'things.target', link, true);
+    Dot.move('other', 'things.target', link, true)
 
-    link.should.eql(expected);
-
-  });
-
-});
+    link.should.eql(expected)
+  })
+})
