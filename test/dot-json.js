@@ -74,7 +74,9 @@ describe('Object test:', function () {
   it('Dot.str Redefinition should fail', function () {
     var tgt = {
       'already': 'set'
-    }(function () {
+    }
+
+    ;(function () {
       Dot.str('already.new', 'value', tgt)
     }).should.throw('Trying to redefine `already` which is a string')
   })
