@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 2016-02-14, Version 1.4.0
+* add transform() method
+* use [standard](https://github.com/feross/standard/) style
+
 ## 2015-11-17, Version 1.3.1
 * [[`e46da6ffc0`](https://github.com/rhalff/dot-object/commit/e46da6ffc0)] - Fix deep array bug. (Reported by ami44 #10)
 
