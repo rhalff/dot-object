@@ -386,6 +386,39 @@ DotObject.prototype.set = function (path, val, obj, merge) {
 
 /**
  *
+ * Transform an object
+ *
+ * Usage:
+ *
+ *   var obj = {
+ *     "id": 1,
+  *    "some": {
+  *      "thing": "else"
+  *    }
+ *   }
+ *
+ *   var transform = {
+ *     "id": "nr",
+  *    "some.thing": "name"
+ *   }
+ *
+ *   var tgt = dot.transform(transform, obj)
+ *
+ * @param {Object} receipt Transform reciepe
+ * @param {Object} obj Object to be transformed
+ * @param {Array} mods modifiers for the target
+ */
+DotObject.prototype.transform = function (tran, obj, tgt) {
+  obj = obj || {}
+  tgt = tgt || {}
+  Object.keys(tran).forEach(function (key) {
+    this.set(tran[key], this.pick(key, obj), tgt)
+  }.bind(this))
+  return tgt
+}
+
+/**
+ *
  * Convert object to dotted-key/value pair
  *
  * Usage:
@@ -417,6 +450,7 @@ DotObject.prototype.dot = function (obj, tgt, path) {
 DotObject.pick = wrap('pick')
 DotObject.move = wrap('move')
 DotObject.transfer = wrap('transfer')
+DotObject.transform = wrap('transform')
 DotObject.copy = wrap('copy')
 DotObject.object = wrap('object')
 DotObject.str = wrap('str')
