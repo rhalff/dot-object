@@ -277,10 +277,11 @@ var recipe = {
 };
 
 var tgt = {}
+dot.transform(recipe, source, tgt);
 
-var tgt2 = dot.transform(recipe, source, tgt);
+// OR
 
-// tgt2 === tgt
+var tgt = dot.transform(recipe, source);
 
 console.log(tgt);
 {
