@@ -255,7 +255,7 @@ Result:
 }
 ```
 
-#### Transform (incomming) object
+#### Transform object
 
 ```javascript
 var dot = require('dot-object');
