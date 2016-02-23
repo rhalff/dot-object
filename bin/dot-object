@@ -21,7 +21,9 @@ program
   .option('-f, --from [path,..]', 'From path')
   .option('-t, --to [path,..]', 'To path (number of replacements must match --to values)')
   .option('-m, --merge', 'Merge into target')
-  .option('-r, --remove [path,..]', 'Remove property)')
+  .option('-r, --remove [path,..]', 'Remove property')
+  .option('-c, --dot', 'Convert object to dotted-key/value pair')
+  .option('-s, --show', 'show all dotted paths')
   .option('-v, --verbose', 'Be verbose')
   .option('-d, --dry', 'Dry run do not modify files')
   .parse(process.argv);
@@ -37,7 +39,7 @@ function must(program, option) {
 
 must(program, 'pattern');
 
-if (!program.remove) {
+if (!program.remove && !program.dot && !program.show) {
   must(program, 'from');
   must(program, 'to');
 }
@@ -78,8 +80,17 @@ function processFile(file) {
 
     try {
       json = JSON.parse(contents);
-      json = Array.isArray(json) ? json : [json];
 
+      if(program.show) {
+        json = console.log(Object.keys(dotob.dot(json)).join('\n'));
+        process.exit()
+      } else if(program.dot) {
+        console.log(dotob.dot(json));
+        process.exit()
+      }
+      
+      json = Array.isArray(json) ? json : [json];
+      
       if(program.remove) {
         // support comma seperate list of removals
         splim(program.remove)
