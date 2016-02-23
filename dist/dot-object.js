@@ -410,15 +410,15 @@
      *
      *   var tgt = dot.transform(transform, obj)
      *
-     * @param {Object} receipt Transform reciepe
+     * @param {Object} recipe Transform recipe
      * @param {Object} obj Object to be transformed
      * @param {Array} mods modifiers for the target
      */
-    DotObject.prototype.transform = function(tran, obj, tgt) {
+    DotObject.prototype.transform = function(recipe, obj, tgt) {
         obj = obj || {}
         tgt = tgt || {}
-        Object.keys(tran).forEach(function(key) {
-            this.set(tran[key], this.pick(key, obj), tgt)
+        Object.keys(recipe).forEach(function(key) {
+            this.set(recipe[key], this.pick(key, obj), tgt)
         }.bind(this))
         return tgt
     }
