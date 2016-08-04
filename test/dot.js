@@ -23,7 +23,10 @@ describe('dotted-key/value pairs:', function () {
       some: {
         array: ['A', 'B']
       },
-      ehrm: 123
+      ehrm: 123,
+      dates: {
+        first: new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
+      }
     }
 
     expected = {
@@ -32,7 +35,8 @@ describe('dotted-key/value pairs:', function () {
       'other.nested.stuff': 5,
       'some.array.0': 'A',
       'some.array.1': 'B',
-      ehrm: 123
+      ehrm: 123,
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
     }
   })
 
