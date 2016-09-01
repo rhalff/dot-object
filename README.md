@@ -20,8 +20,8 @@ Install from bower:
 
 ### Download
 
-  * Development version: https://npmcdn.com/dot-object/dist/dot-object.js *Uncompressed with Comments*
-  * Production version: https://npmcdn.com/dot-object/dist/dot-object.min.js *Minified*
+  * Development version: https://unpkg.com/dot-object/dist/dot-object.js *Uncompressed with Comments*
+  * Production version: https://unpkg.com/dot-object/dist/dot-object.min.js *Minified*
 
 ## Usage
 
