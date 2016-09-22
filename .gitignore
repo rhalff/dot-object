@@ -4,4 +4,3 @@ ATTIC
 node_modules
 *.log
 *.swp
-dist/
