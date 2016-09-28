@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2016-09-29, Version 1.5.3
+* Fix override bug in str() 
+
 ## 2016-08-04, Version 1.5.0
 * [[`a7e948f2fa`](https://github.com/rhalff/dot-object/commit/a7e948f2fa)] - Ensure we only process true Arrays and Objects. (Fixed by MechJosh0 #15)
 
