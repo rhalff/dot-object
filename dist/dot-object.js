@@ -143,7 +143,7 @@
     DotObject.prototype.str = function(path, v, obj, mod) {
         if (path.indexOf(this.seperator) !== -1) {
             this._fill(path.split(this.seperator), obj, v, mod)
-        } else if (this.override) {
+        } else if (!obj.hasOwnProperty(path) || this.override) {
             obj[path] = _process(v, mod)
         }
 
