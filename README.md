@@ -166,7 +166,7 @@ console.log(tgt);
 ```
 
 #### Pick/remove a value using dot notation:
-```
+```js
 var dot = require('dot-object');
 
 var obj = {
