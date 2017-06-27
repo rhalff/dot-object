@@ -2,10 +2,10 @@
 
 require('should')
 var Dot = require('../index')
+var pkg = require('./fixtures/package.json')
 
-describe('dotted-key/value pairs:', function () {
+describe('dot():', function () {
   var obj
-  var expected
 
   beforeEach(function () {
     obj = {
@@ -28,8 +28,10 @@ describe('dotted-key/value pairs:', function () {
         first: new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
       }
     }
+  })
 
-    expected = {
+  it('Should be able to convert to dotted-key/value pairs', function () {
+    var expected = {
       id: 'my-id',
       'nes.ted.value': true,
       'other.nested.stuff': 5,
@@ -38,14 +40,28 @@ describe('dotted-key/value pairs:', function () {
       ehrm: 123,
       'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
     }
-  })
 
-  it('Should be able to convert to dotted-key/value pairs', function () {
     Dot.dot(obj).should.eql(expected)
   })
 
   it('dot() should equal object()', function () {
-    var pkg = require('./fixtures/package.json')
     Dot.object(Dot.dot(pkg)).should.eql(pkg)
+  })
+
+  it('keepArray prevents arrays from being dotted', function () {
+    var expected = {
+      id: 'my-id',
+      'nes.ted.value': true,
+      'other.nested.stuff': 5,
+      'some.array': ['A', 'B'],
+      ehrm: 123,
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
+    }
+
+    Dot.keepArray = true
+
+    Dot.dot(obj).should.eql(expected)
+
+    Dot.keepArray = false
   })
 })

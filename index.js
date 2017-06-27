@@ -45,12 +45,12 @@ function DotObject (seperator, override, useArray) {
     return new DotObject(seperator, override, useArray)
   }
 
-  if (typeof seperator === 'undefined') seperator = '.'
   if (typeof override === 'undefined') override = false
   if (typeof useArray === 'undefined') useArray = true
-  this.seperator = seperator
+  this.seperator = seperator || '.'
   this.override = override
   this.useArray = useArray
+  this.keepArray = false
 
   // contains touched arrays
   this.cleanup = []
@@ -438,7 +438,10 @@ DotObject.prototype.dot = function (obj, tgt, path) {
   tgt = tgt || {}
   path = path || []
   Object.keys(obj).forEach(function (key) {
-    if (Object(obj[key]) === obj[key] && (Object.prototype.toString.call(obj[key]) === '[object Object]') || Object.prototype.toString.call(obj[key]) === '[object Array]') {
+    if (
+      Object(obj[key]) === obj[key] && (Object.prototype.toString.call(obj[key]) === '[object Object]') ||
+      (!this.keepArray && Object.prototype.toString.call(obj[key]) === '[object Array]')
+      ) {
       return this.dot(obj[key], tgt, path.concat(key))
     } else {
       tgt[path.concat(key).join(this.seperator)] = obj[key]
@@ -469,13 +472,15 @@ DotObject.dot = wrap('dot')
   })
 })
 
-Object.defineProperty(DotObject, 'useArray', {
-  get: function () {
-    return dotDefault.useArray
-  },
-  set: function (val) {
-    dotDefault.useArray = val
-  }
+;['useArray', 'keepArray'].forEach(function (prop) {
+  Object.defineProperty(DotObject, prop, {
+    get: function () {
+      return dotDefault[prop]
+    },
+    set: function (val) {
+      dotDefault[prop] = val
+    }
+  })
 })
 
 DotObject._process = _process
