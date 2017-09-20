@@ -36,7 +36,7 @@ describe('Pick:', function () {
 
     var val = Dot.pick('some', obj)
 
-    ;(val === null).should.be.true
+    ;(val === null).should.equal(true)
   })
 
   it('Should return undefined when picking an non-existing value', function () {
@@ -46,7 +46,7 @@ describe('Pick:', function () {
 
     var val = Dot.pick('other', obj)
 
-    ;(val === undefined).should.be.true
+    ;(val === undefined).should.equal(true)
   })
 
   it('Should return undefined when picking an non-existing dotted value',
@@ -57,7 +57,7 @@ describe('Pick:', function () {
 
       var val = Dot.pick('some.other', obj)
 
-      ;(val === undefined).should.be.true
+      ;(val === undefined).should.equal(true)
     }
   )
 
@@ -73,6 +73,6 @@ describe('Pick:', function () {
     objIns.should.have.property('some')
 
     var val = Dot.pick('some.other', objIns)
-    val.should.be.a.String
+    val.should.be.instanceOf(String)
   })
 })

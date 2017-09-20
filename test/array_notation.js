@@ -87,7 +87,7 @@ describe('Dotted Array notation', function () {
         Dot.set(v('path.0'), 'test', obj)
         Dot.set(v('path.1'), 'test2', obj)
 
-        obj.path.should.be.an.Array
+        obj.path.should.be.instanceOf(Array)
         obj.should.eql({path: ['test', 'test2']})
       })
 
@@ -97,7 +97,7 @@ describe('Dotted Array notation', function () {
         Dot.set(v('path.0'), 'test', obj)
         Dot.set(v('path.2'), 'test2', obj)
 
-        obj.path.should.be.an.Array
+        obj.path.should.be.instanceOf(Array)
 
         // array will have an undefined index.
         JSON.stringify(obj)
