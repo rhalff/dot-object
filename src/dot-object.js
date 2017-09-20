@@ -70,11 +70,11 @@ DotObject.prototype._fill = function (a, obj, v, mod) {
     obj[k] = obj[k] ||
       (this.useArray && isIndex(a[0]) ? [] : {})
 
-    if (obj[k] !== Object(obj[k])) {
+    if (!isArrayOrObject(obj[k])) {
       if (this.override) {
         obj[k] = {}
       } else {
-        if (!(v === Object(v) && Object.keys(v).length === 0)) {
+        if (!(isArrayOrObject(v) && Object.keys(v).length === 0)) {
           throw new Error(
             'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
           )
@@ -87,8 +87,8 @@ DotObject.prototype._fill = function (a, obj, v, mod) {
     this._fill(a, obj[k], v, mod)
   } else {
     if (!this.override &&
-      obj[k] === Object(obj[k]) && Object.keys(obj[k]).length) {
-      if (!(v === Object(v) && Object.keys(v).length === 0)) {
+      isArrayOrObject(obj[k]) && Object.keys(obj[k]).length) {
+      if (!(isArrayOrObject(v) && Object.keys(v).length === 0)) {
         throw new Error("Trying to redefine non-empty obj['" + k + "']")
       }
 
@@ -338,6 +338,14 @@ function isObject (val) {
   return Object.prototype.toString.call(val) === '[object Object]'
 }
 
+function isArray (val) {
+  return Object.prototype.toString.call(val) === '[object Array]'
+}
+
+function isArrayOrObject (val) {
+  return Object(val) === val
+}
+
 /**
  *
  * Set a property on an object using dot notation.
@@ -448,10 +456,10 @@ DotObject.prototype.dot = function (obj, tgt, path) {
   Object.keys(obj).forEach(function (key) {
     if (
       (
-        (Object(obj[key]) === obj[key]) &&
+        isArrayOrObject(obj[key]) &&
         (
-          ((Object.prototype.toString.call(obj[key]) === '[object Object]') && (Object.keys(obj[key]).length !== 0)) ||
-          ((Object.prototype.toString.call(obj[key]) === '[object Array]') && (!this.keepArray && (obj[key].length !== 0)))
+          (isObject(obj[key]) && (Object.keys(obj[key]).length !== 0)) ||
+          (isArray(obj[key]) && (!this.keepArray && (obj[key].length !== 0)))
         )
       )
       ) {
