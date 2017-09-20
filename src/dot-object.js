@@ -33,6 +33,18 @@ function isIndex (k) {
   return /^\d+/.test(k)
 }
 
+function isObject (val) {
+  return Object.prototype.toString.call(val) === '[object Object]'
+}
+
+function isArrayOrObject (val) {
+  return Object(val) === val
+}
+
+function isEmptyObject (val) {
+  return Object.keys(val).length === 0
+}
+
 function parsePath (path, sep) {
   if (path.indexOf('[') >= 0) {
     path = path.replace(/\[/g, '.').replace(/]/g, '')
@@ -74,7 +86,7 @@ DotObject.prototype._fill = function (a, obj, v, mod) {
       if (this.override) {
         obj[k] = {}
       } else {
-        if (!(isArrayOrObject(v) && Object.keys(v).length === 0)) {
+        if (!(isArrayOrObject(v) && isEmptyObject(v))) {
           throw new Error(
             'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
           )
@@ -87,8 +99,8 @@ DotObject.prototype._fill = function (a, obj, v, mod) {
     this._fill(a, obj[k], v, mod)
   } else {
     if (!this.override &&
-      isArrayOrObject(obj[k]) && Object.keys(obj[k]).length) {
-      if (!(isArrayOrObject(v) && Object.keys(v).length === 0)) {
+      isArrayOrObject(obj[k]) && !isEmptyObject(obj[k])) {
+      if (!(isArrayOrObject(v) && isEmptyObject(v))) {
         throw new Error("Trying to redefine non-empty obj['" + k + "']")
       }
 
@@ -334,18 +346,6 @@ DotObject.prototype.copy = function (source, target, obj1, obj2, mods, merge) {
   return obj2
 }
 
-function isObject (val) {
-  return Object.prototype.toString.call(val) === '[object Object]'
-}
-
-function isArray (val) {
-  return Object.prototype.toString.call(val) === '[object Array]'
-}
-
-function isArrayOrObject (val) {
-  return Object(val) === val
-}
-
 /**
  *
  * Set a property on an object using dot notation.
@@ -458,8 +458,8 @@ DotObject.prototype.dot = function (obj, tgt, path) {
       (
         isArrayOrObject(obj[key]) &&
         (
-          (isObject(obj[key]) && (Object.keys(obj[key]).length !== 0)) ||
-          (isArray(obj[key]) && (!this.keepArray && (obj[key].length !== 0)))
+          (isObject(obj[key]) && !isEmptyObject(obj[key])) ||
+          (Array.isArray(obj[key]) && (!this.keepArray && (obj[key].length !== 0)))
         )
       )
       ) {
