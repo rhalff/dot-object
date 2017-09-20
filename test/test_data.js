@@ -3,12 +3,12 @@
 require('should')
 var Dot = require('../index')
 
-var testData = [
-  require('./data/array_deep_bug'),
-  require('./data/array_deep_bug2'),
-  require('./data/object_deep_numeric_keys'),
-  require('./data/object_deep_numeric_keys2')
-]
+var testData = require('./data')
+
+function singleTest (dot, input, expected) {
+  dot.object(input)
+  JSON.stringify(input).should.eql(JSON.stringify(expected))
+}
 
 describe('Test Data:', function () {
   var dot = new Dot()
@@ -19,8 +19,20 @@ describe('Test Data:', function () {
           dot[name] = test.options[name]
         })
       }
-      dot.object(test.input)
-      JSON.stringify(test.input).should.eql(JSON.stringify(test.expected))
+
+      if (Array.isArray(test.input)) {
+        if (
+          !Array.isArray(test.expected) ||
+           test.input.length !== test.expected.length
+        ) {
+          throw Error('Input and Expected tests length must be the same')
+        }
+        test.expected.forEach((expected, i) => {
+          singleTest(dot, test.input[i], expected)
+        })
+      } else {
+        singleTest(dot, test.input, test.expected)
+      }
     })
   }
 
