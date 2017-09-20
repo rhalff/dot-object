@@ -34,6 +34,18 @@
         return /^\d+/.test(k)
     }
 
+    function isObject(val) {
+        return Object.prototype.toString.call(val) === '[object Object]'
+    }
+
+    function isArrayOrObject(val) {
+        return Object(val) === val
+    }
+
+    function isEmptyObject(val) {
+        return Object.keys(val).length === 0
+    }
+
     function parsePath(path, sep) {
         if (path.indexOf('[') >= 0) {
             path = path.replace(/\[/g, '.').replace(/]/g, '')
@@ -72,21 +84,29 @@
             obj[k] = obj[k] ||
                 (this.useArray && isIndex(a[0]) ? [] : {})
 
-            if (obj[k] !== Object(obj[k])) {
+            if (!isArrayOrObject(obj[k])) {
                 if (this.override) {
                     obj[k] = {}
                 } else {
-                    throw new Error(
-                        'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
-                    )
+                    if (!(isArrayOrObject(v) && isEmptyObject(v))) {
+                        throw new Error(
+                            'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
+                        )
+                    }
+
+                    return
                 }
             }
 
             this._fill(a, obj[k], v, mod)
         } else {
             if (!this.override &&
-                obj[k] === Object(obj[k]) && Object.keys(obj[k]).length) {
-                throw new Error("Trying to redefine non-empty obj['" + k + "']")
+                isArrayOrObject(obj[k]) && !isEmptyObject(obj[k])) {
+                if (!(isArrayOrObject(v) && isEmptyObject(v))) {
+                    throw new Error("Trying to redefine non-empty obj['" + k + "']")
+                }
+
+                return
             }
 
             obj[k] = _process(v, mod)
@@ -332,10 +352,6 @@
         return obj2
     }
 
-    function isObject(val) {
-        return Object.prototype.toString.call(val) === '[object Object]'
-    }
-
     /**
      *
      * Set a property on an object using dot notation.
@@ -445,8 +461,13 @@
         path = path || []
         Object.keys(obj).forEach(function(key) {
             if (
-                Object(obj[key]) === obj[key] && (Object.prototype.toString.call(obj[key]) === '[object Object]') ||
-                (!this.keepArray && Object.prototype.toString.call(obj[key]) === '[object Array]')
+                (
+                    isArrayOrObject(obj[key]) &&
+                    (
+                        (isObject(obj[key]) && !isEmptyObject(obj[key])) ||
+                        (Array.isArray(obj[key]) && (!this.keepArray && (obj[key].length !== 0)))
+                    )
+                )
             ) {
                 return this.dot(obj[key], tgt, path.concat(key))
             } else {
@@ -496,12 +517,12 @@
 
     if (typeof define === 'function' && define.amd) {
         define(function() {
-            return DotObject;
-        });
+            return DotObject
+        })
     } else if (typeof module != 'undefined' && module.exports) {
-        module.exports = DotObject;
+        module.exports = DotObject
     } else {
-        global[exportName] = DotObject;
+        global[exportName] = DotObject
     }
 
-})(this, 'DotObject');
+})(this, 'DotObject')
