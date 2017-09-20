@@ -33,7 +33,7 @@ gulp.task('watch', function () {
 
 gulp.task('build-node', function () {
   gulp.src('src/dot-object.js')
-    .pipe(hf.footer('\nmodule.exports = DotObject;\n'))
+    .pipe(hf.footer('\nmodule.exports = DotObject\n'))
     .pipe(rename({basename: 'index'}))
     .pipe(gulp.dest('./'))
 })
