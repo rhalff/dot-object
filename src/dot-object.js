@@ -74,9 +74,13 @@ DotObject.prototype._fill = function (a, obj, v, mod) {
       if (this.override) {
         obj[k] = {}
       } else {
-        throw new Error(
-          'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
-        )
+        if (!(v === Object(v) && Object.keys(v).length === 0)) {
+          throw new Error(
+            'Trying to redefine `' + k + '` which is a ' + typeof obj[k]
+          )
+        }
+
+        return
       }
     }
 
@@ -84,7 +88,11 @@ DotObject.prototype._fill = function (a, obj, v, mod) {
   } else {
     if (!this.override &&
       obj[k] === Object(obj[k]) && Object.keys(obj[k]).length) {
-      throw new Error("Trying to redefine non-empty obj['" + k + "']")
+      if (!(v === Object(v) && Object.keys(v).length === 0)) {
+        throw new Error("Trying to redefine non-empty obj['" + k + "']")
+      }
+
+      return
     }
 
     obj[k] = _process(v, mod)
@@ -439,8 +447,13 @@ DotObject.prototype.dot = function (obj, tgt, path) {
   path = path || []
   Object.keys(obj).forEach(function (key) {
     if (
-      Object(obj[key]) === obj[key] && (Object.prototype.toString.call(obj[key]) === '[object Object]') ||
-      (!this.keepArray && Object.prototype.toString.call(obj[key]) === '[object Array]')
+      (
+        (Object(obj[key]) === obj[key]) &&
+        (
+          ((Object.prototype.toString.call(obj[key]) === '[object Object]') && (Object.keys(obj[key]).length !== 0)) ||
+          ((Object.prototype.toString.call(obj[key]) === '[object Array]') && (!this.keepArray && (obj[key].length !== 0)))
+        )
+      )
       ) {
       return this.dot(obj[key], tgt, path.concat(key))
     } else {
