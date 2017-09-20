@@ -1,7 +1,16 @@
 # ChangeLog
 
+## 2017-09-20 Version 1.7.0
+* let .dot and .object understand empty objects / arrays
+
+## 2017-07-27 Version 1.6.0
+* implemented keepArray
+
+## 2016-09-29 Version 1.5.4
+* update dist
+
 ## 2016-09-29, Version 1.5.3
-* Fix override bug in str() 
+* Fix override bug in str()
 
 ## 2016-08-04, Version 1.5.0
 * [[`a7e948f2fa`](https://github.com/rhalff/dot-object/commit/a7e948f2fa)] - Ensure we only process true Arrays and Objects. (Fixed by MechJosh0 #15)
