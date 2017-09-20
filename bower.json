@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git://github.com/rhalff/dot-object.git"
   },
-  "version": "1.5.4",
+  "version": "1.7.0",
   "homepage": "https://github.com/rhalff/dot-object",
   "moduleType": [
     "amd",
