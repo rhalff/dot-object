@@ -53,14 +53,14 @@
         return path.split(sep)
     }
 
-    function DotObject(seperator, override, useArray) {
+    function DotObject(separator, override, useArray) {
         if (!(this instanceof DotObject)) {
-            return new DotObject(seperator, override, useArray)
+            return new DotObject(separator, override, useArray)
         }
 
         if (typeof override === 'undefined') override = false
         if (typeof useArray === 'undefined') useArray = true
-        this.seperator = seperator || '.'
+        this.separator = separator || '.'
         this.override = override
         this.useArray = useArray
         this.keepArray = false
@@ -140,11 +140,11 @@
 
         Object.keys(obj).forEach(function(k) {
             var mod = mods === undefined ? null : mods[k]
-                // normalize array notation.
-            var ok = parsePath(k, self.seperator).join(self.seperator)
+            // normalize array notation.
+            var ok = parsePath(k, self.separator).join(self.separator)
 
-            if (ok.indexOf(self.seperator) !== -1) {
-                self._fill(ok.split(self.seperator), obj, obj[k], mod)
+            if (ok.indexOf(self.separator) !== -1) {
+                self._fill(ok.split(self.separator), obj, obj[k], mod)
                 delete obj[k]
             } else if (self.override) {
                 obj[k] = _process(obj[k], mod)
@@ -161,8 +161,8 @@
      * @param {Function|Array} mod optional modifier
      */
     DotObject.prototype.str = function(path, v, obj, mod) {
-        if (path.indexOf(this.seperator) !== -1) {
-            this._fill(path.split(this.seperator), obj, v, mod)
+        if (path.indexOf(this.separator) !== -1) {
+            this._fill(path.split(this.separator), obj, v, mod)
         } else if (!obj.hasOwnProperty(path) || this.override) {
             obj[path] = _process(v, mod)
         }
@@ -187,7 +187,7 @@
         var key
         var cp
 
-        keys = parsePath(path, this.seperator)
+        keys = parsePath(path, this.separator)
         for (i = 0; i < keys.length; i++) {
             key = parseKey(keys[i], obj)
             if (obj && typeof obj === 'object' && key in obj) {
@@ -371,7 +371,7 @@
         if (typeof val === 'undefined') {
             return obj
         }
-        keys = parsePath(path, this.seperator)
+        keys = parsePath(path, this.separator)
 
         for (i = 0; i < keys.length; i++) {
             key = keys[i]
@@ -471,7 +471,7 @@
             ) {
                 return this.dot(obj[key], tgt, path.concat(key))
             } else {
-                tgt[path.concat(key).join(this.seperator)] = obj[key]
+                tgt[path.concat(key).join(this.separator)] = obj[key]
             }
         }.bind(this))
         return tgt

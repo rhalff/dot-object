@@ -155,7 +155,7 @@ describe('Object test:', function () {
     row.should.eql({'page': {'name': 'my_page'}})
   })
 
-  it('Dot.object should work with a different seperator', function () {
+  it('Dot.object should work with a different separator', function () {
     var row = {'page=>name': '    My Page    '}
 
     var mods = {'page=>name': [_s.trim, _s.underscored]}

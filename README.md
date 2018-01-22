@@ -327,9 +327,9 @@ Result:
 }
 ```
 
-## Using a different seperator
+## Using a different separator
 
-If you do not like dot notation, you are free to specify a different seperator.
+If you do not like dot notation, you are free to specify a different separator.
 
 ```javascript
 var Dot = require('dot-object');
