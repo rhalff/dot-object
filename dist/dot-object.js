@@ -31,7 +31,7 @@
     }
 
     function isIndex(k) {
-        return /^\d+/.test(k)
+        return /^\d+$/.test(k)
     }
 
     function isObject(val) {
