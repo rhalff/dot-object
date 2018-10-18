@@ -402,6 +402,20 @@ DotObject.prototype.set = function (path, val, obj, merge) {
 
 /**
  *
+ * Use given function to update a property on an object using dot notation.
+ *
+ * @param {String} path
+ * @param {Function} fn
+ * @param {Object} obj
+ */
+DotObject.prototype.updateIn = function (path, fn, obj) {
+  var originalValue = this.pick(path, obj)
+  this.set(path, fn(originalValue), obj)
+  return obj
+}
+
+/**
+ *
  * Transform an object
  *
  * Usage:
@@ -479,6 +493,7 @@ DotObject.copy = wrap('copy')
 DotObject.object = wrap('object')
 DotObject.str = wrap('str')
 DotObject.set = wrap('set')
+DotObject.updateIn = wrap('updateIn')
 DotObject.del = DotObject.remove = wrap('remove')
 DotObject.dot = wrap('dot')
 
