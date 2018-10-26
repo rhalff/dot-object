@@ -17,7 +17,7 @@ describe('Override test:', function () {
 
     obj.should.eql({
       'some': 'value',
-      'already': {'new': 'value'}
+      'already': { 'new': 'value' }
     })
   })
 
@@ -34,7 +34,7 @@ describe('Override test:', function () {
 
     obj.should.eql({
       'some': 'new_value',
-      'already': {'new': 'value'}
+      'already': { 'new': 'value' }
     })
   })
 
@@ -52,7 +52,7 @@ describe('Override test:', function () {
 
       Dot.override = true
 
-      Dot.str('sample.dotted.bar', {baz: 'boom'}, obj)
+      Dot.str('sample.dotted.bar', { baz: 'boom' }, obj)
 
       Dot.override = false
 

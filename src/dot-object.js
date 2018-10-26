@@ -462,7 +462,7 @@ DotObject.prototype.dot = function (obj, tgt, path) {
           (Array.isArray(obj[key]) && (!this.keepArray && (obj[key].length !== 0)))
         )
       )
-      ) {
+    ) {
       return this.dot(obj[key], tgt, path.concat(key))
     } else {
       tgt[path.concat(key).join(this.separator)] = obj[key]

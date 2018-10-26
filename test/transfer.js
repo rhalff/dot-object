@@ -19,7 +19,7 @@ describe('Transfer:', function () {
       name: 'Brandon'
     }
 
-    var srcExpected = {name: 'John', stuff: {}}
+    var srcExpected = { name: 'John', stuff: {} }
 
     var tgtExpected = {
       name: 'Brandon',
@@ -59,7 +59,7 @@ describe('Transfer:', function () {
       name: 'Brandon'
     }
 
-    var srcExpected = {name: 'John', stuff: {}}
+    var srcExpected = { name: 'John', stuff: {} }
 
     var tgtExpected = {
       name: 'Brandon',

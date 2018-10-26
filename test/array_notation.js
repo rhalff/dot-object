@@ -66,8 +66,8 @@ describe('Dotted Array notation', function () {
       it('multiple indexes', function () {
         var src = {
           I: [
-            {am: [{nes: ['ted']}]},
-            {me: 'too'}
+            { am: [{ nes: ['ted'] }] },
+            { me: 'too' }
           ]
         }
 
@@ -82,17 +82,17 @@ describe('Dotted Array notation', function () {
 
     describe('can set', function () {
       it('index at target', function () {
-        var obj = {path: []}
+        var obj = { path: [] }
 
         Dot.set(v('path.0'), 'test', obj)
         Dot.set(v('path.1'), 'test2', obj)
 
         obj.path.should.be.instanceOf(Array)
-        obj.should.eql({path: ['test', 'test2']})
+        obj.should.eql({ path: ['test', 'test2'] })
       })
 
       it('index and set undefined for empty indices', function () {
-        var obj = {path: []}
+        var obj = { path: [] }
 
         Dot.set(v('path.0'), 'test', obj)
         Dot.set(v('path.2'), 'test2', obj)
@@ -102,27 +102,27 @@ describe('Dotted Array notation', function () {
         // array will have an undefined index.
         JSON.stringify(obj)
           .should.eql(
-          JSON.stringify({path: ['test', undefined, 'test2']})
-        )
+            JSON.stringify({ path: ['test', undefined, 'test2'] })
+          )
 
         // to json will converted it to null
         JSON.stringify(obj).should.eql('{"path":["test",null,"test2"]}')
       })
 
       it('index and overwrite existing values', function () {
-        var obj = {path: ['still', 'shall', 'be', 'gone', 'here']}
+        var obj = { path: ['still', 'shall', 'be', 'gone', 'here'] }
 
         Dot.set(v('path.1'), 'x', obj)
         Dot.set(v('path.2'), 'xx', obj)
         Dot.set(v('path.3'), 'xxx', obj)
 
-        obj.should.eql({path: ['still', 'x', 'xx', 'xxx', 'here']})
+        obj.should.eql({ path: ['still', 'x', 'xx', 'xxx', 'here'] })
       })
     })
 
     describe('can remove', function () {
       it('indexes one by one leaving traces', function () {
-        var obj = {path: ['still', 'shall', 'really', 'be', 'gone', 'here']}
+        var obj = { path: ['still', 'shall', 'really', 'be', 'gone', 'here'] }
 
         Dot.remove(v('path.1'), obj)
         Dot.remove(v('path.2'), obj)
@@ -132,12 +132,12 @@ describe('Dotted Array notation', function () {
         // array will have an undefined index.
         JSON.stringify(obj)
           .should.eql(
-          JSON.stringify({
-            path: [
-              'still', undefined, undefined, undefined, undefined, 'here'
-            ]
-          })
-        )
+            JSON.stringify({
+              path: [
+                'still', undefined, undefined, undefined, undefined, 'here'
+              ]
+            })
+          )
 
         // to json will converted it to null
         JSON.stringify(obj).should.eql(
@@ -146,7 +146,7 @@ describe('Dotted Array notation', function () {
       })
 
       it('array of indexes leaving no traces', function () {
-        var obj = {path: ['still', 'shall', 'really', 'be', 'gone', 'here']}
+        var obj = { path: ['still', 'shall', 'really', 'be', 'gone', 'here'] }
 
         Dot.remove([
           v('path.1'),

@@ -34,7 +34,7 @@ gulp.task('watch', function () {
 gulp.task('build-node', function () {
   gulp.src('src/dot-object.js')
     .pipe(hf.footer('\nmodule.exports = DotObject\n'))
-    .pipe(rename({basename: 'index'}))
+    .pipe(rename({ basename: 'index' }))
     .pipe(gulp.dest('./'))
 })
 
@@ -42,10 +42,10 @@ gulp.task('build-bower', function () {
   gulp.src('src/dot-object.js')
     .pipe(hf.header('src/header.tpl'))
     .pipe(hf.footer('src/footer.tpl'))
-    .pipe(beautify({indentSize: 2}))
+    .pipe(beautify({ indentSize: 2 }))
     .pipe(gulp.dest(DEST))
     .pipe(uglify())
-    .pipe(rename({extname: '.min.js'}))
+    .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest(DEST))
 })
 

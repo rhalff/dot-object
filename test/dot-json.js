@@ -152,39 +152,39 @@ describe('Object test:', function () {
 
     Dot.object(row, mods)
 
-    row.should.eql({'page': {'title': 'My Page', 'slug': 'my-page'}})
+    row.should.eql({ 'page': { 'title': 'My Page', 'slug': 'my-page' } })
   })
 
   it('should not process non dot value with modifier when override is false',
     function () {
-      var row = {'title': 'my page', 'slug': 'My Page'}
+      var row = { 'title': 'my page', 'slug': 'My Page' }
 
-      var mods = {'title': _s.titleize, 'slug': _s.slugify}
+      var mods = { 'title': _s.titleize, 'slug': _s.slugify }
 
       Dot.object(row, mods)
 
-      row.should.eql({'title': 'my page', 'slug': 'My Page'})
+      row.should.eql({ 'title': 'my page', 'slug': 'My Page' })
     }
   )
 
   it('Dot.object should process multiple modifiers', function () {
-    var row = {'page.name': '    My Page    '}
+    var row = { 'page.name': '    My Page    ' }
 
-    var mods = {'page.name': [_s.trim, _s.underscored]}
+    var mods = { 'page.name': [_s.trim, _s.underscored] }
 
     Dot.object(row, mods)
 
-    row.should.eql({'page': {'name': 'my_page'}})
+    row.should.eql({ 'page': { 'name': 'my_page' } })
   })
 
   it('Dot.object should work with a different separator', function () {
-    var row = {'page=>name': '    My Page    '}
+    var row = { 'page=>name': '    My Page    ' }
 
-    var mods = {'page=>name': [_s.trim, _s.underscored]}
+    var mods = { 'page=>name': [_s.trim, _s.underscored] }
 
     var dot = new Dot('=>', false)
     dot.object(row, mods)
 
-    row.should.eql({'page': {'name': 'my_page'}})
+    row.should.eql({ 'page': { 'name': 'my_page' } })
   })
 })
