@@ -55,6 +55,28 @@ describe('Object test:', function () {
     })
   })
 
+  it('Should allow keys with numbers', function () {
+    var row = {
+      'id': 2,
+      '0A': 'a',
+      '0A9': 'b',
+      '0B.1AB.A34C9': 'c'
+    }
+
+    Dot.object(row)
+
+    row.should.eql({
+      'id': 2,
+      '0A': 'a',
+      '0A9': 'b',
+      '0B': {
+        '1AB': {
+          'A34C9': 'c'
+        }
+      }
+    })
+  })
+
   it('Should expand dotted string', function () {
     var tgt = {}
 
