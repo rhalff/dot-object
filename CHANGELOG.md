@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2018-10-26 Version 1.7.1
+* [[`e1bb99c83e`](https://github.com/rhalff/dot-object/commit/e1bb99c83e)] - Fix isIndex numeric key matching. (Fixed by mrdivyansh #31)
+
 ## 2017-09-20 Version 1.7.0
 * let .dot and .object understand empty objects / arrays
 
