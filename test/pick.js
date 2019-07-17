@@ -75,4 +75,60 @@ describe('Pick:', function () {
     var val = Dot.pick('some.other', objIns)
     val.should.be.instanceOf(String)
   })
+
+  it('Should be able to delete picked value', function () {
+    var obj = {
+      'some': {
+        'other': 'value',
+        'foo': 'bar'
+      }
+    }
+
+    var val = Dot.pick('some.foo', obj, true)
+
+    val.should.eql('bar')
+    obj.should.eql({
+      'some': {
+        'other': 'value'
+      }
+    })
+  })
+
+  it('Should be able to delete picked array value', function () {
+    var obj = {
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', 'bar', 'baz']
+      }
+    }
+
+    var val = Dot.pick('some.arrayItems[1]', obj, true)
+
+    val.should.eql('bar')
+    obj.should.eql({
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', , 'baz'] /* eslint-disable-line no-sparse-arrays */
+      }
+    })
+  })
+
+  it('Should be able to delete picked array value and reindex', function () {
+    var obj = {
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', 'bar', 'baz']
+      }
+    }
+
+    var val = Dot.pick('some.arrayItems[1]', obj, true, true)
+
+    val.should.eql('bar')
+    obj.should.eql({
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', 'baz']
+      }
+    })
+  })
 })

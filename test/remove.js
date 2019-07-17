@@ -40,4 +40,23 @@ describe('Remove/del:', function () {
     Dot.del('nes.ted.gone', obj).should.equal('value')
     obj.should.eql(expected)
   })
+
+  it('Should be able to remove() array item and reindex array', function () {
+    var obj = {
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', 'bar', 'baz']
+      }
+    }
+
+    var val = Dot.remove('some.arrayItems[1]', obj, true, true)
+
+    val.should.eql('bar')
+    obj.should.eql({
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', 'baz']
+      }
+    })
+  })
 })
