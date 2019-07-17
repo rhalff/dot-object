@@ -178,7 +178,7 @@ DotObject.prototype.str = function (path, v, obj, mod) {
  * @param {Object} obj
  * @param {Boolean} remove
  */
-DotObject.prototype.pick = function (path, obj, remove, reindexRemove) {
+DotObject.prototype.pick = function (path, obj, remove, reindexArray) {
   var i
   var keys
   var val
@@ -192,7 +192,7 @@ DotObject.prototype.pick = function (path, obj, remove, reindexRemove) {
       if (i === (keys.length - 1)) {
         if (remove) {
           val = obj[key]
-          if (reindexRemove) {
+          if (reindexArray && Array.isArray(obj)) {
             obj.splice(key, 1)
           } else {
             delete obj[key]
@@ -228,18 +228,18 @@ DotObject.prototype.pick = function (path, obj, remove, reindexRemove) {
  * @param {Object} obj
  * @return {Mixed} The removed value
  */
-DotObject.prototype.remove = function (path, obj, reindexRemove) {
+DotObject.prototype.remove = function (path, obj, reindexArray) {
   var i
 
   this.cleanup = []
   if (Array.isArray(path)) {
     for (i = 0; i < path.length; i++) {
-      this.pick(path[i], obj, true, reindexRemove)
+      this.pick(path[i], obj, true, reindexArray)
     }
     this._cleanup(obj)
     return obj
   } else {
-    return this.pick(path, obj, true, reindexRemove)
+    return this.pick(path, obj, true, reindexArray)
   }
 }
 

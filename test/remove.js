@@ -59,4 +59,22 @@ describe('Remove/del:', function () {
       }
     })
   })
+
+  it('Should be handle being told to reindex an object by ignoring reindex rule', function () {
+    var obj = {
+      'some': {
+        'other': 'value',
+        'arrayItems': ['foo', 'bar', 'baz']
+      }
+    }
+
+    var val = Dot.remove('some.other', obj, true, true)
+
+    val.should.eql('value')
+    obj.should.eql({
+      'some': {
+        'arrayItems': ['foo', 'bar', 'baz']
+      }
+    })
+  })
 })
