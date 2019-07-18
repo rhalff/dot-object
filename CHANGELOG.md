@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2019-07-18 Version 1.8.0
+* [[`cdc691424b`](https://github.com/rhalff/dot-object/commit/cdc691424b)] - Options to remove array elements and reindex the array. (Fixed by MechJosh0 #36)
+
 ## 2018-10-26 Version 1.7.1
 * [[`e1bb99c83e`](https://github.com/rhalff/dot-object/commit/e1bb99c83e)] - Fix isIndex numeric key matching. (Fixed by mrdivyansh #31)
 
