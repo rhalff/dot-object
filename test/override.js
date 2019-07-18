@@ -9,15 +9,15 @@ describe('Override test:', function () {
     var dot = new Dot('.', true)
 
     var obj = {
-      'some': 'value',
-      'already': 'set'
+      some: 'value',
+      already: 'set'
     }
 
     dot.str('already.new', 'value', obj)
 
     obj.should.eql({
-      'some': 'value',
-      'already': { 'new': 'value' }
+      some: 'value',
+      already: { new: 'value' }
     })
   })
 
@@ -25,16 +25,16 @@ describe('Override test:', function () {
     var dot = new Dot('.', true)
 
     var obj = {
-      'some': 'value',
-      'already': 'set'
+      some: 'value',
+      already: 'set'
     }
 
     dot.str('already.new', 'value', obj)
     dot.str('some', 'new_value', obj)
 
     obj.should.eql({
-      'some': 'new_value',
-      'already': { 'new': 'value' }
+      some: 'new_value',
+      already: { new: 'value' }
     })
   })
 
@@ -73,20 +73,20 @@ describe('Override test:', function () {
       var dot = new Dot('.', true)
 
       var row = {
-        'title': 'my page',
-        'slug': 'My Page'
+        title: 'my page',
+        slug: 'My Page'
       }
 
       var mods = {
-        'title': _s.titleize,
-        'slug': _s.slugify
+        title: _s.titleize,
+        slug: _s.slugify
       }
 
       dot.object(row, mods)
 
       row.should.eql({
-        'title': 'My Page',
-        'slug': 'my-page'
+        title: 'My Page',
+        slug: 'my-page'
       })
     }
   )

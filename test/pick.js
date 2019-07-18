@@ -8,8 +8,8 @@ var Dot = require('../index')
 describe('Pick:', function () {
   it('Should be able to pick a value', function () {
     var obj = {
-      'some': 'value',
-      'already': 'set'
+      some: 'value',
+      already: 'set'
     }
 
     var val = Dot.pick('some', obj)
@@ -19,8 +19,8 @@ describe('Pick:', function () {
 
   it('Should be able to pick dotted value', function () {
     var obj = {
-      'some': {
-        'other': 'value'
+      some: {
+        other: 'value'
       }
     }
 
@@ -31,7 +31,7 @@ describe('Pick:', function () {
 
   it('Should be able to pick null properties', function () {
     var obj = {
-      'some': null
+      some: null
     }
 
     var val = Dot.pick('some', obj)
@@ -41,7 +41,7 @@ describe('Pick:', function () {
 
   it('Should return undefined when picking an non-existing value', function () {
     var obj = {
-      'some': null
+      some: null
     }
 
     var val = Dot.pick('other', obj)
@@ -52,7 +52,7 @@ describe('Pick:', function () {
   it('Should return undefined when picking an non-existing dotted value',
     function () {
       var obj = {
-        'some': null
+        some: null
       }
 
       var val = Dot.pick('some.other', obj)
@@ -63,8 +63,8 @@ describe('Pick:', function () {
 
   it("Should check down the object's prototype chain", function () {
     var obj = {
-      'some': {
-        'other': 'value'
+      some: {
+        other: 'value'
       }
     }
 
@@ -78,9 +78,9 @@ describe('Pick:', function () {
 
   it('Should be able to delete picked value', function () {
     var obj = {
-      'some': {
-        'other': 'value',
-        'foo': 'bar'
+      some: {
+        other: 'value',
+        foo: 'bar'
       }
     }
 
@@ -88,17 +88,17 @@ describe('Pick:', function () {
 
     val.should.eql('bar')
     obj.should.eql({
-      'some': {
-        'other': 'value'
+      some: {
+        other: 'value'
       }
     })
   })
 
   it('Should be able to delete picked array value', function () {
     var obj = {
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', 'bar', 'baz']
+      some: {
+        other: 'value',
+        arrayItems: ['foo', 'bar', 'baz']
       }
     }
 
@@ -106,18 +106,18 @@ describe('Pick:', function () {
 
     val.should.eql('bar')
     obj.should.eql({
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', , 'baz'] /* eslint-disable-line no-sparse-arrays */
+      some: {
+        other: 'value',
+        arrayItems: ['foo', , 'baz'] /* eslint-disable-line no-sparse-arrays */
       }
     })
   })
 
   it('Should be able to delete picked array value and reindex', function () {
     var obj = {
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', 'bar', 'baz']
+      some: {
+        other: 'value',
+        arrayItems: ['foo', 'bar', 'baz']
       }
     }
 
@@ -125,9 +125,9 @@ describe('Pick:', function () {
 
     val.should.eql('bar')
     obj.should.eql({
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', 'baz']
+      some: {
+        other: 'value',
+        arrayItems: ['foo', 'baz']
       }
     })
   })

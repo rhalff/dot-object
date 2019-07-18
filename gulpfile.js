@@ -7,7 +7,7 @@ var hf = require('gulp-headerfooter')
 var rename = require('gulp-rename')
 var uglify = require('gulp-uglify')
 var beautify = require('gulp-beautify')
-var standard = require('gulp-standard')
+var eslint = require('gulp-eslint')
 
 var DEST = 'dist/'
 
@@ -15,10 +15,9 @@ var paths = ['gulpfile.js', 'src/dot-object.js', 'test/**/*.js']
 
 gulp.task('lint', function (done) {
   gulp.src(paths)
-    .pipe(standard())
-    .pipe(standard.reporter('default', {
-      breakOnError: true
-    }))
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
   done()
 })
 

@@ -22,12 +22,12 @@ describe('useArray:', function () {
     }
     object = {
       a: {
-        '0': 'value'
+        0: 'value'
       }
     }
     objectExpected = {
       a: {
-        '0': 'value'
+        0: 'value'
       }
     }
   })

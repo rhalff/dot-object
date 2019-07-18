@@ -66,12 +66,12 @@ describe('dot():', function () {
   })
 
   it('Always keeps empty arrays', function () {
-    Dot.dot({ hello: [] }).should.eql({ 'hello': [] })
+    Dot.dot({ hello: [] }).should.eql({ hello: [] })
     Dot.dot({ hello: { world: [] } }).should.eql({ 'hello.world': [] })
   })
 
   it('Always keeps empty objects', function () {
-    Dot.dot({ hello: {} }).should.eql({ 'hello': {} })
+    Dot.dot({ hello: {} }).should.eql({ hello: {} })
     Dot.dot({ hello: { world: {} } }).should.eql({ 'hello.world': {} })
   })
 })

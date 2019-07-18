@@ -7,7 +7,7 @@ var Dot = require('../index')
 describe('Object test:', function () {
   it('Should expand dotted keys', function () {
     var row = {
-      'id': 2,
+      id: 2,
       'contact.name.first': 'John',
       'contact.name.last': 'Doe',
       'contact.email': 'example@gmail.com',
@@ -17,16 +17,16 @@ describe('Object test:', function () {
     Dot.object(row)
 
     row.should.eql({
-      'id': 2,
-      'contact': {
-        'name': {
-          'first': 'John',
-          'last': 'Doe'
+      id: 2,
+      contact: {
+        name: {
+          first: 'John',
+          last: 'Doe'
         },
-        'email': 'example@gmail.com',
-        'info': {
-          'about': {
-            'me': 'classified'
+        email: 'example@gmail.com',
+        info: {
+          about: {
+            me: 'classified'
           }
         }
       }
@@ -35,7 +35,7 @@ describe('Object test:', function () {
 
   it('Should expand dotted keys with array notation', function () {
     var row = {
-      'id': 2,
+      id: 2,
       'my.arr.0': 'one',
       'my.arr.1': 'two',
       'my.arr.2': 'three',
@@ -47,17 +47,17 @@ describe('Object test:', function () {
     Dot.object(row)
 
     row.should.eql({
-      'id': 2,
-      'my': {
-        'arr': ['one', 'two', 'three'],
-        'arr2': ['one', 'two', 'three']
+      id: 2,
+      my: {
+        arr: ['one', 'two', 'three'],
+        arr2: ['one', 'two', 'three']
       }
     })
   })
 
   it('Should allow keys with numbers', function () {
     var row = {
-      'id': 2,
+      id: 2,
       '0A': 'a',
       '0A9': 'b',
       '0B.1AB.A34C9': 'c'
@@ -66,12 +66,12 @@ describe('Object test:', function () {
     Dot.object(row)
 
     row.should.eql({
-      'id': 2,
+      id: 2,
       '0A': 'a',
       '0A9': 'b',
       '0B': {
         '1AB': {
-          'A34C9': 'c'
+          A34C9: 'c'
         }
       }
     })
@@ -83,10 +83,10 @@ describe('Object test:', function () {
     Dot.str('this.is.my.string', 'value', tgt)
 
     tgt.should.eql({
-      'this': {
-        'is': {
-          'my': {
-            'string': 'value'
+      this: {
+        is: {
+          my: {
+            string: 'value'
           }
         }
       }
@@ -95,7 +95,7 @@ describe('Object test:', function () {
 
   it('Dot.str Redefinition should fail', function () {
     var tgt = {
-      'already': 'set'
+      already: 'set'
     }
 
     ;(function () {
@@ -109,10 +109,10 @@ describe('Object test:', function () {
     Dot.str('this.is.my.string', 'value', tgt, _s.capitalize)
 
     tgt.should.eql({
-      'this': {
-        'is': {
-          'my': {
-            'string': 'Value'
+      this: {
+        is: {
+          my: {
+            string: 'Value'
           }
         }
       }
@@ -129,10 +129,10 @@ describe('Object test:', function () {
     )
 
     tgt.should.eql({
-      'this': {
-        'is': {
-          'my': {
-            'string': 'this_is_a_test'
+      this: {
+        is: {
+          my: {
+            string: 'this_is_a_test'
           }
         }
       }
@@ -152,18 +152,18 @@ describe('Object test:', function () {
 
     Dot.object(row, mods)
 
-    row.should.eql({ 'page': { 'title': 'My Page', 'slug': 'my-page' } })
+    row.should.eql({ page: { title: 'My Page', slug: 'my-page' } })
   })
 
   it('should not process non dot value with modifier when override is false',
     function () {
-      var row = { 'title': 'my page', 'slug': 'My Page' }
+      var row = { title: 'my page', slug: 'My Page' }
 
-      var mods = { 'title': _s.titleize, 'slug': _s.slugify }
+      var mods = { title: _s.titleize, slug: _s.slugify }
 
       Dot.object(row, mods)
 
-      row.should.eql({ 'title': 'my page', 'slug': 'My Page' })
+      row.should.eql({ title: 'my page', slug: 'My Page' })
     }
   )
 
@@ -174,7 +174,7 @@ describe('Object test:', function () {
 
     Dot.object(row, mods)
 
-    row.should.eql({ 'page': { 'name': 'my_page' } })
+    row.should.eql({ page: { name: 'my_page' } })
   })
 
   it('Dot.object should work with a different separator', function () {
@@ -185,6 +185,6 @@ describe('Object test:', function () {
     var dot = new Dot('=>', false)
     dot.object(row, mods)
 
-    row.should.eql({ 'page': { 'name': 'my_page' } })
+    row.should.eql({ page: { name: 'my_page' } })
   })
 })

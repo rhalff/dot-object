@@ -11,14 +11,14 @@ describe('Dotted Array notation', function () {
   beforeEach(function () {
     src = {
       path: [{
-        'longitude': 5.512482166290283,
-        'latitude': 52.5006217956543
+        longitude: 5.512482166290283,
+        latitude: 52.5006217956543
       }, {
-        'longitude': 5.512370586395264,
-        'latitude': 52.50059509277344
+        longitude: 5.512370586395264,
+        latitude: 52.50059509277344
       }, {
-        'longitude': 5.512370586395264,
-        'latitude': 52.50059509277344
+        longitude: 5.512370586395264,
+        latitude: 52.50059509277344
       }]
     }
   })

@@ -52,6 +52,8 @@ function parsePath (path, sep) {
   return path.split(sep)
 }
 
+var hasOwnProperty = Object.prototype.hasOwnProperty
+
 function DotObject (separator, override, useArray) {
   if (!(this instanceof DotObject)) {
     return new DotObject(separator, override, useArray)
@@ -161,7 +163,7 @@ DotObject.prototype.object = function (obj, mods) {
 DotObject.prototype.str = function (path, v, obj, mod) {
   if (path.indexOf(this.separator) !== -1) {
     this._fill(path.split(this.separator), obj, v, mod)
-  } else if (!obj.hasOwnProperty(path) || this.override) {
+  } else if (!hasOwnProperty.call(obj, path) || this.override) {
     obj[path] = _process(v, mod)
   }
 
@@ -376,7 +378,7 @@ DotObject.prototype.set = function (path, val, obj, merge) {
     if (i === (keys.length - 1)) {
       if (merge && isObject(val) && isObject(obj[key])) {
         for (k in val) {
-          if (val.hasOwnProperty(k)) {
+          if (hasOwnProperty.call(val, k)) {
             obj[key][k] = val[k]
           }
         }
@@ -389,7 +391,7 @@ DotObject.prototype.set = function (path, val, obj, merge) {
       }
     } else if (
       // force the value to be an object
-      !obj.hasOwnProperty(key) ||
+      !hasOwnProperty.call(obj, key) ||
       (!isObject(obj[key]) && !Array.isArray(obj[key]))
     ) {
       // initialize as array if next key is numeric

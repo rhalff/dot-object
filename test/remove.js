@@ -43,9 +43,9 @@ describe('Remove/del:', function () {
 
   it('Should be able to remove() array item and reindex array', function () {
     var obj = {
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', 'bar', 'baz']
+      some: {
+        other: 'value',
+        arrayItems: ['foo', 'bar', 'baz']
       }
     }
 
@@ -53,18 +53,18 @@ describe('Remove/del:', function () {
 
     val.should.eql('bar')
     obj.should.eql({
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', 'baz']
+      some: {
+        other: 'value',
+        arrayItems: ['foo', 'baz']
       }
     })
   })
 
   it('Should be handle being told to reindex an object by ignoring reindex rule', function () {
     var obj = {
-      'some': {
-        'other': 'value',
-        'arrayItems': ['foo', 'bar', 'baz']
+      some: {
+        other: 'value',
+        arrayItems: ['foo', 'bar', 'baz']
       }
     }
 
@@ -72,8 +72,8 @@ describe('Remove/del:', function () {
 
     val.should.eql('value')
     obj.should.eql({
-      'some': {
-        'arrayItems': ['foo', 'bar', 'baz']
+      some: {
+        arrayItems: ['foo', 'bar', 'baz']
       }
     })
   })
