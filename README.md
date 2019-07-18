@@ -165,7 +165,10 @@ console.log(tgt);
 }
 ```
 
-#### Pick/remove a value using dot notation:
+#### Pick a value using dot notation:
+
+Picks a value from the object without removing it.
+
 ```js
 var dot = require('dot-object');
 
@@ -181,16 +184,45 @@ var val = dot.pick('some.nested.value', obj);
 console.log(val);
 
 Hi there!
+```
 
-// Pick & Remove the value
-val = dot.pick('some.nested.value', obj, true);
+#### Delete/Remove a value using dot notation:
 
-// shorthand
-val = dot.remove('some.nested.value', obj);
+Remove and delete mostly behave the same, but in case of a path addressing array items:
 
-// or use the alias `del`
-val = dot.del('some.nested.value', obj);
+  - `delete` will re-index the array.
+  - `remove` will retain array indexes 
 
+```js
+var dot = require('dot-object');
+
+var obj = {
+ a: 'Hi There!',
+ nested: {
+   array: [ 
+     'Veni',
+     'Vidi',
+     'Vici',
+   ]
+ }
+};
+
+var val = dot.delete('a', obj);
+console.log(val);
+
+Hi There!
+
+// To remove an item and directly update any array indexes use:
+var val = dot.delete('nested.array[1]', obj);
+console.log(val);
+
+Vidi
+
+// Remove a value but retain array indexes. 
+var val = dot.remove('nested.array[1]', obj);
+
+// To remove multiple paths at once:
+var val = dot.remove(['nested.array[0]', 'nested.array[2]'], obj);
 ```
 
 ### Using modifiers

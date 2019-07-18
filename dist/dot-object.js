@@ -53,6 +53,8 @@
         return path.split(sep)
     }
 
+    var hasOwnProperty = Object.prototype.hasOwnProperty
+
     function DotObject(separator, override, useArray) {
         if (!(this instanceof DotObject)) {
             return new DotObject(separator, override, useArray)
@@ -163,7 +165,7 @@
     DotObject.prototype.str = function(path, v, obj, mod) {
         if (path.indexOf(this.separator) !== -1) {
             this._fill(path.split(this.separator), obj, v, mod)
-        } else if (!obj.hasOwnProperty(path) || this.override) {
+        } else if (!hasOwnProperty.call(obj, path) || this.override) {
             obj[path] = _process(v, mod)
         }
 
@@ -180,7 +182,7 @@
      * @param {Object} obj
      * @param {Boolean} remove
      */
-    DotObject.prototype.pick = function(path, obj, remove, reindexRemove) {
+    DotObject.prototype.pick = function(path, obj, remove, reindexArray) {
         var i
         var keys
         var val
@@ -194,7 +196,7 @@
                 if (i === (keys.length - 1)) {
                     if (remove) {
                         val = obj[key]
-                        if (reindexRemove) {
+                        if (reindexArray && Array.isArray(obj)) {
                             obj.splice(key, 1)
                         } else {
                             delete obj[key]
@@ -223,27 +225,47 @@
         }
         return obj
     }
+    /**
+     *
+     * Delete value from an object using dot notation.
+     *
+     * @param {String} path
+     * @param {Object} obj
+     * @return {any} The removed value
+     */
+    DotObject.prototype.delete = function(path, obj) {
+        return this.remove(path, obj, true)
+    }
 
     /**
      *
      * Remove value from an object using dot notation.
      *
-     * @param {String} path
+     * Will remove multiple items if path is an array.
+     * In this case array indexes will be retained until all
+     * removals have been processed.
+     *
+     * Use dot.delete() to automatically  re-index arrays.
+     *
+     * @param {String|Array<String>} path
      * @param {Object} obj
-     * @return {Mixed} The removed value
+     * @param {Boolean} reindexArray
+     * @return {any} The removed value
      */
-    DotObject.prototype.remove = function(path, obj, reindexRemove) {
+    DotObject.prototype.remove = function(path, obj, reindexArray) {
         var i
 
         this.cleanup = []
         if (Array.isArray(path)) {
             for (i = 0; i < path.length; i++) {
-                this.pick(path[i], obj, true, reindexRemove)
+                this.pick(path[i], obj, true, reindexArray)
             }
-            this._cleanup(obj)
+            if (!reindexArray) {
+                this._cleanup(obj)
+            }
             return obj
         } else {
-            return this.pick(path, obj, true, reindexRemove)
+            return this.pick(path, obj, true, reindexArray)
         }
     }
 
@@ -266,7 +288,16 @@
         }
     }
 
-    // alias method
+    /**
+     * Alias method  for `dot.remove`
+     *
+     * Note: this is not an alias for dot.delete()
+     *
+     * @param {String|Array<String>} path
+     * @param {Object} obj
+     * @param {Boolean} reindexArray
+     * @return {any} The removed value
+     */
     DotObject.prototype.del = DotObject.prototype.remove
 
     /**
@@ -361,7 +392,7 @@
      * Set a property on an object using dot notation.
      *
      * @param {String} path
-     * @param {Mixed} val
+     * @param {any} val
      * @param {Object} obj
      * @param {Boolean} merge
      */
@@ -382,7 +413,7 @@
             if (i === (keys.length - 1)) {
                 if (merge && isObject(val) && isObject(obj[key])) {
                     for (k in val) {
-                        if (val.hasOwnProperty(k)) {
+                        if (hasOwnProperty.call(val, k)) {
                             obj[key][k] = val[k]
                         }
                     }
@@ -395,7 +426,7 @@
                 }
             } else if (
                 // force the value to be an object
-                !obj.hasOwnProperty(key) ||
+                !hasOwnProperty.call(obj, key) ||
                 (!isObject(obj[key]) && !Array.isArray(obj[key]))
             ) {
                 // initialize as array if next key is numeric

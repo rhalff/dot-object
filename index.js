@@ -221,14 +221,32 @@ DotObject.prototype.pick = function (path, obj, remove, reindexArray) {
   }
   return obj
 }
+/**
+ *
+ * Delete value from an object using dot notation.
+ *
+ * @param {String} path
+ * @param {Object} obj
+ * @return {any} The removed value
+ */
+DotObject.prototype.delete = function (path, obj) {
+  return this.remove(path, obj, true)
+}
 
 /**
  *
  * Remove value from an object using dot notation.
  *
- * @param {String} path
+ * Will remove multiple items if path is an array.
+ * In this case array indexes will be retained until all
+ * removals have been processed.
+ *
+ * Use dot.delete() to automatically  re-index arrays.
+ *
+ * @param {String|Array<String>} path
  * @param {Object} obj
- * @return {Mixed} The removed value
+ * @param {Boolean} reindexArray
+ * @return {any} The removed value
  */
 DotObject.prototype.remove = function (path, obj, reindexArray) {
   var i
@@ -238,7 +256,9 @@ DotObject.prototype.remove = function (path, obj, reindexArray) {
     for (i = 0; i < path.length; i++) {
       this.pick(path[i], obj, true, reindexArray)
     }
-    this._cleanup(obj)
+    if (!reindexArray) {
+      this._cleanup(obj)
+    }
     return obj
   } else {
     return this.pick(path, obj, true, reindexArray)
@@ -262,7 +282,16 @@ DotObject.prototype._cleanup = function (obj) {
   }
 }
 
-// alias method
+/**
+ * Alias method  for `dot.remove`
+ *
+ * Note: this is not an alias for dot.delete()
+ *
+ * @param {String|Array<String>} path
+ * @param {Object} obj
+ * @param {Boolean} reindexArray
+ * @return {any} The removed value
+ */
 DotObject.prototype.del = DotObject.prototype.remove
 
 /**
@@ -357,7 +386,7 @@ DotObject.prototype.copy = function (source, target, obj1, obj2, mods, merge) {
  * Set a property on an object using dot notation.
  *
  * @param {String} path
- * @param {Mixed} val
+ * @param {any} val
  * @param {Object} obj
  * @param {Boolean} merge
  */
