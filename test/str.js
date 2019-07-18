@@ -23,4 +23,12 @@ describe('str:', function () {
       }
     })
   })
+
+  it('can set root level property regardless whether override is set', function () {
+    Dot.str('a', 'b', {
+      a: 1
+    }).should.deepEqual({
+      a: 'b'
+    })
+  })
 })
