@@ -1,7 +1,10 @@
 # ChangeLog
 
+## 2019-07-29 Version 1.9.0
+* allows allow to process root level property using dot.object
+
 ## 2019-07-18 Version 1.8.1
-* allows allow to set root level property using dot.str
+* always allow to set root level property using dot.str
 
 ## 2019-07-18 Version 1.8.0
 * [[`cdc691424b`](https://github.com/rhalff/dot-object/commit/cdc691424b)] - Options to remove array elements and reindex the array. (Fixed by MechJosh0 #36)

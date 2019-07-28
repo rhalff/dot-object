@@ -159,7 +159,7 @@ describe('Object test:', function () {
     function () {
       var row = {
         nr: 200,
-        'nested.nr': 200,
+        'nested.nr': 200
       }
 
       var mods = {
