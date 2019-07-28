@@ -155,7 +155,25 @@ describe('Object test:', function () {
     row.should.eql({ page: { title: 'My Page', slug: 'my-page' } })
   })
 
-  it('should not process non dot value with modifier when override is false',
+  it('should process root properties',
+    function () {
+      var row = {
+        nr: 200,
+        'nested.nr': 200
+      }
+
+      var mods = {
+        nr: [val => val * 2],
+        'nested.nr': [val => val * 2]
+      }
+
+      Dot.object(row, mods)
+
+      row.should.eql({ nr: 400, nested: { nr: 400 } })
+    }
+  )
+
+  it('should process non dot value with modifier when override is false',
     function () {
       var row = { title: 'my page', slug: 'My Page' }
 
@@ -163,7 +181,7 @@ describe('Object test:', function () {
 
       Dot.object(row, mods)
 
-      row.should.eql({ title: 'my page', slug: 'My Page' })
+      row.should.eql({ title: 'My Page', slug: 'my-page' })
     }
   )
 

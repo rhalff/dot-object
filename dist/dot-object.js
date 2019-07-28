@@ -148,7 +148,7 @@
             if (ok.indexOf(self.separator) !== -1) {
                 self._fill(ok.split(self.separator), obj, obj[k], mod)
                 delete obj[k]
-            } else if (self.override) {
+            } else {
                 obj[k] = _process(obj[k], mod)
             }
         })
