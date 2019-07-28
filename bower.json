@@ -1,5 +1,6 @@
 {
   "name": "dot-object",
+  "version": "1.9.0",
   "description": "dot-object makes it possible to transform and read (JSON) objects using dot notation.",
   "main": "dist/dot-object.js",
   "authors": [
@@ -25,7 +26,6 @@
     "type": "git",
     "url": "git://github.com/rhalff/dot-object.git"
   },
-  "version": "1.8.1",
   "homepage": "https://github.com/rhalff/dot-object",
   "moduleType": [
     "amd",
