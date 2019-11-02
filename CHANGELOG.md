@@ -1,7 +1,9 @@
 # ChangeLog
 
-## 2019-11-02 Version 1.10.0
+## 2019-11-02 Version 2.0.0
 * [[`2cb41bbd1b`](https://github.com/rhalff/dot-object/commit/2cb41bbd1b)] - Add useBrackets option for the .dot() method (by z1m1n #42)
+* dot() now writes brackets by default (possibly breaking change).
+  Use Dot.useBrackets = false to keep the old behavior
 
 ## 2019-07-29 Version 1.9.0
 * allows allow to process root level property using dot.object

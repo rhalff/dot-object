@@ -354,8 +354,8 @@ Result:
   "id": "my-id",
   "nes.ted.value": true,
   "other.nested.stuff": 5,
-  "some.array.0": "A",
-  "some.array.1": "B"
+  "some.array[0]": "A",
+  "some.array[1]": "B"
 }
 ```
 
