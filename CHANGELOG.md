@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2019-11-02 Version 2.1.0
+* fix delete function not being wrapped. (Reported by murphyke #40)
+
 ## 2019-11-02 Version 2.0.0
 * [[`2cb41bbd1b`](https://github.com/rhalff/dot-object/commit/2cb41bbd1b)] - Add useBrackets option for the .dot() method (by z1m1n #42)
 * dot() now writes brackets by default (possibly breaking change).
