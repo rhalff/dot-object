@@ -163,8 +163,10 @@ DotObject.prototype.object = function (obj, mods) {
  * @param {Function|Array} mod optional modifier
  */
 DotObject.prototype.str = function (path, v, obj, mod) {
+  var ok = parsePath(path, this.separator).join(this.separator)
+
   if (path.indexOf(this.separator) !== -1) {
-    this._fill(path.split(this.separator), obj, v, mod)
+    this._fill(ok.split(this.separator), obj, v, mod)
   } else {
     obj[path] = _process(v, mod)
   }
