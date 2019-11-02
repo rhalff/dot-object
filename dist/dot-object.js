@@ -55,23 +55,25 @@
 
     var hasOwnProperty = Object.prototype.hasOwnProperty
 
-    function DotObject(separator, override, useArray) {
+    function DotObject(separator, override, useArray, useArrayIndexBraces) {
         if (!(this instanceof DotObject)) {
-            return new DotObject(separator, override, useArray)
+            return new DotObject(separator, override, useArray, useArrayIndexBraces)
         }
 
         if (typeof override === 'undefined') override = false
         if (typeof useArray === 'undefined') useArray = true
+        if (typeof useArrayIndexBraces === 'undefined') useArrayIndexBraces = false
         this.separator = separator || '.'
         this.override = override
         this.useArray = useArray
+        this.useArrayIndexBraces = useArrayIndexBraces
         this.keepArray = false
 
         // contains touched arrays
         this.cleanup = []
     }
 
-    var dotDefault = new DotObject('.', false, true)
+    var dotDefault = new DotObject('.', false, true, false)
 
     function wrap(method) {
         return function() {
@@ -491,9 +493,11 @@
      * @param {Object} tgt target object
      * @param {Array} path path array (internal)
      */
-    DotObject.prototype.dot = function(obj, tgt, path) {
+    DotObject.prototype.dot = function(obj, tgt, path, objIsArray) {
         tgt = tgt || {}
         path = path || []
+        objIsArray = objIsArray || false
+
         Object.keys(obj).forEach(function(key) {
             if (
                 (
@@ -504,9 +508,15 @@
                     )
                 )
             ) {
-                return this.dot(obj[key], tgt, path.concat(key))
+                return this.dot(obj[key], tgt, path.concat(key), Array.isArray(obj[key]))
             } else {
-                tgt[path.concat(key).join(this.separator)] = obj[key]
+                if (
+                    objIsArray && this.useArrayIndexBraces
+                ) {
+                    tgt[path.join(this.separator).concat('[' + key + ']')] = obj[key]
+                } else {
+                    tgt[path.concat(key).join(this.separator)] = obj[key]
+                }
             }
         }.bind(this))
         return tgt
@@ -536,7 +546,7 @@
     })
 
     ;
-    ['useArray', 'keepArray'].forEach(function(prop) {
+    ['useArray', 'keepArray', 'useArrayIndexBraces'].forEach(function(prop) {
         Object.defineProperty(DotObject, prop, {
             get: function() {
                 return dotDefault[prop]

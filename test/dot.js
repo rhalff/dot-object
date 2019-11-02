@@ -65,6 +65,24 @@ describe('dot():', function () {
     Dot.keepArray = false
   })
 
+  it('useArrayIndexBraces wrap indexes with braces', function () {
+    var expected = {
+      id: 'my-id',
+      'nes.ted.value': true,
+      'other.nested.stuff': 5,
+      'some.array[0]': 'A',
+      'some.array[1]': 'B',
+      ehrm: 123,
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
+    }
+
+    Dot.useArrayIndexBraces = true
+
+    Dot.dot(obj).should.eql(expected)
+
+    Dot.useArrayIndexBraces = false
+  })
+
   it('Always keeps empty arrays', function () {
     Dot.dot({ hello: [] }).should.eql({ hello: [] })
     Dot.dot({ hello: { world: [] } }).should.eql({ 'hello.world': [] })

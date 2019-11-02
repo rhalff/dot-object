@@ -1,6 +1,7 @@
 ATTIC
 .c9/
 .idea
+yarn.lock
 node_modules
 *.log
 *.swp
