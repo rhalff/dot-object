@@ -7,6 +7,8 @@ var pkg = require('./fixtures/package.json')
 describe('dot():', function () {
   var obj
 
+  // Dot.useBrackets = false;
+
   beforeEach(function () {
     obj = {
       id: 'my-id',
@@ -36,7 +38,25 @@ describe('dot():', function () {
       ehrm: 123,
       dates: {
         first: new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
-      }
+      },
+      arrays: [
+        [
+          [
+            {
+              all: [
+                [
+                  {
+                    the: [
+                      'way',
+                      ['down']
+                    ]
+                  }
+                ]
+              ]
+            }
+          ]
+        ]
+      ]
     }
   })
 
@@ -50,7 +70,9 @@ describe('dot():', function () {
       'some.array[0]': 'A',
       'some.array[1]': 'B',
       ehrm: 123,
-      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)'),
+      'arrays[0][0][0].all[0][0].the[0]': 'way',
+      'arrays[0][0][0].all[0][0].the[1][0]': 'down'
     }
 
     Dot.dot(obj).should.eql(expected)
@@ -72,7 +94,8 @@ describe('dot():', function () {
       }],
       'some.array': ['A', 'B'],
       ehrm: 123,
-      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)'),
+      arrays: JSON.parse(JSON.stringify(obj.arrays))
     }
 
     Dot.keepArray = true
@@ -92,10 +115,32 @@ describe('dot():', function () {
       'some.array[0]': 'A',
       'some.array[1]': 'B',
       ehrm: 123,
-      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)'),
+      'arrays[0][0][0].all[0][0].the[0]': 'way',
+      'arrays[0][0][0].all[0][0].the[1][0]': 'down'
     }
 
     Dot.dot(obj).should.eql(expected)
+  })
+
+  it('useBrackets wrap indexes without brackets', function () {
+    var expected = {
+      id: 'my-id',
+      'nes.ted.value': true,
+      'other.nested.stuff': 5,
+      'nested.array.0.with': 'object1',
+      'nested.array.1.and': 'object2',
+      'some.array.0': 'A',
+      'some.array.1': 'B',
+      ehrm: 123,
+      'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)'),
+      'arrays.0.0.0.all.0.0.the.0': 'way',
+      'arrays.0.0.0.all.0.0.the.1.0': 'down'
+    }
+
+    Dot.useBrackets = false
+    Dot.dot(obj).should.eql(expected)
+    Dot.useBrackets = true
   })
 
   it('Always keeps empty arrays', function () {
