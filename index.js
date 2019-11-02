@@ -527,6 +527,7 @@ DotObject.copy = wrap('copy')
 DotObject.object = wrap('object')
 DotObject.str = wrap('str')
 DotObject.set = wrap('set')
+DotObject.delete = wrap('delete')
 DotObject.del = DotObject.remove = wrap('remove')
 DotObject.dot = wrap('dot')
 
