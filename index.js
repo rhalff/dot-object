@@ -54,25 +54,25 @@ function parsePath (path, sep) {
 
 var hasOwnProperty = Object.prototype.hasOwnProperty
 
-function DotObject (separator, override, useArray, useArrayIndexBraces) {
+function DotObject (separator, override, useArray, useBrackets) {
   if (!(this instanceof DotObject)) {
-    return new DotObject(separator, override, useArray, useArrayIndexBraces)
+    return new DotObject(separator, override, useArray, useBrackets)
   }
 
   if (typeof override === 'undefined') override = false
   if (typeof useArray === 'undefined') useArray = true
-  if (typeof useArrayIndexBraces === 'undefined') useArrayIndexBraces = false
+  if (typeof useBrackets === 'undefined') useBrackets = true
   this.separator = separator || '.'
   this.override = override
   this.useArray = useArray
-  this.useArrayIndexBraces = useArrayIndexBraces
+  this.useBrackets = useBrackets
   this.keepArray = false
 
   // contains touched arrays
   this.cleanup = []
 }
 
-var dotDefault = new DotObject('.', false, true, false)
+var dotDefault = new DotObject('.', false, true, true)
 function wrap (method) {
   return function () {
     return dotDefault[method].apply(dotDefault, arguments)
@@ -487,12 +487,13 @@ DotObject.prototype.transform = function (recipe, obj, tgt) {
  * @param {Object} tgt target object
  * @param {Array} path path array (internal)
  */
-DotObject.prototype.dot = function (obj, tgt, path, objIsArray) {
+DotObject.prototype.dot = function (obj, tgt, path) {
   tgt = tgt || {}
   path = path || []
-  objIsArray = objIsArray || false
+  var isArray = Array.isArray(obj)
 
   Object.keys(obj).forEach(function (key) {
+    var index = isArray && this.useBrackets ? '[' + key + ']' : key
     if (
       (
         isArrayOrObject(obj[key]) &&
@@ -502,14 +503,16 @@ DotObject.prototype.dot = function (obj, tgt, path, objIsArray) {
         )
       )
     ) {
-      return this.dot(obj[key], tgt, path.concat(key), Array.isArray(obj[key]))
+      if (isArray && this.useBrackets) {
+        return this.dot(obj[key], tgt, path.slice(0, -1).concat(path[path.length - 1] + index))
+      } else {
+        return this.dot(obj[key], tgt, path.concat(index))
+      }
     } else {
-      if (
-        objIsArray && this.useArrayIndexBraces
-      ) {
+      if (isArray && this.useBrackets) {
         tgt[path.join(this.separator).concat('[' + key + ']')] = obj[key]
       } else {
-        tgt[path.concat(key).join(this.separator)] = obj[key]
+        tgt[path.concat(index).join(this.separator)] = obj[key]
       }
     }
   }.bind(this))
@@ -538,7 +541,7 @@ DotObject.dot = wrap('dot')
   })
 })
 
-;['useArray', 'keepArray', 'useArrayIndexBraces'].forEach(function (prop) {
+;['useArray', 'keepArray', 'useBrackets'].forEach(function (prop) {
   Object.defineProperty(DotObject, prop, {
     get: function () {
       return dotDefault[prop]
