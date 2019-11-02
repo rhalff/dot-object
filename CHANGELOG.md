@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2019-11-02 Version 2.1.1
+* Wrong array conversion when brackets are used (Reported by vladshcherbin #27)
+
 ## 2019-11-02 Version 2.1.0
 * fix delete function not being wrapped. (Reported by murphyke #40)
 
