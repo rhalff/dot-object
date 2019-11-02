@@ -1,6 +1,9 @@
 # ChangeLog
 
 ## 2019-11-02 Version 2.1.1
+* fix undefined key with root level array.
+
+## 2019-11-02 Version 2.1.1
 * Wrong array conversion when brackets are used (Reported by vladshcherbin #27)
 
 ## 2019-11-02 Version 2.1.0
