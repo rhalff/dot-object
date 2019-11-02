@@ -45,10 +45,10 @@ describe('dot():', function () {
       id: 'my-id',
       'nes.ted.value': true,
       'other.nested.stuff': 5,
-      'nested.array.0.with': 'object1',
-      'nested.array.1.and': 'object2',
-      'some.array.0': 'A',
-      'some.array.1': 'B',
+      'nested.array[0].with': 'object1',
+      'nested.array[1].and': 'object2',
+      'some.array[0]': 'A',
+      'some.array[1]': 'B',
       ehrm: 123,
       'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
     }
@@ -95,11 +95,7 @@ describe('dot():', function () {
       'dates.first': new Date('Mon Oct 13 2014 00:00:00 GMT+0100 (BST)')
     }
 
-    Dot.useBrackets = true
-
     Dot.dot(obj).should.eql(expected)
-
-    Dot.useBrackets = false
   })
 
   it('Always keeps empty arrays', function () {

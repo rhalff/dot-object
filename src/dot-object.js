@@ -61,7 +61,7 @@ function DotObject (separator, override, useArray, useBrackets) {
 
   if (typeof override === 'undefined') override = false
   if (typeof useArray === 'undefined') useArray = true
-  if (typeof useBrackets === 'undefined') useBrackets = false
+  if (typeof useBrackets === 'undefined') useBrackets = true
   this.separator = separator || '.'
   this.override = override
   this.useArray = useArray
@@ -72,7 +72,7 @@ function DotObject (separator, override, useArray, useBrackets) {
   this.cleanup = []
 }
 
-var dotDefault = new DotObject('.', false, true, false)
+var dotDefault = new DotObject('.', false, true, true)
 function wrap (method) {
   return function () {
     return dotDefault[method].apply(dotDefault, arguments)

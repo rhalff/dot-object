@@ -1,7 +1,7 @@
 {
   "name": "dot-object",
   "description": "dot-object makes it possible to transform and read (JSON) objects using dot notation.",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "author": {
     "name": "Rob Halff",
     "email": "rob.halff@gmail.com"
@@ -29,17 +29,17 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-node": "^9.1.0",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.1",
     "gulp": "^4.0.2",
     "gulp-beautify": "^3.0.0",
     "gulp-eslint": "^6.0.0",
     "gulp-headerfooter": "^1.0.3",
-    "gulp-mocha": "^6.0.0",
+    "gulp-mocha": "^7.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
@@ -55,7 +55,7 @@
     "dot"
   ],
   "dependencies": {
-    "commander": "^2.20.0",
-    "glob": "^7.1.4"
+    "commander": "^4.0.0",
+    "glob": "^7.1.5"
   }
 }

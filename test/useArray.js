@@ -50,6 +50,7 @@ describe('useArray:', function () {
   })
   it('Should convert dot using arrays and convert back equals source', function () {
     Dot.useArray = true
+    Dot.useBrackets = false
     dotObjectExpected.should.eql(Dot.dot(Dot.object(dotObject)))
   })
   it('Should convert object using arrays and convert back equals source', function () {
