@@ -506,7 +506,8 @@ DotObject.prototype.dot = function (obj, tgt, path) {
       )
     ) {
       if (isArray && this.useBrackets) {
-        return this.dot(obj[key], tgt, path.slice(0, -1).concat(path[path.length - 1] + index))
+        var previousKey = path[path.length - 1] || ''
+        return this.dot(obj[key], tgt, path.slice(0, -1).concat(previousKey + index))
       } else {
         return this.dot(obj[key], tgt, path.concat(index))
       }
