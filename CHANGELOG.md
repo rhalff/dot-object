@@ -1,5 +1,8 @@
 # ChangeLog
 
+## 2020-16-02 Version 2.1.3
+* fix possible pollution of prototype for paths containing __proto__
+
 ## 2019-11-02 Version 2.1.1
 * fix undefined key with root level array.
 

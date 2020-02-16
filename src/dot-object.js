@@ -45,16 +45,17 @@ function isEmptyObject (val) {
   return Object.keys(val).length === 0
 }
 
-const blacklist = ['__proto__', 'prototype', 'constructor']
+var blacklist = ['__proto__', 'prototype', 'constructor']
+var blacklistFilter = function (part) { return blacklist.indexOf(part) === -1 }
 
 function parsePath (path, sep) {
   if (path.indexOf('[') >= 0) {
     path = path.replace(/\[/g, '.').replace(/]/g, '')
   }
 
-  const parts = path.split(sep)
+  var parts = path.split(sep)
 
-  const check = parts.filter(part => blacklist.indexOf(part) === -1)
+  var check = parts.filter(blacklistFilter)
 
   if (check.length !== parts.length) {
     throw Error('Refusing to update blacklisted property ' + path)
