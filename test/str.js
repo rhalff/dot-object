@@ -34,11 +34,14 @@ describe('str:', function () {
     obj.should.deepEqual({
       a: 1,
       object: {
-        fields: [{
-          subfield: 'value'
-        }, {
-          subfield: 'value1'
-        }]
+        fields: [
+          {
+            subfield: 'value'
+          },
+          {
+            subfield: 'value1'
+          }
+        ]
       }
     })
   })
@@ -49,5 +52,12 @@ describe('str:', function () {
     }).should.deepEqual({
       a: 'b'
     })
+  })
+
+  it('cannot set __proto__ property', function () {
+    (() => Dot.str('__proto__.toString', 'hi', {})).should.throw(
+      /Refusing to update/
+    );
+    ({}.toString().should.deepEqual('[object Object]'))
   })
 })
