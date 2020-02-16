@@ -167,4 +167,10 @@ describe('Dotted Array notation', function () {
   describe('with bracket notation', function () {
     runVariant('bracket')
   })
+
+  describe('Refuse to update __proto__', function () {
+    var obj = { path: [] }
+
+    ;(() => Dot.set('path[0].__proto__.toString', 'test', obj)).should.throw(/Refusing to update/)
+  })
 })

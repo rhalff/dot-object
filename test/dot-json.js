@@ -205,4 +205,11 @@ describe('Object test:', function () {
 
     row.should.eql({ page: { name: 'my_page' } })
   })
+
+  it('Dot.object should disallow to set __proto__', function () {
+    var row = { '__proto__.toString': 'hi' }
+
+    var dot = new Dot()
+    ;(() => dot.object(row)).should.throw(/Refusing to update/)
+  })
 })
