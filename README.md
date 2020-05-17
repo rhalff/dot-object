@@ -359,6 +359,33 @@ Result:
 }
 ```
 
+### Keep array
+
+Set keepArray to true.
+
+```javascript
+var dot = require('dot-object');
+
+var obj = {
+  id: 'my-id',
+  other: [1, 2, 3],
+  some: { array: ['A', 'B'] }
+};
+
+dot.keepArray = true;
+var tgt = dot.dot(obj);
+
+console.log(tgt);
+```
+Result:
+```json
+{
+  "id": "my-id",
+  "other": [1, 2, 3],
+  "some.array": ["A", "B"]
+}
+```
+
 ## Using a different separator
 
 If you do not like dot notation, you are free to specify a different separator.
