@@ -13,6 +13,7 @@
   "bugs": {
     "url": "https://github.com/rhalff/dot-object/issues"
   },
+  "license": "MIT",
   "main": "index",
   "bin": "./bin/dot-object",
   "scripts": {
