@@ -1,6 +1,9 @@
 # ChangeLog
 
-## 2020-16-02 Version 2.1.3
+## 2020-09-10 Version 2.1.4
+* [[`94b9eb8a2d`](https://github.com/rhalff/dot-object/commit/94b9eb8a2d)] - Fix parsing of array paths for non standard separators (Fixed by boidolr #58)
+
+## 2020-02-16 Version 2.1.3
 * fix possible pollution of prototype for paths containing __proto__
 
 ## 2019-11-02 Version 2.1.1
