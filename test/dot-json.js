@@ -55,6 +55,28 @@ describe('Object test:', function () {
     })
   })
 
+  it('Should expand dotted keys with array notation with different separator', function () {
+    var row = {
+      id: 2,
+      my_arr_0: 'one',
+      my_arr_1: 'two',
+      my_arr_2: 'three',
+      'my_arr2[0]': 'one',
+      'my_arr2[1]': 'two',
+      'my_arr2[2]': 'three'
+    }
+
+    new Dot('_').object(row)
+
+    row.should.eql({
+      id: 2,
+      my: {
+        arr: ['one', 'two', 'three'],
+        arr2: ['one', 'two', 'three']
+      }
+    })
+  })
+
   it('Should allow keys with numbers', function () {
     var row = {
       id: 2,

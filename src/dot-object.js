@@ -50,7 +50,7 @@ var blacklistFilter = function (part) { return blacklist.indexOf(part) === -1 }
 
 function parsePath (path, sep) {
   if (path.indexOf('[') >= 0) {
-    path = path.replace(/\[/g, '.').replace(/]/g, '')
+    path = path.replace(/\[/g, sep).replace(/]/g, '')
   }
 
   var parts = path.split(sep)
