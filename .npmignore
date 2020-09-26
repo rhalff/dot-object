@@ -4,3 +4,7 @@ ATTIC
 lib
 Gruntfile.js
 node_modules
+test
+src
+bower.json
+gulpfile.js
