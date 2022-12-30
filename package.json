@@ -39,7 +39,7 @@
     "gulp-beautify": "^3.0.0",
     "gulp-eslint": "^6.0.0",
     "gulp-headerfooter": "^1.0.3",
-    "gulp-mocha": "^7.0.2",
+    "gulp-mocha": "^8.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
