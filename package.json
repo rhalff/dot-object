@@ -59,5 +59,6 @@
   "dependencies": {
     "commander": "^6.1.0",
     "glob": "^7.1.6"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
