@@ -1,17 +1,17 @@
 'use strict'
 
-var gulp = require('gulp')
-var gutil = require('gulp-util')
-var mocha = require('gulp-mocha')
-var hf = require('gulp-headerfooter')
-var rename = require('gulp-rename')
-var uglify = require('gulp-uglify')
-var beautify = require('gulp-beautify')
-var eslint = require('gulp-eslint')
+const gulp = require('gulp')
+const gutil = require('gulp-util')
+const mocha = require('gulp-mocha')
+const hf = require('gulp-headerfooter')
+const rename = require('gulp-rename')
+const uglify = require('gulp-uglify')
+const beautify = require('gulp-beautify')
+const eslint = require('gulp-eslint')
 
-var DEST = 'dist/'
+const DEST = 'dist/'
 
-var paths = ['gulpfile.js', 'src/dot-object.js', 'test/**/*.js']
+const paths = ['gulpfile.js', 'src/dot-object.js', 'test/**/*.js']
 
 gulp.task('lint', function (done) {
   gulp.src(paths)
