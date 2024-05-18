@@ -49,6 +49,9 @@ var blacklist = ['__proto__', 'prototype', 'constructor']
 var blacklistFilter = function (part) { return blacklist.indexOf(part) === -1 }
 
 function parsePath (path, sep) {
+  if (!path) {
+    return [];
+  }
   if (path.indexOf('[') >= 0) {
     path = path.replace(/\[/g, sep).replace(/]/g, '')
   }
